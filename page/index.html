@@ -1,0 +1,3433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achieving Gold-Medal-Level Olympiad Reasoning via Simple and Unified Scaling</title>
+    <meta name="description" content="SU-01: Achieving Gold-Medal-Level Olympiad Reasoning via Simple and Unified Scaling">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ECharts CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            background: var(--bg-page);
+        }
+        
+        body {
+            background: var(--bg-page);
+            color: var(--text-primary);
+            transition: background-color var(--duration-normal) var(--easing-default), color var(--duration-normal) var(--easing-default);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: var(--radius-full);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-500);
+        }
+        
+        /* Selection */
+        ::selection {
+            background: rgba(59, 130, 246, 0.3);
+            color: var(--text-primary);
+        }
+        
+        :root {
+            /* Dark Theme Colors */
+            --primary-400: #60A5FA;
+            --primary-500: #3B82F6;
+            --primary-600: #2563EB;
+            --primary-700: #1D4ED8;
+            
+            --accent-blue: #60A5FA;
+            --accent-cyan: #22D3EE;
+            --accent-purple: #93C5FD;
+            
+            /* Dark Backgrounds */
+            --bg-page: #0A0A0A;
+            --bg-surface: #141414;
+            --bg-elevated: #1A1A1A;
+            --bg-card: #1E1E1E;
+            
+            /* Text Colors */
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --text-tertiary: #71717A;
+            --text-muted: #52525B;
+            
+            /* Border Colors */
+            --border-subtle: #27272A;
+            --border-medium: #3F3F46;
+            --border-strong: #52525B;
+            
+            /* Gradient Accents */
+            --gradient-purple: linear-gradient(135deg, #60A5FA 0%, #1D4ED8 100%);
+            --gradient-blue: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            --gradient-mesh: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                             radial-gradient(at 100% 0%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+                             radial-gradient(at 100% 100%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+            
+			/* Typography */
+			--font-serif: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif;
+            --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 6px;
+            --space-sm: 10px;
+            --space-md: 14px;
+            --space-lg: 18px;
+            --space-xl: 24px;
+            --space-2xl: 32px;
+            --space-3xl: 48px;
+            --space-4xl: 64px;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+            
+            /* Shadows - Dark Theme */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 12px 48px rgba(59, 130, 246, 0.3);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.4);
+            
+            /* Animation */
+            --duration-fast: 200ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+            --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+            --easing-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Light Theme */
+        :root[data-theme="light"] {
+            /* Light Backgrounds */
+            --bg-page: #FFFFFF;
+            --bg-surface: #F5F5F5;
+            --bg-elevated: #FAFAFA;
+            --bg-card: #FFFFFF;
+            
+            /* Light Text Colors */
+            --text-primary: #1A1A1A;
+            --text-secondary: #525252;
+            --text-tertiary: #737373;
+            --text-muted: #A3A3A3;
+            
+            /* Light Border Colors */
+            --border-subtle: #E5E5E5;
+            --border-medium: #D4D4D4;
+            --border-strong: #A3A3A3;
+            
+            /* Light Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-card-hover: 0 12px 48px rgba(59, 130, 246, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Language Switcher */
+		.lang-switcher {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			display: inline-flex;
+			gap: 8px;
+			background: transparent;
+			border: none;
+			border-radius: var(--radius-full);
+			padding: 4px;
+			z-index: 2;
+		}
+
+		.lang-switcher button {
+			appearance: none;
+			border: none;
+			background: transparent;
+			color: var(--text-secondary);
+			font-family: var(--font-sans);
+			font-weight: 600;
+			font-size: 13px;
+			padding: 6px 12px;
+			border-radius: var(--radius-full);
+			cursor: pointer;
+			transition: color var(--duration-normal) var(--easing-default);
+		}
+
+		.lang-switcher button.active {
+			background: transparent;
+			color: var(--text-primary);
+		}
+
+		/* TOC (hover to open) */
+		.toc {
+			position: fixed;
+			top: 72px; /* below language switcher */
+			right: 16px;
+			z-index: 1100;
+		}
+
+		.toc-trigger {
+			appearance: none;
+			border: none;
+			background: transparent;
+			color: var(--text-secondary);
+			font-family: var(--font-sans);
+			font-weight: 600;
+			font-size: 13px;
+			padding: 8px 12px;
+			border-radius: var(--radius-full);
+			cursor: pointer;
+			transition: color var(--duration-normal) var(--easing-default);
+		}
+
+		.toc-trigger:hover {
+			color: var(--text-primary);
+		}
+
+		.toc-panel {
+			position: absolute;
+			top: 42px;
+			right: 0;
+			width: 320px;
+			max-height: 60vh;
+			overflow: auto;
+			padding: 12px;
+			background: var(--bg-elevated);
+			border: 1px solid var(--border-subtle);
+			border-radius: var(--radius-lg);
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(-6px);
+			transition: all var(--duration-normal) var(--easing-default);
+		}
+
+		.toc:hover .toc-panel,
+		.toc:focus-within .toc-panel {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+
+		.toc-title {
+			font-weight: 700;
+			margin: 4px 4px 8px 4px;
+			color: var(--text-primary);
+		}
+
+		#tocList {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		#tocList li {
+			margin: 6px 0;
+		}
+
+		#tocList a {
+			color: var(--text-secondary);
+			text-decoration: none;
+			font-size: 14px;
+		}
+
+		#tocList a:hover {
+			color: var(--primary-400);
+			text-decoration: underline;
+		}
+
+		#tocList li.toc-h3 a { padding-left: 14px; display: inline-block; }
+        
+        body {
+            font-family: var(--font-sans);
+            font-size: 19px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-page);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 500;
+        }
+        
+        /* Navigation Bar */
+        .nav-bar-wrapper {
+            width: 100%;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-bar {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+            gap: var(--space-xl);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            appearance: none;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--easing-default);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .theme-toggle:hover {
+            color: var(--text-primary);
+            background: var(--bg-elevated);
+        }
+        
+        .theme-toggle-icon {
+            width: 18px;
+            height: 18px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .theme-toggle:active .theme-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        
+        /* Page Title Section */
+        .page-title-section {
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            background: var(--bg-page);
+        }
+        
+        .page-title {
+            max-width: 1240px;
+            margin: 0 auto;
+            font-family: var(--font-serif);
+            font-size: 54px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            color: var(--text-primary);
+        }
+        
+        /* Content Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        /* Highlight Card */
+        .highlight-card {
+            display: flex;
+            gap: var(--space-md);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: var(--space-xl) 0;
+            margin: var(--space-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-icon {
+            display: none;
+        }
+        
+        .highlight-content {
+            font-size: 20px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .highlight-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        /* Article Images */
+        .article-image-container {
+            margin: var(--space-2xl) 0;
+            cursor: zoom-in;
+        }
+        
+        .article-image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+        .image-caption {
+            padding: var(--space-md) 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        /* Image Grid Layout */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+        }
+        
+        .image-grid .article-image-container {
+            margin: 0;
+        }
+        
+        /* Interactive Chart Container */
+        .interactive-chart-container {
+            position: relative;
+            background: var(--bg-page);
+        }
+        
+        .chart-iframe-wrapper {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-page);
+            /* Aspect ratio 1000:650 = 1.538 */
+            padding-bottom: 65%;
+        }
+        
+        .chart-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: transparent;
+        }
+        
+        .chart-caption {
+            padding: var(--space-sm) 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* Paper Tables */
+        .paper-table-section {
+            margin: var(--space-xl) 0 var(--space-2xl);
+        }
+
+        .paper-table-card {
+            margin: var(--space-xl) 0;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+            overflow: hidden;
+        }
+
+        .paper-table-header {
+            padding: var(--space-lg) var(--space-xl) var(--space-md);
+            border-bottom: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--primary-500);
+        }
+
+        .paper-table-kicker {
+            margin-bottom: 6px;
+            color: var(--primary-400);
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .paper-table-title {
+            margin: 0;
+            color: var(--text-primary);
+            font-family: var(--font-serif);
+            font-size: 22px;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+
+        .paper-table-note {
+            margin: var(--space-sm) 0 0;
+            color: var(--text-tertiary);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .paper-table-scroll {
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .competition-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: var(--space-lg);
+            padding: var(--space-lg);
+        }
+
+        .competition-panel {
+            min-width: 0;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            background: color-mix(in srgb, var(--bg-surface) 74%, transparent);
+            overflow: hidden;
+        }
+
+        .competition-panel-title {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .competition-stack {
+            display: grid;
+            gap: var(--space-lg);
+            min-width: 0;
+        }
+
+        .paper-table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .paper-table.compact {
+            min-width: 0;
+            font-size: 12px;
+        }
+
+        .paper-table.compact .model-col,
+        .paper-table.compact tbody th[scope="row"] {
+            min-width: 132px;
+        }
+
+        .paper-table th,
+        .paper-table td {
+            padding: 11px 12px;
+            border-bottom: 1px solid var(--border-subtle);
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .paper-table .model-col,
+        .paper-table tbody th[scope="row"] {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            min-width: 180px;
+            text-align: left;
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .paper-table .model-col {
+            z-index: 2;
+            background: color-mix(in srgb, var(--bg-card) 88%, var(--accent-blue));
+        }
+
+        .paper-table thead th {
+            background: color-mix(in srgb, var(--bg-card) 88%, var(--accent-blue));
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .paper-table thead tr:first-child th {
+            border-bottom-color: var(--border-medium);
+        }
+
+        .paper-table tbody tr:hover td,
+        .paper-table tbody tr:hover th {
+            background: color-mix(in srgb, var(--bg-card) 84%, var(--accent-cyan));
+        }
+
+        .paper-table tbody tr:last-child td,
+        .paper-table tbody tr:last-child th {
+            border-bottom: none;
+        }
+
+        .paper-table .model-group th {
+            position: static;
+            left: auto;
+            padding: 10px 12px;
+            background: color-mix(in srgb, var(--bg-surface) 86%, var(--accent-blue));
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-style: italic;
+            letter-spacing: 0.02em;
+            text-align: left;
+        }
+
+        .paper-table .subheader-row th,
+        .paper-table .subheader-row td {
+            background: color-mix(in srgb, var(--bg-card) 88%, var(--accent-blue));
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .paper-table .su-row td,
+        .paper-table .su-row th {
+            background: color-mix(in srgb, var(--bg-card) 84%, var(--primary-500));
+            color: var(--text-primary);
+        }
+
+        .paper-table .su-row th[scope="row"] {
+            background: color-mix(in srgb, var(--bg-card) 84%, var(--primary-500));
+        }
+
+        .paper-table .su-row th {
+            color: var(--primary-400);
+        }
+
+        .paper-table .best {
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+
+        .paper-table .second {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 3px;
+        }
+
+        .paper-table .split-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .paper-table .score-separator {
+            color: var(--text-muted);
+        }
+
+        .paper-table .star-score sup {
+            color: var(--accent-cyan);
+            font-size: 0.72em;
+            font-weight: 800;
+        }
+
+        .paper-table .medal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        .paper-table .medal img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .paper-table-footnote {
+            padding: var(--space-md) var(--space-xl) var(--space-lg);
+            color: var(--text-tertiary);
+            font-size: 12px;
+            line-height: 1.55;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        @media (max-width: 1023px) {
+            .competition-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn var(--duration-normal) var(--easing-default);
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: var(--radius-md);
+            animation: zoomIn var(--duration-slow) var(--easing-smooth);
+        }
+        
+        .lightbox-close {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            width: 48px;
+            height: 48px;
+            background: rgba(20, 20, 20, 0.8);
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--duration-normal) var(--easing-default);
+            color: var(--text-secondary);
+        }
+        
+        .lightbox-close:hover {
+            color: var(--text-primary);
+        }
+        
+        /* Typography */
+        h2 {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: var(--space-2xl);
+            margin-bottom: var(--space-md);
+            line-height: 1.25;
+            position: relative;
+            padding-bottom: var(--space-sm);
+        }
+        
+        
+        h3 {
+            font-family: var(--font-serif);
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-sm);
+            line-height: 1.35;
+        }
+        
+        p {
+            margin-bottom: var(--space-md);
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        /* Links */
+        a {
+            color: var(--primary-400);
+            text-decoration: none;
+            transition: all var(--duration-normal) var(--easing-default);
+            position: relative;
+        }
+        
+        a:hover {
+            color: var(--primary-500);
+            text-decoration: underline;
+        }
+        
+        /* External Link Buttons */
+        .external-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        /* Model Download Section */
+        .model-download-section {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: var(--space-lg) 0;
+        }
+        
+        .model-download-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .model-download-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+            justify-content: center;
+        }
+        
+        .model-download-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: 10px 16px;
+            text-decoration: none;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .model-download-card:hover {
+            border-color: var(--primary-500);
+            background: var(--bg-card);
+            transform: translateY(-1px);
+        }
+        
+        .huggingface-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .model-download-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .model-download-card-subtitle {
+            display: none;
+        }
+        
+        .btn-external {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            background: transparent;
+            color: var(--primary-400);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 400;
+            border-radius: 0;
+            text-decoration: none;
+            transition: color var(--duration-normal) var(--easing-default);
+            position: relative;
+            overflow: visible;
+            border: none;
+        }
+        
+        .btn-external:hover {
+            color: var(--primary-500);
+            text-decoration: underline;
+        }
+        
+        .external-icon {
+            width: 14px;
+            height: 14px;
+        }
+        
+        /* Lists */
+        ul {
+            margin: var(--space-md) 0;
+            padding-left: var(--space-lg);
+        }
+        
+        li {
+            margin-bottom: var(--space-sm);
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        li::marker {
+            color: var(--primary-400);
+        }
+        
+        li p {
+            display: inline;
+            color: var(--text-secondary);
+        }
+        
+        /* Separator */
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+            margin: var(--space-3xl) 0;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            margin-top: var(--space-xl);
+        }
+        
+        /* ECharts Container */
+        .chart-container {
+            margin: var(--space-xl) 0;
+            background: var(--bg-page);
+            border: none;
+            border-radius: 0;
+            padding: var(--space-lg) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .legend-swatch {
+            width: 32px;
+            height: 20px;
+            border-radius: var(--radius-sm);
+            border: none;
+        }
+        
+        .legend-swatch.striped {
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--text-secondary),
+                var(--text-secondary) 2px,
+                var(--bg-elevated) 2px,
+                var(--bg-elevated) 4px
+            );
+        }
+        
+        .legend-swatch.solid {
+            background: var(--text-secondary);
+        }
+        
+        #ipho-chart {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Responsive chart */
+        @media (max-width: 1023px) {
+            #ipho-chart {
+                height: 450px;
+            }
+            
+            .chart-title {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .chart-container {
+                padding: var(--space-md);
+            }
+            
+            #ipho-chart {
+                height: 400px;
+            }
+            
+            .chart-title {
+                font-size: 20px;
+            }
+            
+            .legend-item {
+                font-size: 12px;
+            }
+        }
+        
+        /* Responsive iframe/image switching */
+        .chart-mobile-img {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+        
+        @media (max-width: 1023px) {
+            .chart-iframe-wrapper {
+                display: none !important;
+            }
+            
+            .chart-mobile-img {
+                display: block;
+            }
+
+            .proofbench-chart-wrapper {
+                display: block !important;
+            }
+
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+            }
+            to { 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Scroll Animations */
+        .content-section,
+        .article-image-container,
+        .highlight-card {
+            animation: slideUp 0.6s var(--easing-smooth) backwards;
+        }
+        
+        .content-section:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+        
+        .content-section:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1023px) {
+            .page-title-section {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 48px;
+                line-height: 1.25;
+                padding: 0 var(--space-md);
+            }
+            
+            .container {
+                padding: 0 var(--space-xl);
+            }
+            
+            .image-grid {
+                gap: var(--space-md);
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .page-title-section {
+                padding: var(--space-lg) var(--space-sm);
+            }
+            
+            .page-title {
+                font-size: 32px;
+                line-height: 1.3;
+                padding: 0 var(--space-sm);
+                letter-spacing: 0;
+            }
+            
+            .hero-header {
+                padding: var(--space-2xl) var(--space-md);
+            }
+            
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            h2 {
+                font-size: 24px;
+                margin-top: var(--space-2xl);
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .highlight-card {
+                padding: 20px;
+            }
+            
+            .highlight-content {
+                font-size: 16px;
+            }
+            
+            .btn-external {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .external-links {
+                flex-direction: column;
+            }
+            
+            .model-download-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .model-download-card {
+                flex: 0 1 auto;
+            }
+            
+            .lightbox-close {
+                top: var(--space-md);
+                right: var(--space-md);
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 28px;
+                line-height: 1.35;
+                padding: 0 var(--space-xs);
+            }
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: var(--space-xl);
+            right: var(--space-xl);
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-purple);
+            border: none;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--duration-normal) var(--easing-default), visibility var(--duration-normal) var(--easing-default);
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            opacity: 0.9;
+        }
+        
+        .scroll-to-top svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-purple);
+            width: 0%;
+            z-index: 10000;
+            transition: width 0.1s ease-out;
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Case Study Section */
+        .case-study-problem {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .case-study-problem-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-400);
+            margin-bottom: var(--space-md);
+        }
+        
+        .case-study-problem-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .case-study-problem-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .case-study-problem-content h4:first-child {
+            margin-top: 0;
+        }
+        
+        .case-study-problem-content ul {
+            margin: var(--space-sm) 0;
+            padding-left: var(--space-xl);
+        }
+        
+        .case-study-problem-content li {
+            margin: var(--space-xs) 0;
+        }
+        
+        .case-study-problem-content .problem-question {
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
+            background: var(--bg-surface);
+            border-left: 3px solid var(--primary-500);
+            border-radius: 4px;
+            font-weight: 500;
+            color: var(--text-primary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        /* Context Toggle Button */
+        .context-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            margin-bottom: var(--space-lg);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--primary-400);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .context-toggle:hover {
+            background: var(--bg-surface);
+            border-color: var(--primary-500);
+        }
+        
+        .context-toggle-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .context-toggle.active .context-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Context Content */
+        .context-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--easing-default);
+        }
+        
+        .context-content.show {
+            max-height: 10000px;
+        }
+        
+        .context-inner {
+            padding-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--border-subtle);
+            margin-bottom: var(--space-lg);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            transition: border-color var(--duration-normal) var(--easing-default);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .model-card:hover {
+            border-color: var(--primary-500);
+        }
+        
+        .model-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .model-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .model-score {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .model-score.perfect {
+            color: #10B981;
+        }
+        
+        .model-score.partial {
+            color: #F59E0B;
+        }
+        
+        .model-score.low {
+            color: #EF4444;
+        }
+        
+        .score-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .answer-section {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .answer-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .answer-content {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            padding: var(--space-md);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+        
+        .answer-item {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .evaluation-section {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .evaluation-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .evaluation-criteria {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        
+        .criterion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .criterion-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+        
+        .criterion-icon.correct {
+            color: #10B981;
+        }
+        
+        .criterion-icon.incorrect {
+            color: #EF4444;
+        }
+        
+        .solution-section {
+            margin-top: var(--space-lg);
+        }
+        
+        .solution-toggle {
+            width: 100%;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            padding: var(--space-md);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .solution-toggle:hover {
+            background: var(--border-subtle);
+            border-color: var(--primary-500);
+        }
+        
+        .solution-toggle-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .solution-toggle.active .solution-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .solution-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--duration-slow) var(--easing-default);
+        }
+        
+        .solution-content.active {
+            max-height: 100000px;
+        }
+        
+        .solution-inner {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: var(--space-lg);
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-height: 500px;
+            overflow-y: auto;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .solution-inner::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .solution-inner::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 4px;
+        }
+        
+        .solution-inner p {
+            margin-bottom: var(--space-md);
+        }
+
+        .olympiad-case-containers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .case-study-summary {
+            max-width: 1120px;
+            margin: var(--space-md) 0 var(--space-2xl);
+        }
+
+        .case-study-summary p:last-child {
+            margin-bottom: 0;
+        }
+
+        .olympiad-case-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-lg);
+        }
+
+        .olympiad-container-title {
+            margin: 0 0 var(--space-lg);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-400);
+        }
+
+        .olympiad-case-frame {
+            width: 100%;
+            height: min(76vh, 860px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            background: var(--bg-card);
+        }
+
+        .olympiad-cases {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+            margin-top: var(--space-lg);
+            margin-bottom: 0;
+        }
+
+        .olympiad-case {
+            margin-bottom: 0;
+        }
+
+        .olympiad-case-toggle {
+            margin-bottom: 0;
+            font-size: 20px;
+        }
+
+        .olympiad-case-inner {
+            padding-top: var(--space-lg);
+        }
+
+        .olympiad-question p:last-child,
+        .olympiad-solution-inner p:last-child {
+            margin-bottom: 0;
+        }
+
+        .olympiad-answer {
+            margin-top: var(--space-lg);
+        }
+
+        .olympiad-solution-inner {
+            max-height: 70vh;
+        }
+
+        .math-block {
+            margin: var(--space-md) 0;
+            overflow-x: visible;
+        }
+
+        mjx-container[display="true"] {
+            overflow-x: visible !important;
+            overflow-y: visible !important;
+        }
+
+        .compact-bullet::before {
+            content: "▷ ";
+            color: var(--primary-400);
+            font-weight: 700;
+        }
+        
+        @media (max-width: 1023px) {
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .models-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: var(--space-lg);
+            }
+
+            .case-study-problem {
+                padding: var(--space-md);
+            }
+            
+            .model-card {
+                padding: var(--space-md);
+                min-width: 0;
+            }
+            
+            .answer-content {
+                padding: var(--space-sm);
+                font-size: 14px;
+            }
+            
+            .solution-inner {
+                padding: var(--space-md);
+                font-size: 14px;
+            }
+            
+            .context-inner {
+                font-size: 14px;
+            }
+            
+            .case-study-problem-content {
+                font-size: 14px;
+            }
+            
+            .case-study-problem-content table {
+                font-size: 12px;
+            }
+        }
+        
+        /* Organization Logos Section */
+        .org-logos-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .org-logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform var(--duration-normal) var(--easing-default), opacity var(--duration-normal) var(--easing-default);
+            opacity: 0.8;
+        }
+        
+        .org-logo-item:hover {
+            transform: translateY(-2px);
+            opacity: 1;
+        }
+        
+        .org-logo-item img {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+
+        .org-logo-item img.sju-logo {
+            height: 44px;
+        }
+
+        .org-logo-item img.pku-logo {
+            height: 32px;
+        }
+        
+        @media (max-width: 968px) {
+            .org-logos-section {
+                gap: 15px;
+            }
+            
+            .org-logo-item img {
+                height: 28px;
+            }
+
+            .org-logo-item img.sju-logo {
+                height: 34px;
+            }
+
+            .org-logo-item img.pku-logo {
+                height: 25px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .org-logos-section {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .org-logo-item img {
+                height: 24px;
+            }
+
+            .org-logo-item img.sju-logo {
+                height: 30px;
+            }
+
+            .org-logo-item img.pku-logo {
+                height: 22px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .org-logos-section {
+                gap: 10px;
+            }
+            
+            .org-logo-item img {
+                height: 20px;
+            }
+
+            .org-logo-item img.sju-logo {
+                height: 25px;
+            }
+
+            .org-logo-item img.pku-logo {
+                height: 19px;
+            }
+        }
+        
+        /* Acknowledgements Section */
+        .acknowledgements-section {
+            margin-top: var(--space-4xl);
+            padding: var(--space-2xl) 0;
+            background: transparent;
+        }
+        
+        .acknowledgements-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .acknowledgements-intro {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .acknowledgements-list {
+            list-style: disc;
+            padding-left: var(--space-xl);
+        }
+        
+        .acknowledgements-list li {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+        
+        .acknowledgements-list li::marker {
+            color: var(--text-secondary);
+        }
+        
+        .acknowledgements-list strong {
+            font-weight: 700;
+        }
+        
+        .acknowledgements-list strong a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--easing-default);
+        }
+        
+        .acknowledgements-list strong a:hover {
+            color: var(--primary-400);
+            text-decoration: underline;
+        }
+        
+        .acknowledgements-outro {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 767px) {
+            .acknowledgements-section {
+                padding: var(--space-lg) 0;
+            }
+            
+            .acknowledgements-list li {
+                font-size: 14px;
+            }
+        }
+        
+        /* Citation Section */
+        .citation-section {
+            margin-top: var(--space-4xl);
+            padding: var(--space-2xl) var(--space-xl);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+        }
+        
+        .citation-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .citation-bibtex-wrapper {
+            position: relative;
+        }
+        
+        .citation-bibtex-content {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            padding-top: var(--space-3xl);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .citation-copy-btn {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            padding: 6px 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-medium);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all var(--duration-fast) var(--easing-default);
+        }
+        
+        .citation-copy-btn:hover {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-color: var(--primary-500);
+        }
+        
+        .citation-copy-btn.copied {
+            background: var(--bg-surface);
+            color: var(--primary-400);
+            border-color: var(--primary-500);
+        }
+        
+        @media (max-width: 767px) {
+            .citation-section {
+                padding: var(--space-lg) var(--space-md);
+            }
+            
+            .citation-bibtex-content {
+                font-size: 12px;
+                padding: var(--space-2xl) var(--space-md) var(--space-md);
+            }
+            
+            .citation-copy-btn {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Navigation -->
+    <div class="nav-bar-wrapper">
+    <nav class="nav-bar">
+            <!-- Organization Logos -->
+            <div class="org-logos-section">
+                <div class="org-logo-item">
+                    <img id="ailabLogo" src="imgs/ailab-logo.png" alt="AI Lab" />
+                </div>
+                <div class="org-logo-item">
+                    <img src="imgs/cuhk-logo.png" alt="CUHK" />
+                </div>
+                <div class="org-logo-item">
+                    <img src="imgs/thu-logo1.png" alt="Tsinghua University" />
+                </div>
+                <div class="org-logo-item">
+                    <img class="sju-logo" src="imgs/sju.jpg" alt="SJU" />
+                </div>
+                <div class="org-logo-item">
+                    <img class="pku-logo" src="imgs/pkulogo.jpg" alt="Peking University" />
+                </div>
+            </div>
+            
+            <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+            <svg class="theme-toggle-icon" id="themeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            <span id="themeLabel" data-i18n="theme.dark" data-i18n-zh="深色" data-i18n-en="Dark">Dark</span>
+        </button>
+        <div class="lang-switcher" role="group" aria-label="Language Switcher">
+            <button id="btn-zh" data-lang="zh" aria-pressed="false">中文</button>
+            <button id="btn-en" data-lang="en" class="active" aria-pressed="true">English</button>
+        </div>
+        <div class="toc" aria-haspopup="true">
+            <button class="toc-trigger" id="tocTrigger" aria-expanded="false" data-i18n="toc.trigger" data-i18n-zh="目录" data-i18n-en="Contents">Contents</button>
+            <div class="toc-panel" role="menu" aria-label="Table of contents">
+                <div class="toc-title" data-i18n="toc.title" data-i18n-zh="目录" data-i18n-en="Table of contents">Table of contents</div>
+                <ul id="tocList"></ul>
+                    </div>
+            </div>
+        </div>
+    </nav>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title-section">
+        <h1 class="page-title" data-i18n="hero.title"
+            data-i18n-zh="通过简单而统一的扩展实现奥林匹克竞赛金牌级推理能力"
+            data-i18n-en="Achieving Gold-Medal-Level Olympiad Reasoning via Simple and Unified Scaling">Achieving Gold-Medal-Level Olympiad Reasoning via Simple and Unified Scaling</h1>
+    </div>
+
+    
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Main Hero Chart -->
+        <div class="chart-container" style="margin-top: 2rem; margin-bottom: 2rem;">
+            <div class="chart-iframe-wrapper proofbench-chart-wrapper" style="padding-bottom: 40%; position: relative; overflow: hidden;">
+                <iframe class="chart-iframe" src="source_html/proofbench.html" title="ProofBench Overall Results" loading="lazy" scrolling="no" style="overflow: hidden; width: 100%; height: 100%;"></iframe>
+            </div>
+        </div>
+
+        <div class="content-section" style="margin-top: 0rem;">
+            <p data-i18n="intro.p1"
+               data-i18n-zh="近日，上海人工智能实验室（上海 AI 实验室）提出一套面向奥赛级科学推理的统一后训练方案。奥赛级能力并不必然依赖超大模型底座或分学科定制系统；在 <em>30B-A3B</em> 这一一般尺寸模型上，通过合适的行为塑造、奖励学习和推理阶段扩展，同样可以形成可验证的长程证明搜索能力。"
+               data-i18n-en="Recently, Shanghai Artificial Intelligence Laboratory (Shanghai AI Lab) introduced a unified post-training recipe for olympiad-level scientific reasoning. Olympiad-level capability does not necessarily require an extremely large backbone or discipline-specific systems; on a general-size <em>30B-A3B</em> model, appropriate behavior shaping, reward learning, and inference-time scaling can also produce verifiable long-horizon proof-search ability."></p>
+            <p data-i18n="intro.p2"
+               data-i18n-zh="该方案以 <strong>SU-01</strong> 为模型实例：先用约 <em>33.8 万</em> 条高质量轨迹进行反向困惑度课程监督微调，再通过 <em>200</em> 步两阶段强化学习提升解题能力与完整证明质量，最后在推理阶段采用多轮“生成-验证-修正”循环。模型不调用外部工具、不执行代码、不依赖专用符号求解器，却能够在困难奥赛题上持续开展 <em>10 万词元以上</em> 的自然语言推理。"
+               data-i18n-en="The recipe is instantiated as <strong>SU-01</strong>: it first applies reverse-perplexity curriculum SFT on roughly <em>338K</em> high-quality trajectories, then uses <em>200</em> steps of two-stage reinforcement learning to improve solving ability and complete-proof quality, and finally runs a multi-round generate-verify-revise loop at inference time. Without calling external tools, executing code, or relying on dedicated symbolic solvers, the model can sustain more than <em>100K tokens</em> of natural-language reasoning on difficult olympiad problems."></p>
+            <p data-i18n="intro.p3"
+               data-i18n-zh="在比赛式评测中，<strong>SU-01</strong> 经推理阶段扩展后于 <strong>IMO 2025</strong> 和 <strong>USAMO 2026</strong> 均取得 <em>35</em> 分，达到金牌级水平；在 <strong>IPhO 2024/2025</strong> 上也超过金牌线，并在 <strong>ProofBench</strong> 等证明级评测中显著优于同尺寸模型。这项工作提供的核心洞见是：科学推理能力的关键不只是模型规模，更在于能否把证明构造、验证和修正组织成一套可复用的训练-推理闭环。未来，上海 AI 实验室将继续围绕高效科学推理模型、可靠奖励建模、证明级评测和训练-推理协同优化开展研究。"
+               data-i18n-en="In competition-style evaluations, inference-time scaling brings <strong>SU-01</strong> to <em>35</em> points on both <strong>IMO 2025</strong> and <strong>USAMO 2026</strong>, reaching gold-medal-level performance; it also exceeds the gold cutoff on <strong>IPhO 2024/2025</strong> and substantially outperforms similarly sized models on proof-level benchmarks such as <strong>ProofBench</strong>. The central insight is that scientific reasoning depends not only on model scale, but also on whether proof construction, verification, and revision can be organized into a reusable training-inference loop. Looking ahead, Shanghai AI Lab will continue research on efficient scientific reasoning models, reliable reward modeling, proof-level evaluation, and joint optimization of training and inference."></p>
+        </div>
+        
+        <!-- Model Download Section -->
+        <!-- Model Download Section -->
+        <div class="model-download-section">
+            <div class="model-download-links">
+                <a href="https://github.com/yafuly/Simplex-Report" class="model-download-card" target="_blank" rel="noopener noreferrer">
+                    <img src="imgs/github-mark-white.png" alt="GitHub" class="huggingface-icon">
+                    <span class="model-download-card-title">SU-01 Official Repo</span>
+                </a>
+                <a href="https://huggingface.co/PRIME-RL/P1-VL-30B-A3B" class="model-download-card" target="_blank" rel="noopener noreferrer">
+                    <img src="imgs/hf-logo.png" alt="Hugging Face" class="huggingface-icon">
+                    <span class="model-download-card-title">SU-01-30B-A3B</span>
+                </a>
+            </div>
+        </div>
+
+            <hr>
+
+        
+        <h2 data-i18n="section.fullstack.title"
+            data-i18n-zh="SU-01 训练流程"
+            data-i18n-en="SU-01 Pipeline">SU-01 Pipeline</h2>
+
+        <div class="pipeline-figure" style="margin: 1.5rem 0 2.5rem;">
+            <img src="source_html/simplex-pipeline-hires.png" alt="SU-01 Pipeline" style="width: 100%; height: auto; display: block;">
+        </div>
+
+        <h3 data-i18n="section.hipho.title"
+            data-i18n-zh="通过监督微调注入严谨推理"
+            data-i18n-en="Instilling Rigorous Reasoning via Supervised Fine-tuning">Instilling Rigorous Reasoning via Supervised Fine-tuning</h3>
+
+        <p data-i18n="hipho.p1"
+           data-i18n-zh="SU-01 训练流程的第一阶段使用监督微调来重塑模型的推理行为。SFT 注入严谨的推理模式，后续流程将在此基础上继续扩展。"
+           data-i18n-en="The first stage of the SU-01 pipeline uses supervised fine-tuning to
+reshape the model's reasoning behavior. SFT installs the rigorous
+reasoning pattern that the rest of the pipeline will later scale."></p>
+
+        <p data-i18n="hipho.p2"
+           data-i18n-zh="我们从数学、科学、指令跟随和代码等多类来源中整理 SFT prompts。生成前，我们首先从 prompt 池中过滤受污染的问题；对剩余 prompts，使用 DeepSeek-V3.2-Speciale 生成高质量长程推理轨迹。随后过滤噪声生成，并移除超过 8,192 tokens 的轨迹。该过滤步骤使监督信号聚焦于严谨且可用的推理轨迹，同时避免极长输出带来的截断或优化不稳定风险。"
+           data-i18n-en="We curate SFT prompts from a broad mixture of mathematical, scientific,
+instruction-following, and coding sources. Before generation, we first filter contaminated problems from the prompt pool.
+For each remaining prompt, we use DeepSeek-V3.2-Speciale to generate high-quality long-form reasoning
+trajectories. We then filter noisy generations and remove trajectories longer
+than 8,192 tokens. This filtering step keeps the supervised signal focused on
+rigorous and usable reasoning traces, while avoiding extremely long outputs
+that are more likely to introduce truncation or unstable optimization."></p>
+
+<p data-i18n="hipho.p2"
+           data-i18n-zh="为稳定长 CoT SFT，我们采用反向困惑度课程学习：每个 epoch 按 PPL 降序训练，先接触最不匹配当前策略的教师轨迹，再在低 PPL 样本上巩固。"
+           data-i18n-en="To stabilize long-CoT SFT, we use a reverse-perplexity curriculum: within each epoch, examples are sorted by descending PPL, so training starts from teacher trajectories most mismatched with the current policy before consolidating on lower-PPL samples."></p>
+
+
+        <h3 data-i18n="section.p1.title"
+            data-i18n-zh="通过强化学习提升推理能力"
+            data-i18n-en="Boosting Reasoning Capability with Reinforcement Learning">Boosting Reasoning Capability with Reinforcement Learning</h3>
+
+        <p data-i18n="training.p2"
+           data-i18n-zh="模型获得长程推理模式后，我们用强化学习进一步扩展求解能力："
+           data-i18n-en="After SFT installs the long-form reasoning pattern, reinforcement learning further scales the model's solving capability:"></p>
+        
+        <ul>
+            <li data-i18n="training.li1"
+                data-i18n-zh="<strong>RL 数据构建：</strong> 我们将 RL 池划分为可验证和非可验证 prompts，分别覆盖可可靠检查的答案/结构化输出，以及证明型或开放式推理。经去重、去污染、拒绝采样和噪声过滤后，保留 8,967 个可验证 prompts 与 16,287 个非可验证 prompts。"
+                data-i18n-en="<strong>RL Data Curation:</strong> We split the RL pool into verifiable prompts, whose answers or structured outputs can be checked reliably, and non-verifiable prompts for proof-oriented or open-ended reasoning. After deduplication, decontamination, rejection sampling, and noise filtering, the pool contains 8,967 verifiable prompts and 16,287 non-verifiable prompts."></li>
+            <li data-i18n="training.li1"
+                data-i18n-zh="<strong>粗粒度 RL：</strong> 该阶段采用带可验证奖励的强化学习（RLVR）和 Group Sequence Policy Optimization（GSPO），在完整回答级别进行奖励分配与策略裁剪。"
+                data-i18n-en="<strong>Coarse RL:</strong> This stage uses reinforcement learning with verifiable rewards (RLVR) and Group Sequence Policy Optimization (GSPO), applying reward assignment and policy clipping at the complete-response level."></li>
+            <li data-i18n="training.li2"
+                data-i18n-zh="<strong>精细 RL：</strong> 在粗粒度 RL 建立搜索能力后，精细 RL 将目标转向证明质量，并引入更强的过程级奖励、自我修正和经验回放，让失败样本可被修复、稀有成功证明可被持续学习。"
+                data-i18n-en="<strong>Refined RL:</strong> After coarse RL builds search ability, refined RL shifts the target toward proof quality, using stronger process-level rewards, self-refinement, and experience replay so failures can be repaired and rare successful proofs remain learnable."></li>
+        </ul>
+
+        <h3 data-i18n="section.pm.title"
+            data-i18n-zh="通过测试时扩展实现奥赛金牌级推理"
+            data-i18n-en="Achieving Gold-Medal-Level Reasoning via Test-time Scaling">Achieving Gold-Medal-Level Reasoning via Test-time Scaling</h3>
+        <p data-i18n="pm.p1"
+			data-i18n-zh="即便拥有强推理策略，最难的 IMO 风格问题仍需要大量搜索、验证和修订。TTS 不只是多采样答案，而是通过自我验证与精炼循环，修复隐藏缺口并生成完整严谨的证明。"
+			data-i18n-en="Even with a strong reasoning policy, the hardest IMO-style problems still require substantial search, verification, and revision. TTS is not just answer sampling; it uses a self-verification and refinement loop to repair hidden gaps and produce complete, rigorous proofs."></p>
+       
+
+        <h2 data-i18n="section.results.title"
+            data-i18n-zh="评测结果"
+            data-i18n-en="Results">Results</h2>
+
+        <section class="paper-table-section" aria-labelledby="paper-table-title">
+            <h3 id="paper-table-title" data-i18n="results.tables.title"
+                data-i18n-zh="核心基准结果"
+                data-i18n-en="Core Benchmark Results">Core Benchmark Results</h3>
+                 
+            <div class="paper-table-card">
+                <div class="paper-table-header">
+                    <div class="paper-table-kicker" data-i18n="results.table1.kicker"
+                         data-i18n-zh="Table 1"
+                         data-i18n-en="Table 1">Table 1</div>
+                    <h4 class="paper-table-title" data-i18n="results.table1.title"
+                        data-i18n-zh="可验证答案推理任务表现"
+                        data-i18n-en="Performance on Answer-Verifiable Reasoning Tasks">Performance on Answer-Verifiable Reasoning Tasks</h4>
+                    <p class="paper-table-note" data-i18n="results.table1.note"
+                       data-i18n-zh="AnswerBench、AMO-Bench、AIME 25/26 与 FrontierScience-Olympiad 分别取 4、8、8、4 次运行平均值。Avg. 为 AnswerBench、AMO-Bench、AIME 2025、AIME 2026 和 FrontierScience-Olympiad 的均值。"
+                       data-i18n-en="AnswerBench, AMO-Bench, AIME 25/26, and FrontierScience-Olympiad are averaged over 4, 8, 8, and 4 runs, respectively. Avg. is the mean of AnswerBench, AMO-Bench, AIME 2025, AIME 2026, and FrontierScience-Olympiad."></p>
+                </div>
+                <div class="paper-table-scroll">
+                    <table class="paper-table">
+                        <thead>
+                            <tr>
+                                <th class="model-col" rowspan="2" scope="col">Model</th>
+                                <th rowspan="2" scope="col">AnswerBench</th>
+                                <th rowspan="2" scope="col">AMO-Bench</th>
+                                <th rowspan="2" scope="col">AIME 25/26</th>
+                                <th colspan="4" scope="colgroup">FrontierScience-Olympiad</th>
+                                <th rowspan="2" scope="col">Avg.</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Physics</th>
+                                <th scope="col">Chemistry</th>
+                                <th scope="col">Biology</th>
+                                <th scope="col">Overall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">P1-30B-A3B</th>
+                                <td>69.3%</td>
+                                <td>41.3%</td>
+                                <td>90.4% / 89.6%</td>
+                                <td>57.5%</td>
+                                <td>57.5%</td>
+                                <td><span class="second">27.5%</span></td>
+                                <td>54.5%</td>
+                                <td>69.0%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">GLM-4.7-Flash</th>
+                                <td>73.8%</td>
+                                <td>53.8%</td>
+                                <td>91.3% / 88.3%</td>
+                                <td>54.5%</td>
+                                <td>60.0%</td>
+                                <td>17.5%</td>
+                                <td>53.0%</td>
+                                <td>72.0%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nemotron-Cascade-2</th>
+                                <td><span class="best">80.5%</span></td>
+                                <td>40.8%</td>
+                                <td><span class="second">94.2%</span> / 90.0%</td>
+                                <td>56.0%</td>
+                                <td>56.3%</td>
+                                <td><span class="best">30.0%</span></td>
+                                <td>53.5%</td>
+                                <td>71.8%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Qwen3.6-35B-A3B</th>
+                                <td><span class="second">78.0%</span></td>
+                                <td><span class="second">58.8%</span></td>
+                                <td>92.5% / <span class="second">92.9%</span></td>
+                                <td><span class="second">65.5%</span></td>
+                                <td><span class="best">74.4%</span></td>
+                                <td>25.0%</td>
+                                <td><span class="best">65.0%</span></td>
+                                <td><span class="best">77.4%</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gemma-4-31B</th>
+                                <td>74.0%</td>
+                                <td>39.3%</td>
+                                <td>88.8% / 91.3%</td>
+                                <td><span class="best">69.0%</span></td>
+                                <td>61.9%</td>
+                                <td><span class="second">27.5%</span></td>
+                                <td>61.0%</td>
+                                <td>70.9%</td>
+                            </tr>
+                            <tr class="su-row">
+                                <th scope="row">SU-01</th>
+                                <td>77.5%</td>
+                                <td><span class="best">59.8%</span></td>
+                                <td><span class="best">94.6%</span> / <span class="best">93.3%</span></td>
+                                <td>62.5%</td>
+                                <td><span class="second">69.4%</span></td>
+                                <td>25.0%</td>
+                                <td><span class="second">61.5%</span></td>
+                                <td><span class="second">77.3%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="paper-table-footnote" data-i18n="results.table1.footnote"
+                     data-i18n-zh="粗体表示每个对比块中的最佳结果；下划线表示第二名。FrontierScience-Olympiad 指 FrontierScience 的奥赛子集。"
+                     data-i18n-en="Bold marks the best score within the comparison block; underline marks the second best. FrontierScience-Olympiad abbreviates the Olympiad subset of FrontierScience.">Bold marks the best score within the comparison block; underline marks the second best. FrontierScience-Olympiad abbreviates the Olympiad subset of FrontierScience.</div>
+            </div>
+
+            <ul>
+            <li>
+	                <strong data-i18n="results.p1.b1.title"
+	                        data-i18n-zh="更简单统一的后训练方法实现了接近优势模型的性能。"
+	                        data-i18n-en="The simpler unified post-training recipe realize comparable performance to superior models.">The simpler unified post-training recipe realize comparable performance to superior models.</strong>
+	                <p data-i18n="results.p1.b1.p"
+	                   data-i18n-zh="可验证任务最清楚地检验后训练方法是否能在可信评测下提升问题求解能力。如表所示，SU-01 在 AnswerBench、AMO-Bench、AIME 2025、AIME 2026 和 FrontierScience-Olympiad 上达到 77.3% 的平均分，几乎追平最强的同规模基线 Qwen3.6-35B-A3B（77.4%）。重要的是，SU-01 以更简单统一的后训练方法和显著更低的训练成本达到这一性能水平，凸显了该方法的效率。"
+                   data-i18n-en="Verifiable tasks provide the cleanest test of whether the post-training recipe
+  improves problem solving under trusted evaluation. As shown in the table, SU-01 reaches a 77.3% average score across
+  AnswerBench, AMO-Bench, AIME 2025, AIME 2026, and FrontierScience-Olympiad,
+  nearly matching the strongest similar-size baseline, Qwen3.6-35B-A3B (77.4%).
+  Importantly, SU-01 achieves this level of performance with a simpler unified
+  post-training recipe and substantially lower training cost, highlighting the
+  efficiency of our approach."></p>
+            </li>
+            </ul>
+            <hr>
+
+
+
+            <div class="paper-table-card">
+                <div class="paper-table-header">
+                    <div class="paper-table-kicker" data-i18n="results.table2.kicker"
+                         data-i18n-zh="Table 2"
+                         data-i18n-en="Table 2">Table 2</div>
+                    <h4 class="paper-table-title" data-i18n="results.table2.title"
+                        data-i18n-zh="非可验证基准表现"
+                        data-i18n-en="Performance on Non-Verifiable Benchmarks">Performance on Non-Verifiable Benchmarks</h4>
+                    <p class="paper-table-note" data-i18n="results.table2.note"
+                       data-i18n-zh="FrontierScience-Research 指 FrontierScience 的 research 子集。SU-01 在 ProofBench 中的 x/y 表示不使用与使用 TTS 的分数。"
+                       data-i18n-en="FrontierScience-Research refers to the research subset of FrontierScience. For SU-01, x/y reports scores without and with TTS on ProofBench."></p>
+                </div>
+                <div class="paper-table-scroll">
+                    <table class="paper-table">
+                        <thead>
+                            <tr>
+                                <th class="model-col" rowspan="2" scope="col">Model</th>
+                                <th colspan="3" scope="colgroup">IMO-ProofBench</th>
+                                <th colspan="4" scope="colgroup">FrontierScience-Research</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Basic</th>
+                                <th scope="col">Advanced</th>
+                                <th scope="col">Overall</th>
+                                <th scope="col">Physics</th>
+                                <th scope="col">Chemistry</th>
+                                <th scope="col">Biology</th>
+                                <th scope="col">Overall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="model-group">
+                                <th colspan="8" scope="rowgroup">Larger models</th>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gemini 3.1 Pro Thinking</th>
+                                <td><span class="second">95.2%</span></td>
+                                <td><span class="second">50.0%</span></td>
+                                <td><span class="second">72.6%</span></td>
+                                <td>0.0%</td>
+                                <td><span class="second">30.0%</span></td>
+                                <td>10.0%</td>
+                                <td>13.3%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">GPT-5.5-High</th>
+                                <td><span class="best">96.7%</span></td>
+                                <td><span class="best">64.8%</span></td>
+                                <td><span class="best">80.7%</span></td>
+                                <td><span class="best">25.0%</span></td>
+                                <td><span class="best">40.0%</span></td>
+                                <td><span class="best">45.0%</span></td>
+                                <td><span class="best">36.7%</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">DeepSeek-V3.2-Speciale</th>
+                                <td>62.9%</td>
+                                <td>28.6%</td>
+                                <td>45.7%</td>
+                                <td><span class="second">10.0%</span></td>
+                                <td>20.0%</td>
+                                <td><span class="second">15.0%</span></td>
+                                <td><span class="second">15.0%</span></td>
+                            </tr>
+                            <tr class="model-group">
+                                <th colspan="8" scope="rowgroup">Similar-size models</th>
+                            </tr>
+                            <tr>
+                                <th scope="row">P1-30B-A3B</th>
+                                <td>33.8%</td>
+                                <td>6.2%</td>
+                                <td>20.0%</td>
+                                <td>0.0%</td>
+                                <td><span class="best">10.0%</span></td>
+                                <td>0.0%</td>
+                                <td>3.3%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">GLM-4.7-Flash</th>
+                                <td>51.0%</td>
+                                <td>16.7%</td>
+                                <td>33.8%</td>
+                                <td>0.0%</td>
+                                <td>0.0%</td>
+                                <td>0.0%</td>
+                                <td>0.0%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nemotron-Cascade-2</th>
+                                <td><span class="second">77.1%</span></td>
+                                <td>28.6%</td>
+                                <td>52.9%</td>
+                                <td><span class="second">5.0%</span></td>
+                                <td>5.0%</td>
+                                <td><span class="best">20.0%</span></td>
+                                <td><span class="second">10.0%</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Qwen3.6-35B-A3B</th>
+                                <td>39.1%</td>
+                                <td>7.1%</td>
+                                <td>23.1%</td>
+                                <td>0.0%</td>
+                                <td>5.0%</td>
+                                <td>10.0%</td>
+                                <td>5.0%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gemma-4-31B</th>
+                                <td>46.7%</td>
+                                <td>16.2%</td>
+                                <td>31.4%</td>
+                                <td>0.0%</td>
+                                <td><span class="best">10.0%</span></td>
+                                <td>5.0%</td>
+                                <td>5.0%</td>
+                            </tr>
+                            <tr class="su-row">
+                                <th scope="row">SU-01</th>
+                                <td><span class="split-score"><span class="second">77.1%</span><span class="score-separator">/</span><span class="best">91.0%</span></span></td>
+                                <td><span class="split-score"><span class="second">38.1%</span><span class="score-separator">/</span><span class="best">49.5%</span></span></td>
+                                <td><span class="split-score"><span class="second">57.6%</span><span class="score-separator">/</span><span class="best">70.2%</span></span></td>
+                                <td><span class="best">10.0%</span></td>
+                                <td><span class="best">10.0%</span></td>
+                                <td><span class="second">15.0%</span></td>
+                                <td><span class="best">11.7%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="paper-table-footnote" data-i18n="results.table2.footnote"
+                     data-i18n-zh="粗体与下划线分别表示各对比块中的最佳和第二佳结果。"
+                     data-i18n-en="Bold and underline indicate the best and second-best results within each comparison block.">Bold and underline indicate the best and second-best results within each comparison block.</div>
+            </div>
+
+                    <ul>
+            <li>
+	                <strong data-i18n="results.p1.b1.title"
+	                        data-i18n-zh="在非可验证基准上取得同规模模型中的最强结果。"
+	                        data-i18n-en="Strongest result among similar-size models on non-verifiable benchmarks.">Strongest result among similar-size models on non-verifiable benchmarks.</strong>
+	                <p data-i18n="results.p1.b1.p"
+	                   data-i18n-zh="非可验证基准检验训练方法是否提升完整推理轨迹的质量，而不仅仅优化最终答案奖励。在 IMO-ProofBench 上，SU-01 直接生成的 overall 分数达到 57.6%，已是同规模模型中的最强结果。测试时扩展进一步将分数提升到 70.2%，其中 basic split 达到 91.0%，advanced split 达到 49.5%，使 30B-A3B 模型接近更大前沿系统的表现。这一提升表明，当正确性取决于完整证明而不仅是最终答案时，自我验证与精炼尤其有效。"
+                   data-i18n-en="Non-verifiable benchmarks test whether the training recipe improves the quality
+of full reasoning traces, rather than only optimizing final-answer rewards. On
+IMO-ProofBench, it shows that SU-01 reaches
+57.6% overall in direct generation, already the strongest result among
+similar-size models. Test-time scaling further raises the score to 70.2%,
+including 91.0% on the basic split and 49.5% on the advanced split, bringing a
+30B-A3B model close to much larger frontier systems. This improvement indicates
+that self-verification and refinement are especially useful when correctness
+depends on the complete proof, not merely on producing the right final answer."></p>
+            </li>
+            <li>
+	                <strong data-i18n="results.p1.b1.title"
+	                        data-i18n-zh="展现面向科学研究级推理的强泛化能力。"
+	                        data-i18n-en="Strong generalization capacity to scientific research-level reasoning.">Strong generalization capacity to scientific research-level reasoning.</strong>
+	                <p data-i18n="results.p1.b1.p"
+	                   data-i18n-zh="FrontierScience-Research 是 FrontierScience 中难度更高的研究子集，涵盖需要科学建模和多步推理、超出标准竞赛形式的物理、化学和生物问题。即使对前沿系统而言，绝对分数仍然较低，但 SU-01 在不使用 TTS 的情况下取得 11.7% 的同规模最佳 overall 分数。尽管我们的 RL 阶段只使用数学和物理信号，它仍在同规模组中物理得分领先，化学并列第一，生物排名第二。这种跨领域模式说明，该方法学到的是更通用的科学推理行为，而不只是对训练领域的专门化，为紧凑开放模型中的可迁移研究级推理提供了早期证据。"
+                   data-i18n-en="FrontierScience-Research is a substantially harder research-oriented subset of
+FrontierScience, covering physics, chemistry, and biology problems that require
+scientific modeling and multi-step reasoning beyond standard contest formats.
+Absolute scores remain low even for frontier systems, but SU-01 obtains the
+best similar-size overall score at 11.7% without TTS. It also leads the
+similar-size block on Physics, ties for the best Chemistry score, and ranks
+second on Biology, despite our RL stages using only mathematics and physics
+signals. This cross-domain pattern suggests that the recipe learns a more
+general scientific reasoning behavior rather than only specializing to the
+training domains, providing early evidence of transferable research-level
+reasoning in a compact open model."></p>
+            </li>
+
+            </ul>
+
+            <hr>
+
+            <div class="paper-table-card">
+                <div class="paper-table-header">
+                    <div class="paper-table-kicker" data-i18n="results.table3.kicker"
+                         data-i18n-zh="Table 3"
+                         data-i18n-en="Table 3">Table 3</div>
+                    <h4 class="paper-table-title" data-i18n="results.table3.title"
+                        data-i18n-zh="奥赛竞赛题表现"
+                        data-i18n-en="Performance on Olympiad Competition Problems">Performance on Olympiad Competition Problems</h4>
+                    <p class="paper-table-note" data-i18n="results.table3.note"
+                       data-i18n-zh="左侧为 IPhO 2024/2025 物理奥赛结果，仅展示 similar-size models；右侧为 IMO 2025 数学奥赛结果。IPhO 中 x/y 表示不使用与使用 TTS 的分数；星号表示 TTS 结果由人类专家评估。"
+                       data-i18n-en="The left panel reports IPhO 2024/2025 physics olympiad results for similar-size models only; the right panel reports IMO 2025 mathematical olympiad results. For IPhO, x/y reports scores without and with TTS; a star indicates human-expert evaluation for TTS results."></p>
+                </div>
+                <div class="competition-grid">
+                    <section class="competition-panel" aria-labelledby="ipho-panel-title">
+                        <div id="ipho-panel-title" class="competition-panel-title">IPhO 2024/2025</div>
+                        <div class="paper-table-scroll">
+                            <table class="paper-table compact">
+                                <thead>
+                                    <tr>
+                                        <th class="model-col" scope="col">Model</th>
+                                        <th scope="col">IPhO 2024</th>
+                                        <th scope="col">IPhO 2025</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="model-group">
+                                        <th colspan="3" scope="rowgroup">Similar-size models</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">P1-30B-A3B</th>
+                                        <td>23.1</td>
+                                        <td>17.7</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">GLM-4.7-Flash</th>
+                                        <td>22.2</td>
+                                        <td>19.5</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Nemotron-Cascade-2</th>
+                                        <td>21.2</td>
+                                        <td>16.7</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Qwen3.6-35B-A3B</th>
+                                        <td>24.3</td>
+                                        <td>19.9</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Gemma-4-31B</th>
+                                        <td><span class="second">24.4</span></td>
+                                        <td><span class="second">20.3</span></td>
+                                    </tr>
+                                    <tr class="su-row">
+                                        <th scope="row">SU-01</th>
+                                        <td><span class="split-score">23.5<span class="score-separator">/</span><span class="best">25.3</span></span></td>
+                                        <td><span class="split-score"><span class="second">20.3</span><span class="score-separator">/</span><span class="best">21.7</span></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <div class="competition-stack">
+                        <section class="competition-panel" aria-labelledby="imo-panel-title">
+                            <div id="imo-panel-title" class="competition-panel-title">IMO 2025</div>
+                            <div class="paper-table-scroll">
+                                <table class="paper-table compact">
+                                    <thead>
+                                        <tr>
+                                            <th class="model-col" scope="col">Model</th>
+                                            <th scope="col">P1</th>
+                                            <th scope="col">P2</th>
+                                            <th scope="col">P3</th>
+                                            <th scope="col">P4</th>
+                                            <th scope="col">P5</th>
+                                            <th scope="col">P6</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">SU-01</th>
+                                            <td>1</td>
+                                            <td>7</td>
+                                            <td>1</td>
+                                            <td>6</td>
+                                            <td>6</td>
+                                            <td>0</td>
+                                            <td>21</td>
+                                        </tr>
+                                        <tr class="su-row">
+                                            <th scope="row">SU-01 w/ TTS</th>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">0<sup>*</sup></span></td>
+                                            <td><span class="star-score best">35<sup>*</sup></span><span class="medal"><img src="source_png/金牌.png" alt="Gold medal"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="competition-panel" aria-labelledby="usamo-panel-title">
+                            <div id="usamo-panel-title" class="competition-panel-title">USAMO 2026</div>
+                            <div class="paper-table-scroll">
+                                <table class="paper-table compact">
+                                    <thead>
+                                        <tr>
+                                            <th class="model-col" scope="col">Model</th>
+                                            <th scope="col">P1</th>
+                                            <th scope="col">P2</th>
+                                            <th scope="col">P3</th>
+                                            <th scope="col">P4</th>
+                                            <th scope="col">P5</th>
+                                            <th scope="col">P6</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">SU-01</th>
+                                            <td>7</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>7</td>
+                                            <td>0</td>
+                                            <td>1</td>
+                                            <td>15</td>
+                                        </tr>
+                                        <tr class="su-row">
+                                            <th scope="row">SU-01 w/ TTS</th>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">0<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score">7<sup>*</sup></span></td>
+                                            <td><span class="star-score best">35<sup>*</sup></span><span class="medal"><img src="source_png/金牌.png" alt="Gold medal"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="paper-table-footnote" data-i18n="results.table3.footnote"
+                     data-i18n-zh="IPhO 2024/2025 金牌线为 20.8/19.7 分；IMO 2025 金/银/铜牌线为 35/28/19 分；USAMO 2026 金/银/铜牌线为 25/18/11 分。TTS 表示 test-time scaling。"
+                     data-i18n-en="Gold lines for IPhO 2024/2025 are 20.8/19.7 points; medal lines for IMO 2025 are 35/28/19 points; medal lines for USAMO 2026 are 25/18/11 points. TTS denotes test-time scaling.">Gold lines for IPhO 2024/2025 are 20.8/19.7 points; medal lines for IMO 2025 are 35/28/19 points; medal lines for USAMO 2026 are 25/18/11 points. TTS denotes test-time scaling.</div>
+            </div>
+
+<ul>
+            <li>
+                <strong data-i18n="results.p1.b1.title"
+                        data-i18n-zh="SU-01 达到 IPhO 2024/2025 金牌线。"
+                        data-i18n-en="SU-01 achieves IPhO 2024/2025 gold lines.">SU-01 achieves IPhO 2024/2025 gold lines.</strong>
+                <p data-i18n="results.p1.b1.p"
+                   data-i18n-zh="即使不使用 TTS，SU-01 在 IPhO 2024 上平均得分 23.5，在 IPhO 2025 上平均得分 20.3，超过对应的 20.8 和 19.7 分金牌线。TTS 进一步将分数提升到 25.3 和 21.7，使 SU-01 成为已有分数模型中两个年份最强的同规模模型。"
+                   data-i18n-en="Even without TTS, SU-01 averages 23.5 points on IPhO 2024 and 20.3 points on
+IPhO 2025, exceeding the corresponding gold lines of 20.8 and 19.7 points. TTS
+further raises the scores to 25.3 and 21.7 points, making SU-01 the strongest
+similar-size model in both years among models with available scores. "></p>
+            </li>
+            <li>
+                <strong data-i18n="results.p1.b1.title"
+                        data-i18n-zh="SU-01 TTS 达到 IMO 2025 和 USAMO 2026 金牌线。"
+                        data-i18n-en="SU-01 TTS achieves IMO 2025 and USAMO 2026 gold lines.">SU-01 TTS achieves IMO 2025 and USAMO 2026 gold lines.</strong>
+                <p data-i18n="results.p1.b1.p"
+                   data-i18n-zh="使用 TTS 后，SU-01 在 IMO 2025 和 USAMO 2026 上均达到 35 分，恰好达到 IMO 金牌线，并比 USAMO 金牌线高出 10 分。TTS 将 IMO 2025 的五道题提升到满分，P6 仍未解决；同时在 USAMO 2026 的六道题中恢复了五道满分解，P2 仍未解决。由于 TTS 行由人类专家评分，这些结果直接检验了生成证明是否达到自动验证之外的奥赛标准。"
+                   data-i18n-en="With TTS, SU-01 reaches 35 points on both IMO 2025 and USAMO 2026, meeting the
+IMO gold line exactly and exceeding the USAMO gold line by 10 points. TTS
+upgrades five IMO 2025 problems to full credit while P6 remains unsolved, and
+recovers full-credit solutions on five of six USAMO 2026 problems while P2
+remains unresolved. Because the TTS rows are graded by human experts, these
+results directly test whether the generated proofs meet olympiad standards
+beyond automatic verification. "></p>
+            </li>
+            </ul>
+
+            <div class="content-section">
+                <h3 data-i18n="tts.title"
+                    data-i18n-zh="测试时扩展的工作机制"
+                    data-i18n-en="Test-time Scaling Mechanics">测试时扩展的工作机制</h3>
+                
+                <p data-i18n="tts.p1"
+                   data-i18n-zh="推理阶段扩展进一步放大了模型的证明和自我修正能力。通过生成候选解答-检查完整证明-定位问题-修正解答的多轮循环，模型能够把不完整或不稳定的尝试转化为可评分的完整解答。这里扩展的不是外部工具链，而是模型自身的自然语言验证与修正计算。报告中的推理扩展分析显示，在 USAMO 2026 的推理扩展轨迹中，初始解答生成的中位长度约 10.6 万词元，修正阶段的中位长度约 8.3 万词元。模型在 30B-A3B 规模下仍能持续开展 10 万词元量级的有效推理，并将长程计算用于证明构造、漏洞定位和论证修复。"
+                   data-i18n-en="Test-time scaling further amplifies the model's proof-search and self-correction capabilities. Through iterative cycles of 'generate candidate solution - verify complete proof - locate issues - refine solution', the model can transform incomplete or unstable attempts into complete, scorable solutions. What is expanded is not an external tool pipeline, but the model's own natural language verification and refinement computation. Analysis of test-time scaling traces on USAMO 2026 shows that initial solution generation has a median length of approximately 106K tokens, while refinement stages have a median length of approximately 83K tokens. The model can sustain effective reasoning at the 100K-token scale even at the 30B-A3B parameter weight, using long-form computation for proof construction, gap identification, and argument repair."></p>
+                
+                <div class="chart-container" style="margin: 2rem 0;">
+                    <img src="source_png/tts_action_length_distribution_1.png" alt="Test-time Scaling Action Length Distribution" style="width: 65%; height: auto; display: block; border-radius: 8px; margin: 0 auto;">
+                    <!-- <p style="text-align: center; color: var(--text-secondary); font-size: 14px; margin-top: 0.5rem;" data-i18n="tts.figure.caption"
+                       data-i18n-zh="图：USAMO 2026 推理扩展轨迹中各阶段的生成长度分布（对数刻度）。散点表示单个问题的处理情况，箱线图显示中位数和分布范围。"
+                       data-i18n-en="Figure: Distribution of generation lengths across different stages in test-time scaling traces for USAMO 2026 (log scale). Points represent individual problem instances, and box plots show medians and distributions.">图：USAMO 2026 推理扩展轨迹中各阶段的生成长度分布（对数刻度）。散点表示单个问题的处理情况，箱线图显示中位数和分布范围。</p> -->
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+       
+
+        <!-- Case Study Section -->
+        <h3 data-i18n="casestudy.title"
+            data-i18n-zh="案例研究"
+            data-i18n-en="Case Study">Case Study</h3>
+
+        <div class="case-study-summary content-section">
+            <p data-i18n="casestudy.summary.p1"
+               data-i18n-zh="在 IMO 2025 和 USAMO 2026 的十二道题中，模型对十道题给出了满分解答，仅在 IMO 2025 P6 和 USAMO 2026 P2 上失败。其主要优势在于能够将奥赛问题转化为形式化框架：几何问题中的坐标或复数方法，数论问题中的模分类，函数方程中的递推关系，以及数字问题中的自动机动态规划。"
+               data-i18n-en="Across the twelve IMO 2025 and USAMO 2026 problems, the model gives full-credit solutions to ten problems, with failures on IMO 2025 P6 and USAMO 2026 P2. Its main strength is translating olympiad problems into formal frameworks: coordinates or complex numbers for geometry, modular classifications for number theory, recurrences for functional equations, and automata-based dynamic programming for digit problems."></p>
+            <p data-i18n="casestudy.summary.p2"
+               data-i18n-zh="一个特别突出的例子是 USAMO 2026 P3：模型没有沿用标准的综合几何路线，而是优雅地使用复数，将单位圆、等边三角形旋转、弦关系和切线条件统一到同一个代数框架中。这把一个奥赛选手通常会通过角追踪和精心辅助构造处理的图形配置，转化为一种巧妙的解析表述。"
+               data-i18n-en="A particularly striking example is USAMO 2026 P3: rather than following the standard synthetic geometry route, the model elegantly uses complex numbers to unify the unit circle, equilateral-triangle rotations, chord relations, and tangent conditions within a single algebraic framework. This yields an ingenious analytic reformulation of a configuration that olympiad solvers would typically approach through angle chasing and carefully chosen auxiliary constructions."></p>
+            <p data-i18n="casestudy.summary.p3"
+               data-i18n-zh="IMO 2025 P2 展示了另一种互补能力，模型将一个双圆相切问题化约为坐标与距离计算。其他强例还包括 USAMO P4 中的进位状态动态规划，以及 USAMO P6 中结合欧拉函数、同余、Vieta jumping 和 Fibonacci 结构的数论证明。"
+               data-i18n-en="IMO 2025 P2 shows a complementary strength, where the model reduces a two-circle tangency problem to coordinate and distance computations. Other strong examples include the carry-state dynamic programming approach for USAMO P4 and the number-theoretic proof using totients, congruences, Vieta jumping, and Fibonacci structure in USAMO P6."></p>
+            <p data-i18n="casestudy.summary.p4"
+               data-i18n-zh="不过，失败案例也暴露出一个明确限制：模型可能遗漏微妙的结构约束，例如 IMO P6 中无效的列置换化约；也可能在精细的全局策略论证中留下缺口，例如 USAMO P2。总体而言，当问题能够被严格的形式化表示捕捉时，模型表现出色；而当核心挑战在于保持组合结构或证明精细的过程不变量时，它的可靠性会下降。"
+               data-i18n-en="However, the failures show a clear limitation: the model can miss subtle structural constraints, as in the invalid column-permutation reduction in IMO P6, or leave gaps in delicate global strategy arguments, as in USAMO P2. Overall, the model performs well when a problem admits a rigid formal representation, but is less reliable when the core challenge is preserving combinatorial structure or proving a finely tuned process invariant."></p>
+        </div>
+
+        <div class="olympiad-case-containers">
+            <section class="olympiad-case-container" id="imo-cases">
+                <h4 class="olympiad-container-title">IMO 2025</h4>
+                <iframe class="olympiad-case-frame" src="case_study/imo_cases.html" title="IMO 2025 Case Studies" loading="lazy"></iframe>
+            </section>
+
+            <section class="olympiad-case-container" id="usamo-cases">
+                <h4 class="olympiad-container-title">USAMO 2026</h4>
+                <iframe class="olympiad-case-frame" src="case_study/usamo_cases.html" title="USAMO 2026 Case Studies" loading="lazy"></iframe>
+            </section>
+        </div>
+
+        <!-- Acknowledgements Section -->
+        <div class="acknowledgements-section">
+            <h3 id="acknowledgements" class="acknowledgements-title" 
+                data-i18n="acknowledgements.title"
+                data-i18n-zh="致谢"
+                data-i18n-en="Acknowledgements">Acknowledgements</h3>
+            
+            <p class="acknowledgements-intro" 
+               data-i18n="acknowledgements.intro"
+               data-i18n-zh="本工作由上海人工智能实验室支持。我们感谢此前开放研究与基础设施的作者和维护者，是他们的工作使本研究成为可能。特别感谢 DeepSeek 开源强大的推理策略和生成式奖励模型，为我们的工作提供了重要参考。IMO-Bench、AMO-Bench 和 FrontierScience 提供了具有挑战性的数学与科学推理基准及评测协议，帮助指导整体系统优化。我们也感谢支持 SFT 与 RL 数据构建的既有数据工作，包括 DeepMath、NaturalReasoning、Eurus、OpenCodeReasoning、P1 和 OPC，以及许多无法一一列出的公共题源和社区。我们进一步感谢更广泛的开源基础设施生态，包括用于训练的 slime，以及用于高效推理和服务的 SGLang。本工作由上海人工智能实验室支持。"
+               data-i18n-en="This work was supported by the Shanghai Artificial Intelligence Laboratory. We thank the authors and maintainers of prior open research and infrastructure that made this work possible. In particular, we are grateful to DeepSeek for open-sourcing strong reasoning policies and generative reward models, which provided an important reference point for our work. IMO-Bench, AMO-Bench, and FrontierScience helped guide the overall system optimization by offering challenging mathematical and scientific reasoning benchmarks and evaluation protocols. We also thank prior data efforts that supported our SFT and RL data curation, including DeepMath, NaturalReasoning, Eurus, OpenCodeReasoning, P1, and OPC, as well as the many public problem sources and communities that cannot all be listed here. We further acknowledge the broader open-source infrastructure ecosystem, including slime for training and SGLang for efficient inference and serving. This work was supported by the Shanghai Artificial Intelligence Laboratory.">
+                This work was supported by the Shanghai Artificial Intelligence Laboratory. We thank the authors and maintainers of prior open research and infrastructure that made this work possible. In particular, we are grateful to DeepSeek for open-sourcing strong reasoning policies and generative reward models, which provided an important reference point for our work. IMO-Bench, AMO-Bench, and FrontierScience helped guide the overall system optimization by offering challenging mathematical and scientific reasoning benchmarks and evaluation protocols. We also thank prior data efforts that supported our SFT and RL data curation, including DeepMath, NaturalReasoning, Eurus, OpenCodeReasoning, P1, and OPC, as well as the many public problem sources and communities that cannot all be listed here. We further acknowledge the broader open-source infrastructure ecosystem, including slime for training and SGLang for efficient inference and serving. This work was supported by the Shanghai Artificial Intelligence Laboratory.
+            </p>
+        </div>
+
+        <!-- Citation Section -->
+        <div class="citation-section">
+            <h3 id="citation" class="citation-title" 
+                data-i18n="citation.title"
+                data-i18n-zh="引用"
+                data-i18n-en="Citation">Citation</h3>
+            
+            <div class="citation-bibtex-wrapper">
+                <button class="citation-copy-btn" onclick="copyBibtex()" 
+                        data-i18n="citation.copy"
+                        data-i18n-zh="复制"
+                        data-i18n-en="Copy">Copy</button>
+                <div class="citation-bibtex-content" id="bibtexContent">@misc{su012026,
+    title={Achieving Gold-Medal-Level Olympiad Reasoning via Simple and Unified Scaling},
+    author={SU-01 Team},
+    year={2026},
+    url={https://Simplified-Reasoning.github.io/SU-01/}
+}</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+    </div>
+
+    <!-- Scroll to Top Button -->
+        <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()" aria-label="Back to top">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        // --- Simple i18n ---
+        (function() {
+            const STORAGE_KEY = 'site_lang';
+            const DEFAULT_LANG = 'en';
+
+            function getStoredLang() {
+                try { return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; } catch { return DEFAULT_LANG; }
+            }
+
+            function setStoredLang(lang) {
+                try { localStorage.setItem(STORAGE_KEY, lang); } catch {}
+            }
+
+            function updateHtmlLang(lang) {
+                const html = document.documentElement;
+                html.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+            }
+
+            function applyTranslations(lang) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const attr = lang === 'zh' ? 'data-i18n-zh' : 'data-i18n-en';
+                    const html = el.getAttribute(attr);
+                    if (html != null) {
+                        el.innerHTML = html;
+                    }
+                });
+                // aria-labels
+                const backTop = document.getElementById('scrollToTop');
+                if (backTop) backTop.setAttribute('aria-label', lang === 'zh' ? '回到顶部' : 'Back to top');
+                const lbClose = document.querySelector('.lightbox-close');
+                if (lbClose) lbClose.setAttribute('aria-label', lang === 'zh' ? '关闭' : 'Close');
+            }
+
+            function setActiveButton(lang) {
+                const zhBtn = document.getElementById('btn-zh');
+                const enBtn = document.getElementById('btn-en');
+                if (!zhBtn || !enBtn) return;
+                if (lang === 'zh') {
+                    zhBtn.classList.add('active'); zhBtn.setAttribute('aria-pressed', 'true');
+                    enBtn.classList.remove('active'); enBtn.setAttribute('aria-pressed', 'false');
+                } else {
+                    enBtn.classList.add('active'); enBtn.setAttribute('aria-pressed', 'true');
+                    zhBtn.classList.remove('active'); zhBtn.setAttribute('aria-pressed', 'false');
+                }
+            }
+
+            function updateChartLanguage(chart, lang) {
+                if (!chart) return;
+                const markLines = [
+                    lang === 'zh' ? '金牌线' : 'Gold Medal',
+                    lang === 'zh' ? '银牌线' : 'Silver Medal',
+                    lang === 'zh' ? '铜牌线' : 'Bronze Medal'
+                ];
+                const option = chart.getOption();
+                if (option && option.series && option.series[0] && option.series[0].markLine) {
+                    const data = option.series[0].markLine[0].data;
+                    if (data && data.length >= 3) {
+                        data[0].label = Object.assign({}, data[0].label, { show: true, position: 'end', formatter: markLines[0] });
+                        data[1].label = Object.assign({}, data[1].label, { show: true, position: 'end', formatter: markLines[1] });
+                        data[2].label = Object.assign({}, data[2].label, { show: true, position: 'end', formatter: markLines[2] });
+                        chart.setOption(option, true);
+                    }
+                }
+            }
+
+            function switchLanguage(lang) {
+                setStoredLang(lang);
+                updateHtmlLang(lang);
+                applyTranslations(lang);
+                setActiveButton(lang);
+                if (window.iphoChart) updateChartLanguage(window.iphoChart, lang);
+                document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+                if (window.buildTOC) { try { window.buildTOC(); } catch {} }
+            }
+
+            // init on DOMContentLoaded to ensure elements exist
+            document.addEventListener('DOMContentLoaded', () => {
+                const current = getStoredLang();
+                updateHtmlLang(current);
+                applyTranslations(current);
+                setActiveButton(current);
+                const zhBtn = document.getElementById('btn-zh');
+                const enBtn = document.getElementById('btn-en');
+                if (zhBtn) zhBtn.addEventListener('click', () => switchLanguage('zh'));
+                if (enBtn) enBtn.addEventListener('click', () => switchLanguage('en'));
+                setTimeout(() => { if (window.buildTOC) { try { window.buildTOC(); } catch {} } }, 0);
+            });
+
+            // expose for debugging
+            window.switchLanguage = switchLanguage;
+        })();
+        
+        // Theme Toggle Functionality
+        (function() {
+            const THEME_STORAGE_KEY = 'site_theme';
+            const THEME_ATTR = 'data-theme';
+            
+            function getStoredTheme() {
+                return localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
+            }
+            
+            function setStoredTheme(theme) {
+                localStorage.setItem(THEME_STORAGE_KEY, theme);
+            }
+            
+            function applyTheme(theme) {
+                document.documentElement.setAttribute(THEME_ATTR, theme);
+                setStoredTheme(theme);
+                updateThemeIcon(theme);
+                updateThemeLabel(theme);
+                updateAilabLogo(theme);
+                updateDynamicsImage(theme);
+                
+                // Notify iframes about theme change
+                notifyIframesOfTheme(theme);
+            }
+            
+            function notifyIframesOfTheme(theme) {
+                document.querySelectorAll('iframe').forEach(iframe => {
+                    try {
+                        iframe.contentWindow.postMessage({
+                            type: 'themeChange',
+                            theme: theme
+                        }, '*');
+                    } catch (e) {
+                        console.error('Error sending theme to iframe:', e);
+                    }
+                });
+            }
+            
+            // Initialize theme immediately (before DOMContentLoaded) to prevent flash
+            (function() {
+                const savedTheme = getStoredTheme();
+                document.documentElement.setAttribute(THEME_ATTR, savedTheme);
+            })();
+            
+            function updateThemeIcon(theme) {
+                const icon = document.getElementById('themeIcon');
+                if (!icon) return;
+                
+                const currentLang = localStorage.getItem('site_lang') || 'en';
+                const isLight = theme === 'light';
+                
+                if (isLight) {
+                    // Sun icon for light mode
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+                } else {
+                    // Moon icon for dark mode
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+                }
+            }
+            
+            function updateThemeLabel(theme) {
+                const label = document.getElementById('themeLabel');
+                if (!label) return;
+                
+                const currentLang = localStorage.getItem('site_lang') || 'en';
+                const isLight = theme === 'light';
+                
+                if (isLight) {
+                    label.textContent = currentLang === 'zh' ? '浅色' : 'Light';
+                    label.setAttribute('data-i18n', 'theme.light');
+                } else {
+                    label.textContent = currentLang === 'zh' ? '深色' : 'Dark';
+                    label.setAttribute('data-i18n', 'theme.dark');
+                }
+            }
+            
+            function updateAilabLogo(theme) {
+                const logo = document.getElementById('ailabLogo');
+                if (!logo) return;
+                
+                const isLight = theme === 'light';
+                
+                if (isLight) {
+                    logo.src = 'imgs/ailab-logo-blue.png';
+                } else {
+                    logo.src = 'imgs/ailab-logo.png';
+                }
+            }
+            
+            function updateDynamicsImage(theme) {
+                const img = document.getElementById('dynamicsImage');
+                if (!img) return;
+                
+                const isLight = theme === 'light';
+                
+                if (isLight) {
+                    img.src = 'imgs/dynamics_white.png';
+                } else {
+                    img.src = 'imgs/dynamics_black.png';
+                }
+            }
+            
+            function toggleTheme() {
+                const current = getStoredTheme();
+                const newTheme = current === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+                
+                // Notify all iframes about theme change
+                document.querySelectorAll('iframe').forEach(iframe => {
+                    try {
+                        iframe.contentWindow.postMessage({ type: 'themeChange', theme: newTheme }, '*');
+                    } catch (e) {
+                        // Cross-origin or other error, ignore
+                    }
+                });
+                
+            }
+            
+            // Initialize theme on page load
+            document.addEventListener('DOMContentLoaded', () => {
+                const savedTheme = getStoredTheme();
+                applyTheme(savedTheme);
+                
+                const themeToggle = document.getElementById('themeToggle');
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', toggleTheme);
+                }
+                
+                // Update label when language changes
+                document.addEventListener('languageChanged', (e) => {
+                    const currentTheme = getStoredTheme();
+                    updateThemeLabel(currentTheme);
+                });
+                
+                // Also update label after a short delay to ensure language is set
+                setTimeout(() => {
+                    const currentTheme = getStoredTheme();
+                    updateThemeLabel(currentTheme);
+                }, 100);
+                
+                // Send initial theme to iframes when they load
+                document.querySelectorAll('iframe').forEach(iframe => {
+                    iframe.addEventListener('load', () => {
+                        setTimeout(() => {
+                            const currentTheme = getStoredTheme();
+                            console.log('Sending initial theme to iframe:', currentTheme);
+                            try {
+                                iframe.contentWindow.postMessage({
+                                    type: 'themeChange',
+                                    theme: currentTheme
+                                }, '*');
+                            } catch (e) {
+                                console.error('Error sending initial theme to iframe:', e);
+                            }
+                        }, 100);
+                    });
+                });
+            });
+            
+            // Expose for debugging
+            window.toggleTheme = toggleTheme;
+            window.getCurrentTheme = () => getStoredTheme();
+        })();
+        
+        function typesetMath(element) {
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise([element]).catch(function (err) {
+                    console.log('MathJax typeset error: ' + err.message);
+                });
+            }
+        }
+
+        // Toggle context visibility
+        function toggleContext(contextId) {
+            const content = document.getElementById(contextId);
+            const button = content.previousElementSibling;
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                button.classList.remove('active');
+            } else {
+                content.classList.add('show');
+                button.classList.add('active');
+                
+                typesetMath(content);
+            }
+        }
+        
+        // Toggle solution visibility
+        function toggleSolution(solutionId) {
+            const content = document.getElementById(solutionId);
+            const button = content.previousElementSibling;
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                button.classList.remove('active');
+            } else {
+                content.classList.add('active');
+                button.classList.add('active');
+                
+                typesetMath(content);
+            }
+        }
+        
+        // Copy BibTeX citation
+        function copyBibtex() {
+            const bibtexContent = document.getElementById('bibtexContent').textContent;
+            const button = event.target;
+            
+            navigator.clipboard.writeText(bibtexContent).then(function() {
+                const originalText = button.textContent;
+                const currentLang = localStorage.getItem('site_lang') || 'en';
+                button.textContent = currentLang === 'zh' ? '已复制' : 'Copied';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+                const currentLang = localStorage.getItem('site_lang') || 'en';
+                alert(currentLang === 'zh' ? '复制失败，请手动复制' : 'Copy failed, please copy manually');
+            });
+        }
+        
+        function openLightbox(element) {
+            const img = element.querySelector('.article-image');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightbox.classList.add('active');
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox(event) {
+            // Close only if clicking on overlay or close button, not on image
+            if (event.target.id === 'lightbox' || event.target.closest('.lightbox-close')) {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                event.stopPropagation();
+            }
+        }
+        
+        // ESC key to close lightbox
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const lightbox = document.getElementById('lightbox');
+                if (lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+        
+        // Progress Bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercentage + '%';
+        }
+        
+        // Scroll to Top Button
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        function toggleScrollToTopButton() {
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (window.pageYOffset > 500) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        }
+        
+        // Scroll event listener
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            toggleScrollToTopButton();
+        });
+        
+        // Initial call
+        updateProgressBar();
+        toggleScrollToTopButton();
+        
+        // Add fade-in animation for content sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.content-section, .article-image-container, .highlight-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Initialize IPhO Chart
+        function initIphoChart() {
+            const chartEl = document.getElementById('ipho-chart');
+            if (!chartEl) return null;
+
+            const scoreTotal = 30;
+            const scoreMedal = [19.7, 12.1, 7.2]; // Gold, Silver, Bronze
+            const labels = [
+                'P1-235B-A22B\n+ PhysicsMinions',
+                'Gemini-2.5-Pro','GPT-5','P1-235B-A22B','Gemini-2.5-Flash\n-Thinking',
+                'Claude-4-Sonnet\n-Thinking','Grok-4','P1-30B-A3B','DeepSeek-R1','Qwen3-235B-A22B\n-Thinking-2507','GPT-OSS-120B','Kimi-K2-Instruct','o4-mini (high)','Intern-S1','o3','Qwen3-30B-A3B\n-Thinking-2507','DeepSeek-V3',
+                'GLM-4.5V','GPT-4o'
+            ];
+            const values = [
+                23.2,
+                22.7, 22.3, 21.22, 20.2,
+                19.0, 18.7, 18.53, 18.5, 17.1, 16.9, 16.5, 16.0, 15.9, 15.7, 15.6, 13.6,
+                11.9, 10.2
+            ];
+
+            // Model categories
+            const closedSource = new Set(['GPT-5','o3','o4-mini (high)','o4-mini','Gemini-2.5-Pro','Gemini-2.5-Flash-Thinking','Claude-4-Sonnet-Thinking','Grok-4','GPT-4o','Claude-4-Sonnet','Mistral-Medium-3']);
+            const openSourceMLLM = new Set(['GLM-4.5V','Intern-S1','LLaMA4-Scout-17B','Qwen2.5-VL-72B-Instruct','Qwen2.5-VL-32B-Instruct','InternVL3-78B-Instruct','InternVL3-38B-Instruct']);
+            const p1Series = new Set(['P1-235B-A22B','P1-30B-A3B']);
+            const openSourceLLM = new Set(['Qwen3-235B-A22B','Qwen3-235B-A22B-Thinking-2507','Qwen3-30B-A3B','Qwen3-30B-A3B-Thinking-2507','Qwen3-32B','Qwen3-8B','DeepSeek-R1','DeepSeek-V3','GPT-OSS-120B','Kimi-K2-Instruct']);
+
+            // Colors
+            const p1ColorLabel = '#60A5FA';
+            const p1ColorEdge = '#93C5FD';
+            const solverColor = '#EF4444';
+            const goldColor = '#F7D411EF';
+            const silverColor = '#C0C0C0';
+            const bronzeColor = '#CD7F32';
+            const whiteColor = '#FFFFFF';
+
+            function barColorFor(label, value) {
+                if (value >= scoreMedal[0]) return goldColor;
+                if (value >= scoreMedal[1]) return silverColor;
+                if (value >= scoreMedal[2]) return bronzeColor;
+                return whiteColor;
+            }
+
+            function isP1Label(label) {
+                return typeof label === 'string' && label.startsWith('P1-');
+            }
+
+            const normalize = (s) => (typeof s === 'string' ? s.replace(/\n/g, '') : s);
+            const closedSourceNorm = new Set(Array.from(closedSource).map(normalize));
+            const openSourceMLLMNorm = new Set(Array.from(openSourceMLLM).map(normalize));
+            const openSourceLLMNorm = new Set(Array.from(openSourceLLM).map(normalize));
+            
+            function isClosedLabel(label) {
+                const key = normalize(label);
+                return closedSourceNorm.has(key);
+            }
+
+            const stripeDecal = {
+                symbol: 'rect',
+                dashArrayX: [1, 0],
+                dashArrayY: [2, 2],
+                rotation: -Math.PI / 4,
+                color: 'rgba(0,0,0,0.3)'
+            };
+
+            const data = labels.map((lb, i) => {
+                const isSolver = lb === 'P1-235B-A22B\n+ PhysicsMinions';
+                const isP1 = isP1Label(lb);
+                const val = values[i];
+                const baseColor = barColorFor(lb, val);
+                const isClosed = isClosedLabel(lb);
+                
+                let labelColor = '#fff';
+                let borderColor = 'transparent';
+                let borderWidth = 0;
+                let fontSize = window.innerWidth < 768 ? 14 : (window.innerWidth < 1024 ? 16 : 19);
+                
+                if (isSolver) {
+                    labelColor = solverColor;
+                    borderColor = solverColor;
+                    borderWidth = 4;
+                    fontSize += 3;
+                } else if (isP1) {
+                    labelColor = p1ColorLabel;
+                    borderColor = p1ColorEdge;
+                    borderWidth = 5;
+                    fontSize += 2;
+                } else {
+                    if (val >= scoreMedal[0]) labelColor = goldColor;
+                    else if (val >= scoreMedal[1]) labelColor = silverColor;
+                    else if (val >= scoreMedal[2]) labelColor = bronzeColor;
+                    else labelColor = '#000';
+                }
+                
+                if (val < scoreMedal[2] && !isP1 && !isSolver) {
+                    borderColor = '#000';
+                    borderWidth = 1;
+                }
+                
+                return {
+                    value: val,
+                    itemStyle: {
+                        color: baseColor,
+                        borderColor: borderColor,
+                        borderWidth: borderWidth,
+                        decal: (isClosed && !isP1) ? stripeDecal : null,
+                        borderRadius: [3, 3, 0, 0],
+                        opacity: 1,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        shadowBlur: 8,
+                        shadowOffsetY: 2
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        color: labelColor,
+                        fontSize: fontSize,
+                        fontWeight: 'bold',
+                        textShadowColor: 'rgba(0, 0, 0, 0.6)',
+                        textShadowBlur: 3,
+                        textShadowOffsetX: 0,
+                        textShadowOffsetY: 1,
+                        formatter: ({ value }) => value.toFixed(1)
+                    }
+                };
+            });
+
+            const chart = echarts.init(chartEl);
+            
+            // Responsive font sizes
+            const labelFontSize = window.innerWidth < 768 ? 10 : (window.innerWidth < 1024 ? 11 : 12);
+            const axisLabelSize = window.innerWidth < 768 ? 14 : (window.innerWidth < 1024 ? 16 : 18);
+            const medalLabelSize = window.innerWidth < 768 ? 13 : (window.innerWidth < 1024 ? 15 : 17);
+            const p1LabelSize = window.innerWidth < 768 ? 12 : (window.innerWidth < 1024 ? 13 : 15);
+            
+            const option = {
+                backgroundColor: 'transparent',
+                grid: { 
+                    left: window.innerWidth < 768 ? 60 : 80, 
+                    right: window.innerWidth < 768 ? 80 : 140, 
+                    top: 20, 
+                    bottom: window.innerWidth < 768 ? 120 : 140 
+                },
+                xAxis: {
+                    type: 'category',
+                    data: labels,
+                    axisLabel: {
+                        color: '#fff',
+                        fontSize: labelFontSize,
+                        rotate: 45,
+                        align: 'right',
+                        formatter: function (value) {
+                            if (value === 'P1-235B-A22B\n+ PhysicsMinions') {
+                                return '{solver|' + value + '}';
+                            } else if (isP1Label(value)) {
+                                return '{p1|' + value + '}';
+                            }
+                            return value;
+                        },
+                        rich: {
+                            solver: { fontWeight: 'bolder', color: solverColor, fontSize: p1LabelSize },
+                            p1: { fontWeight: 'bolder', color: p1ColorLabel, fontSize: p1LabelSize }
+                        }
+                    },
+                    axisLine: { lineStyle: { color: '#fff' } },
+                    axisTick: { lineStyle: { color: '#fff' } }
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 0,
+                    max: scoreTotal,
+                    interval: 5,
+                    axisLabel: { color: '#fff', fontSize: axisLabelSize },
+                    axisLine: { lineStyle: { color: '#fff' } },
+                    splitLine: { show: false }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    backgroundColor: 'rgba(0,0,0,0.9)',
+                    borderColor: '#3B82F6',
+                    textStyle: { color: '#fff' }
+                },
+                series: [
+                    {
+                        type: 'bar',
+                        data,
+                        barWidth: '70%',
+                        emphasis: { focus: 'series' },
+                        z: 10,
+                        itemStyle: {
+                            borderRadius: [3, 3, 0, 0]
+                        },
+                        emphasis: {
+                            focus: 'series',
+                            itemStyle: {
+                                opacity: 1,
+                                shadowBlur: 15,
+                                shadowOffsetY: 4
+                            }
+                        },
+                        markLine: {
+                            symbol: 'none',
+                            label: { show: false },
+                            lineStyle: { type: 'dashed', width: 2.5 },
+                            data: [
+                                { yAxis: scoreMedal[0], lineStyle: { color: '#FFDA36E0' }, label: { show: true, position: 'end', formatter: 'Gold Medal', color: '#FFDA36E0', fontWeight: 'bold', fontSize: medalLabelSize }, z: 1 },
+                                { yAxis: scoreMedal[1], lineStyle: { color: '#B4B3B3' }, label: { show: true, position: 'end', formatter: 'Silver Medal', color: '#B4B3B3', fontWeight: 'bold', fontSize: medalLabelSize }, z: 1 },
+                                { yAxis: scoreMedal[2], lineStyle: { color: '#CD7F32' }, label: { show: true, position: 'end', formatter: 'Bronze Medal', color: '#CD7F32', fontWeight: 'bold', fontSize: medalLabelSize }, z: 1 }
+                            ]
+                        }
+                    }
+                ]
+            };
+
+            chart.setOption(option);
+            
+            return chart;
+        }
+        
+        // Initialize chart when page loads
+        let iphoChart = null;
+        let resizeTimeout = null;
+        
+        if (typeof echarts !== 'undefined') {
+            window.addEventListener('load', () => {
+                iphoChart = initIphoChart();
+                window.iphoChart = iphoChart;
+                // apply chart language after init
+                try {
+                    const lang = localStorage.getItem('site_lang') || 'en';
+                    const evt = new Event('chartLangReady');
+                    document.dispatchEvent(evt);
+                    (function applyLater(){
+                        if (window.switchLanguage) {
+                            // re-apply to ensure markLines text
+                            if (lang === 'en') window.switchLanguage('en');
+                            else window.switchLanguage('zh');
+                        }
+                    })();
+                } catch {}
+            });
+            
+            // Resize handler with debounce
+            window.addEventListener('resize', () => {
+                if (iphoChart) {
+                    iphoChart.resize();
+                    
+                    // Debounce re-initialization for responsive font sizes
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        iphoChart.dispose();
+                        iphoChart = initIphoChart();
+                    }, 300);
+                }
+            });
+        }
+        
+        // --- Build Table of Contents ---
+        (function() {
+            function slugify(text) {
+                return text
+                    .toString()
+                    .trim()
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^\w\-\u4e00-\u9fa5]+/g, '')
+                    .replace(/\-+/g, '-');
+            }
+
+            function ensureId(el) {
+                if (!el.id) {
+                    const base = slugify(el.textContent || 'section');
+                    let id = base || 'section';
+                    let i = 1;
+                    while (document.getElementById(id)) {
+                        id = base + '-' + i++;
+                    }
+                    el.id = id;
+                }
+                return el.id;
+            }
+
+            function buildTOC() {
+                const list = document.getElementById('tocList');
+                if (!list) return;
+                list.innerHTML = '';
+                const headings = document.querySelectorAll('main h2, main h3');
+                headings.forEach(h => {
+                    const id = ensureId(h);
+                    const li = document.createElement('li');
+                    li.className = h.tagName.toLowerCase() === 'h3' ? 'toc-h3' : 'toc-h2';
+                    const a = document.createElement('a');
+                    a.href = '#' + id;
+                    a.textContent = h.textContent.trim();
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                    li.appendChild(a);
+                    list.appendChild(li);
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', buildTOC);
+            document.addEventListener('languageChanged', buildTOC);
+            window.buildTOC = buildTOC;
+        })();
+    </script>
+</body>
+</html>

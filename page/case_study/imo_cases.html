@@ -1,0 +1,3387 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMO 2025 Case Studies</title>
+<script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            background: var(--bg-page);
+        }
+        
+        body {
+            background: var(--bg-page);
+            color: var(--text-primary);
+            transition: background-color var(--duration-normal) var(--easing-default), color var(--duration-normal) var(--easing-default);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: var(--radius-full);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-500);
+        }
+        
+        /* Selection */
+        ::selection {
+            background: rgba(59, 130, 246, 0.3);
+            color: var(--text-primary);
+        }
+        
+        :root {
+            /* Dark Theme Colors */
+            --primary-400: #60A5FA;
+            --primary-500: #3B82F6;
+            --primary-600: #2563EB;
+            --primary-700: #1D4ED8;
+            
+            --accent-blue: #60A5FA;
+            --accent-cyan: #22D3EE;
+            --accent-purple: #93C5FD;
+            
+            /* Dark Backgrounds */
+            --bg-page: #0A0A0A;
+            --bg-surface: #141414;
+            --bg-elevated: #1A1A1A;
+            --bg-card: #1E1E1E;
+            
+            /* Text Colors */
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --text-tertiary: #71717A;
+            --text-muted: #52525B;
+            
+            /* Border Colors */
+            --border-subtle: #27272A;
+            --border-medium: #3F3F46;
+            --border-strong: #52525B;
+            
+            /* Gradient Accents */
+            --gradient-purple: linear-gradient(135deg, #60A5FA 0%, #1D4ED8 100%);
+            --gradient-blue: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            --gradient-mesh: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                             radial-gradient(at 100% 0%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+                             radial-gradient(at 100% 100%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+            
+			/* Typography */
+			--font-serif: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif;
+            --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 6px;
+            --space-sm: 10px;
+            --space-md: 14px;
+            --space-lg: 18px;
+            --space-xl: 24px;
+            --space-2xl: 32px;
+            --space-3xl: 48px;
+            --space-4xl: 64px;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+            
+            /* Shadows - Dark Theme */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 12px 48px rgba(59, 130, 246, 0.3);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.4);
+            
+            /* Animation */
+            --duration-fast: 200ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+            --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+            --easing-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Light Theme */
+        :root[data-theme="light"] {
+            /* Light Backgrounds */
+            --bg-page: #FFFFFF;
+            --bg-surface: #F5F5F5;
+            --bg-elevated: #FAFAFA;
+            --bg-card: #FFFFFF;
+            
+            /* Light Text Colors */
+            --text-primary: #1A1A1A;
+            --text-secondary: #525252;
+            --text-tertiary: #737373;
+            --text-muted: #A3A3A3;
+            
+            /* Light Border Colors */
+            --border-subtle: #E5E5E5;
+            --border-medium: #D4D4D4;
+            --border-strong: #A3A3A3;
+            
+            /* Light Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-card-hover: 0 12px 48px rgba(59, 130, 246, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Language Switcher */
+		.lang-switcher {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			display: inline-flex;
+			gap: 8px;
+			background: transparent;
+			border: none;
+			border-radius: var(--radius-full);
+			padding: 4px;
+			z-index: 2;
+		}
+
+		.lang-switcher button {
+			appearance: none;
+			border: none;
+			background: transparent;
+			color: var(--text-secondary);
+			font-family: var(--font-sans);
+			font-weight: 600;
+			font-size: 13px;
+			padding: 6px 12px;
+			border-radius: var(--radius-full);
+			cursor: pointer;
+			transition: color var(--duration-normal) var(--easing-default);
+		}
+
+		.lang-switcher button.active {
+			background: transparent;
+			color: var(--text-primary);
+		}
+
+		/* TOC (hover to open) */
+		.toc {
+			position: fixed;
+			top: 72px; /* below language switcher */
+			right: 16px;
+			z-index: 1100;
+		}
+
+		.toc-trigger {
+			appearance: none;
+			border: none;
+			background: transparent;
+			color: var(--text-secondary);
+			font-family: var(--font-sans);
+			font-weight: 600;
+			font-size: 13px;
+			padding: 8px 12px;
+			border-radius: var(--radius-full);
+			cursor: pointer;
+			transition: color var(--duration-normal) var(--easing-default);
+		}
+
+		.toc-trigger:hover {
+			color: var(--text-primary);
+		}
+
+		.toc-panel {
+			position: absolute;
+			top: 42px;
+			right: 0;
+			width: 320px;
+			max-height: 60vh;
+			overflow: auto;
+			padding: 12px;
+			background: var(--bg-elevated);
+			border: 1px solid var(--border-subtle);
+			border-radius: var(--radius-lg);
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(-6px);
+			transition: all var(--duration-normal) var(--easing-default);
+		}
+
+		.toc:hover .toc-panel,
+		.toc:focus-within .toc-panel {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+
+		.toc-title {
+			font-weight: 700;
+			margin: 4px 4px 8px 4px;
+			color: var(--text-primary);
+		}
+
+		#tocList {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		#tocList li {
+			margin: 6px 0;
+		}
+
+		#tocList a {
+			color: var(--text-secondary);
+			text-decoration: none;
+			font-size: 14px;
+		}
+
+		#tocList a:hover {
+			color: var(--primary-400);
+			text-decoration: underline;
+		}
+
+		#tocList li.toc-h3 a { padding-left: 14px; display: inline-block; }
+        
+        body {
+            font-family: var(--font-sans);
+            font-size: 19px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-page);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 500;
+        }
+        
+        /* Navigation Bar */
+        .nav-bar-wrapper {
+            width: 100%;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-bar {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+            gap: var(--space-xl);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            appearance: none;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--easing-default);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .theme-toggle:hover {
+            color: var(--text-primary);
+            background: var(--bg-elevated);
+        }
+        
+        .theme-toggle-icon {
+            width: 18px;
+            height: 18px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .theme-toggle:active .theme-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        
+        /* Page Title Section */
+        .page-title-section {
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            background: var(--bg-page);
+        }
+        
+        .page-title {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: var(--font-serif);
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+        
+        /* Content Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        /* Highlight Card */
+        .highlight-card {
+            display: flex;
+            gap: var(--space-md);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: var(--space-xl) 0;
+            margin: var(--space-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-icon {
+            display: none;
+        }
+        
+        .highlight-content {
+            font-size: 20px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .highlight-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        /* Article Images */
+        .article-image-container {
+            margin: var(--space-2xl) 0;
+            cursor: zoom-in;
+        }
+        
+        .article-image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+        .image-caption {
+            padding: var(--space-md) 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        /* Image Grid Layout */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+        }
+        
+        .image-grid .article-image-container {
+            margin: 0;
+        }
+        
+        /* Interactive Chart Container */
+        .interactive-chart-container {
+            position: relative;
+            background: var(--bg-page);
+        }
+        
+        .chart-iframe-wrapper {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-page);
+            /* Aspect ratio 1000:650 = 1.538 */
+            padding-bottom: 65%;
+        }
+        
+        .chart-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: transparent;
+        }
+        
+        .chart-caption {
+            padding: var(--space-sm) 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn var(--duration-normal) var(--easing-default);
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: var(--radius-md);
+            animation: zoomIn var(--duration-slow) var(--easing-smooth);
+        }
+        
+        .lightbox-close {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            width: 48px;
+            height: 48px;
+            background: rgba(20, 20, 20, 0.8);
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--duration-normal) var(--easing-default);
+            color: var(--text-secondary);
+        }
+        
+        .lightbox-close:hover {
+            color: var(--text-primary);
+        }
+        
+        /* Typography */
+        h2 {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: var(--space-2xl);
+            margin-bottom: var(--space-md);
+            line-height: 1.25;
+            position: relative;
+            padding-bottom: var(--space-sm);
+        }
+        
+        
+        h3 {
+            font-family: var(--font-serif);
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-sm);
+            line-height: 1.35;
+        }
+        
+        p {
+            margin-bottom: var(--space-md);
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        /* Links */
+        a {
+            color: var(--primary-400);
+            text-decoration: none;
+            transition: all var(--duration-normal) var(--easing-default);
+            position: relative;
+        }
+        
+        a:hover {
+            color: var(--primary-500);
+            text-decoration: underline;
+        }
+        
+        /* External Link Buttons */
+        .external-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        /* Model Download Section */
+        .model-download-section {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: var(--space-lg) 0;
+        }
+        
+        .model-download-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .model-download-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+            justify-content: center;
+        }
+        
+        .model-download-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: 10px 16px;
+            text-decoration: none;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .model-download-card:hover {
+            border-color: var(--primary-500);
+            background: var(--bg-card);
+            transform: translateY(-1px);
+        }
+        
+        .huggingface-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .model-download-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .model-download-card-subtitle {
+            display: none;
+        }
+        
+        .btn-external {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            background: transparent;
+            color: var(--primary-400);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 400;
+            border-radius: 0;
+            text-decoration: none;
+            transition: color var(--duration-normal) var(--easing-default);
+            position: relative;
+            overflow: visible;
+            border: none;
+        }
+        
+        .btn-external:hover {
+            color: var(--primary-500);
+            text-decoration: underline;
+        }
+        
+        .external-icon {
+            width: 14px;
+            height: 14px;
+        }
+        
+        /* Lists */
+        ul {
+            margin: var(--space-md) 0;
+            padding-left: var(--space-lg);
+        }
+        
+        li {
+            margin-bottom: var(--space-sm);
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        li::marker {
+            color: var(--primary-400);
+        }
+        
+        li p {
+            display: inline;
+            color: var(--text-secondary);
+        }
+        
+        /* Separator */
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+            margin: var(--space-3xl) 0;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            margin-top: var(--space-xl);
+        }
+        
+        /* ECharts Container */
+        .chart-container {
+            margin: var(--space-xl) 0;
+            background: var(--bg-page);
+            border: none;
+            border-radius: 0;
+            padding: var(--space-lg) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .legend-swatch {
+            width: 32px;
+            height: 20px;
+            border-radius: var(--radius-sm);
+            border: none;
+        }
+        
+        .legend-swatch.striped {
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--text-secondary),
+                var(--text-secondary) 2px,
+                var(--bg-elevated) 2px,
+                var(--bg-elevated) 4px
+            );
+        }
+        
+        .legend-swatch.solid {
+            background: var(--text-secondary);
+        }
+        
+        #ipho-chart {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Responsive chart */
+        @media (max-width: 1023px) {
+            #ipho-chart {
+                height: 450px;
+            }
+            
+            .chart-title {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .chart-container {
+                padding: var(--space-md);
+            }
+            
+            #ipho-chart {
+                height: 400px;
+            }
+            
+            .chart-title {
+                font-size: 20px;
+            }
+            
+            .legend-item {
+                font-size: 12px;
+            }
+        }
+        
+        /* Responsive iframe/image switching */
+        .chart-mobile-img {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+        
+        @media (max-width: 1023px) {
+            .chart-iframe-wrapper {
+                display: none !important;
+            }
+            
+            .chart-mobile-img {
+                display: block;
+            }
+
+            .proofbench-chart-wrapper {
+                display: block !important;
+            }
+
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+            }
+            to { 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Scroll Animations */
+        .content-section,
+        .article-image-container,
+        .highlight-card {
+            animation: slideUp 0.6s var(--easing-smooth) backwards;
+        }
+        
+        .content-section:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+        
+        .content-section:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1023px) {
+            .page-title-section {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 48px;
+                line-height: 1.25;
+                padding: 0 var(--space-md);
+            }
+            
+            .container {
+                padding: 0 var(--space-xl);
+            }
+            
+            .image-grid {
+                gap: var(--space-md);
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .page-title-section {
+                padding: var(--space-lg) var(--space-sm);
+            }
+            
+            .page-title {
+                font-size: 32px;
+                line-height: 1.3;
+                padding: 0 var(--space-sm);
+                letter-spacing: -0.01em;
+            }
+            
+            .hero-header {
+                padding: var(--space-2xl) var(--space-md);
+            }
+            
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            h2 {
+                font-size: 24px;
+                margin-top: var(--space-2xl);
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .highlight-card {
+                padding: 20px;
+            }
+            
+            .highlight-content {
+                font-size: 16px;
+            }
+            
+            .btn-external {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .external-links {
+                flex-direction: column;
+            }
+            
+            .model-download-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .model-download-card {
+                flex: 0 1 auto;
+            }
+            
+            .lightbox-close {
+                top: var(--space-md);
+                right: var(--space-md);
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 28px;
+                line-height: 1.35;
+                padding: 0 var(--space-xs);
+            }
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: var(--space-xl);
+            right: var(--space-xl);
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-purple);
+            border: none;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--duration-normal) var(--easing-default), visibility var(--duration-normal) var(--easing-default);
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            opacity: 0.9;
+        }
+        
+        .scroll-to-top svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-purple);
+            width: 0%;
+            z-index: 10000;
+            transition: width 0.1s ease-out;
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Case Study Section */
+        .case-study-problem {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .case-study-problem-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-400);
+            margin-bottom: var(--space-md);
+        }
+        
+        .case-study-problem-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .case-study-problem-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .case-study-problem-content h4:first-child {
+            margin-top: 0;
+        }
+        
+        .case-study-problem-content ul {
+            margin: var(--space-sm) 0;
+            padding-left: var(--space-xl);
+        }
+        
+        .case-study-problem-content li {
+            margin: var(--space-xs) 0;
+        }
+        
+        .case-study-problem-content .problem-question {
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
+            background: var(--bg-surface);
+            border-left: 3px solid var(--primary-500);
+            border-radius: 4px;
+            font-weight: 500;
+            color: var(--text-primary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        /* Context Toggle Button */
+        .context-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            margin-bottom: var(--space-lg);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--primary-400);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .context-toggle:hover {
+            background: var(--bg-surface);
+            border-color: var(--primary-500);
+        }
+        
+        .context-toggle-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .context-toggle.active .context-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Context Content */
+        .context-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--easing-default);
+        }
+        
+        .context-content.show {
+            max-height: 10000px;
+        }
+        
+        .context-inner {
+            padding-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--border-subtle);
+            margin-bottom: var(--space-lg);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            transition: border-color var(--duration-normal) var(--easing-default);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .model-card:hover {
+            border-color: var(--primary-500);
+        }
+        
+        .model-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .model-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .model-score {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .model-score.perfect {
+            color: #10B981;
+        }
+        
+        .model-score.partial {
+            color: #F59E0B;
+        }
+        
+        .model-score.low {
+            color: #EF4444;
+        }
+        
+        .score-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .answer-section {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .answer-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .answer-content {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            padding: var(--space-md);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+        
+        .answer-item {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .evaluation-section {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .evaluation-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .evaluation-criteria {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        
+        .criterion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .criterion-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+        
+        .criterion-icon.correct {
+            color: #10B981;
+        }
+        
+        .criterion-icon.incorrect {
+            color: #EF4444;
+        }
+        
+        .solution-section {
+            margin-top: var(--space-lg);
+        }
+        
+        .solution-toggle {
+            width: 100%;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            padding: var(--space-md);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .solution-toggle:hover {
+            background: var(--border-subtle);
+            border-color: var(--primary-500);
+        }
+        
+        .solution-toggle-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .solution-toggle.active .solution-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .solution-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--duration-slow) var(--easing-default);
+        }
+        
+        .solution-content.active {
+            max-height: 100000px;
+        }
+        
+        .solution-inner {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: var(--space-lg);
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-height: 500px;
+            overflow-y: auto;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .solution-inner::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .solution-inner::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 4px;
+        }
+        
+        .solution-inner p {
+            margin-bottom: var(--space-md);
+        }
+
+        .olympiad-case-containers {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-xl);
+            align-items: start;
+            margin-bottom: var(--space-3xl);
+        }
+
+        .olympiad-case-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-lg);
+        }
+
+        .olympiad-container-title {
+            margin: 0 0 var(--space-lg);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-400);
+        }
+
+        .olympiad-case-frame {
+            width: 100%;
+            height: min(76vh, 860px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            background: var(--bg-page);
+        }
+
+        .olympiad-cases {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+            margin-top: var(--space-lg);
+            margin-bottom: 0;
+        }
+
+        .olympiad-case {
+            margin-bottom: 0;
+        }
+
+        .olympiad-case-toggle {
+            margin-bottom: 0;
+            font-size: 20px;
+        }
+
+        .olympiad-case-inner {
+            padding-top: var(--space-lg);
+        }
+
+        .olympiad-question p:last-child,
+        .olympiad-solution-inner p:last-child {
+            margin-bottom: 0;
+        }
+
+        .olympiad-answer {
+            margin-top: var(--space-lg);
+        }
+
+        .olympiad-solution-inner {
+            max-height: 70vh;
+        }
+
+        .math-block {
+            margin: var(--space-md) 0;
+            overflow-x: visible;
+        }
+
+        mjx-container[display="true"] {
+            overflow-x: visible !important;
+            overflow-y: visible !important;
+        }
+
+        .compact-bullet::before {
+            content: "▷ ";
+            color: var(--primary-400);
+            font-weight: 700;
+        }
+        
+        @media (max-width: 1023px) {
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .models-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: var(--space-lg);
+            }
+
+            .olympiad-case-containers {
+                grid-template-columns: minmax(0, 1fr);
+                gap: var(--space-lg);
+            }
+            
+            .case-study-problem {
+                padding: var(--space-md);
+            }
+            
+            .model-card {
+                padding: var(--space-md);
+                min-width: 0;
+            }
+            
+            .answer-content {
+                padding: var(--space-sm);
+                font-size: 14px;
+            }
+            
+            .solution-inner {
+                padding: var(--space-md);
+                font-size: 14px;
+            }
+            
+            .context-inner {
+                font-size: 14px;
+            }
+            
+            .case-study-problem-content {
+                font-size: 14px;
+            }
+            
+            .case-study-problem-content table {
+                font-size: 12px;
+            }
+        }
+        
+        /* Organization Logos Section */
+        .org-logos-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .org-logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform var(--duration-normal) var(--easing-default), opacity var(--duration-normal) var(--easing-default);
+            opacity: 0.8;
+        }
+        
+        .org-logo-item:hover {
+            transform: translateY(-2px);
+            opacity: 1;
+        }
+        
+        .org-logo-item img {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        @media (max-width: 968px) {
+            .org-logos-section {
+                gap: 15px;
+            }
+            
+            .org-logo-item img {
+                height: 28px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .org-logos-section {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .org-logo-item img {
+                height: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .org-logos-section {
+                gap: 10px;
+            }
+            
+            .org-logo-item img {
+                height: 20px;
+            }
+        }
+        
+        /* Acknowledgements Section */
+        .acknowledgements-section {
+            margin-top: var(--space-4xl);
+            padding: var(--space-2xl) 0;
+            background: transparent;
+        }
+        
+        .acknowledgements-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .acknowledgements-intro {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .acknowledgements-list {
+            list-style: disc;
+            padding-left: var(--space-xl);
+        }
+        
+        .acknowledgements-list li {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+        
+        .acknowledgements-list li::marker {
+            color: var(--text-secondary);
+        }
+        
+        .acknowledgements-list strong {
+            font-weight: 700;
+        }
+        
+        .acknowledgements-list strong a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--easing-default);
+        }
+        
+        .acknowledgements-list strong a:hover {
+            color: var(--primary-400);
+            text-decoration: underline;
+        }
+        
+        .acknowledgements-outro {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 767px) {
+            .acknowledgements-section {
+                padding: var(--space-lg) 0;
+            }
+            
+            .acknowledgements-list li {
+                font-size: 14px;
+            }
+        }
+        
+        /* Citation Section */
+        .citation-section {
+            margin-top: var(--space-4xl);
+            padding: var(--space-2xl) var(--space-xl);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+        }
+        
+        .citation-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .citation-bibtex-wrapper {
+            position: relative;
+        }
+        
+        .citation-bibtex-content {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            padding-top: var(--space-3xl);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .citation-copy-btn {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            padding: 6px 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-medium);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all var(--duration-fast) var(--easing-default);
+        }
+        
+        .citation-copy-btn:hover {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-color: var(--primary-500);
+        }
+        
+        .citation-copy-btn.copied {
+            background: var(--bg-surface);
+            color: var(--primary-400);
+            border-color: var(--primary-500);
+        }
+        
+        @media (max-width: 767px) {
+            .citation-section {
+                padding: var(--space-lg) var(--space-md);
+            }
+            
+            .citation-bibtex-content {
+                font-size: 12px;
+                padding: var(--space-2xl) var(--space-md) var(--space-md);
+            }
+            
+            .citation-copy-btn {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+    <style>
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-page);
+    color: var(--text-primary);
+}
+
+.case-frame-page {
+    padding: var(--space-lg);
+    background: var(--bg-page);
+}
+
+:root[data-theme="light"] .case-frame-page,
+:root[data-theme="light"] body,
+:root[data-theme="light"] html {
+    background: #FFFFFF;
+}
+
+:root[data-theme="light"] .case-study-problem {
+    background: #FFFFFF;
+    border-color: #D1D5DB;
+}
+
+:root[data-theme="light"] .context-toggle,
+:root[data-theme="light"] .solution-toggle,
+:root[data-theme="light"] .answer-content,
+:root[data-theme="light"] .solution-inner {
+    background: #F3F4F6;
+    border-color: #D1D5DB;
+}
+
+:root[data-theme="light"] .problem-question {
+    background: #F9FAFB !important;
+}
+
+:root[data-theme="light"] .context-inner,
+:root[data-theme="light"] .case-study-problem-content,
+:root[data-theme="light"] .answer-content,
+:root[data-theme="light"] .answer-item,
+:root[data-theme="light"] .solution-inner {
+    color: #111827;
+}
+
+:root[data-theme="light"] .answer-content strong,
+:root[data-theme="light"] .solution-inner strong,
+:root[data-theme="light"] .case-study-problem-content strong {
+    color: #000000;
+}
+
+:root[data-theme="light"] .case-study-problem-content h4,
+:root[data-theme="light"] .answer-title,
+:root[data-theme="light"] .evaluation-title,
+:root[data-theme="light"] .solution-toggle {
+    color: #111827;
+}
+
+:root[data-theme="light"] .context-toggle,
+:root[data-theme="light"] .case-study-problem-title {
+    color: #1E5AA8;
+}
+
+        .olympiad-cases {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <main class="case-frame-page">
+<div class="case-study-list olympiad-cases">
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('imo-2025-problem-1-content')">
+                    <span>IMO 2025 Problem 1</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="imo-2025-problem-1-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>A line in the plane is called <em>sunny</em> if it is not parallel to any of the $x$-axis, the $y$-axis, or the line $x+y=0$.</p>
+<p>Let $n \ge 3$ be a given integer. Determine all nonnegative integers $k$ such that there exist $n$ distinct lines in the plane satisfying both of the following:</p>
+<ul>
+<li>for all positive integers $a$ and $b$ with $a+b\le n+1$, the point $(a,b)$ lies on at least one of the lines; and</li>
+<li>exactly $k$ of the $n$ lines are sunny.</li>
+</ul>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('imo-2025-problem-1-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="imo-2025-problem-1-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p><strong>Definition.</strong> For an integer \(n\ge 3\) let</p>
+<p>\[
+P_n = \{(a,b)\in\mathbb{N}^2 \mid a\ge 1,\; b\ge 1,\; a+b\le n+1\}.
+\] We are asked for which nonnegative integers \(k\) there exist \(n\) distinct lines in the plane such that</p>
+<p class="compact-bullet">every point of \(P_n\) lies on at least one of the lines, and</p>
+<p class="compact-bullet">exactly \(k\) of the lines are <em>sunny</em> (i.e. not parallel to the \(x\)-axis, the \(y\)-axis, or the line \(x+y=0\)).</p>
+<p>We will prove that for every \(n\ge 3\) the only possible values of \(k\) are \(0,1,3\).</p>
+<h5>1. Constructions for \(k = 0,1,3\)</h5>
+<p>We give explicit families of \(n\) distinct lines that satisfy the two conditions.</p>
+<h5>\(k = 0\)</h5>
+<p>Take the \(n\) horizontal lines</p>
+<p>\[
+y = 1,\; y = 2,\; \dots,\; y = n.
+\] Each point \((a,b)\in P_n\) lies on the line \(y = b\). No line is sunny (all are parallel to the \(x\)-axis). Hence \(k = 0\) is attainable.</p>
+<h5>\(k = 1\)</h5>
+<p>Take the \(n-1\) horizontal lines</p>
+<p>\[
+y = 1,\; y = 2,\; \dots,\; y = n-1.
+\] These cover all points with \(b \le n-1\). The only point not covered is \((1,n)\) (since \(a+n\le n+1\) forces \(a = 1\)). Add one extra line, for instance</p>
+<p>\[
+L:\; y = x + (n-1).
+\] \(L\) has slope \(1\), so it is sunny. It passes through \((1,n)\). The total number of lines is \((n-1)+1 = n\), and exactly one line is sunny. Thus \(k = 1\) is attainable.</p>
+<h5>\(k = 3\)</h5>
+<p><em>If \(n = 3\):</em>Use the three sunny lines</p>
+<p>\[
+\begin{aligned}
+L_1 &: y = x,\\
+L_2 &: y = -2x + 5,\\
+L_3 &: y = -\tfrac12 x + \tfrac52.
+\end{aligned}
+\] Check: \(L_1\) contains \((1,1)\) and \((2,2)\); \(L_2\) contains \((1,3)\) and \((2,1)\); \(L_3\) contains \((1,2)\) and \((3,1)\). The six points of \(P_3\) are all covered. All three lines are sunny, so \(k = 3\).</p>
+<p><em>If \(n &gt; 3\):</em>First take the \(n-3\) horizontal lines</p>
+<p>\[
+y = 1,\; y = 2,\; \dots,\; y = n-3.
+\] These cover all points with \(b \le n-3\). The remaining points are those with \(b = n-2,\, n-1,\, n\); there are exactly \(3+2+1 = 6\) such points. Translate the situation by \((0,\,-(n-3))\): the map</p>
+<p>\[
+(x,\,y) \;\longmapsto\; (x,\,y-(n-3))
+\] sends these six points bijectively onto the set \(P_3\) (because \(a+b \le n+1\) becomes \(a + (b'+(n-3)) \le n+1 \iff a+b' \le 4\)). Therefore, if we take the three sunny lines that cover \(P_3\) in the translated coordinates and then translate them back, we obtain three sunny lines in the original plane:</p>
+<p>\[
+\begin{aligned}
+S_1 &: y = x + (n-3),\\
+S_2 &: y = -2x + (n+2),\\
+S_3 &: y = -\tfrac12 x + \tfrac{2n-1}{2}.
+\end{aligned}
+\] Together with the \(n-3\) horizontal lines we have \(n\) distinct lines, exactly three of which are sunny. Hence \(k = 3\) is attainable for every \(n\ge 3\).</p>
+<h5>2. Upper bound on points per sunny line</h5>
+<p><strong>Lemma 1.</strong> For any sunny line \(L\), we have \(|L \cap P_n| \le \left\lfloor\dfrac{n+1}{2}\right\rfloor\).</p>
+<p><em>Proof.</em> If \(L\) contains no integer point, then obviously \(|L\cap P_n|\le 1\le\lfloor(n+1)/2\rfloor\) (since \(n\ge 3\)). So assume \(L\) contains at least one integer point. Since \(L\) is sunny, it is not vertical, so we can write its equation as \(y = mx + d\).</p>
+<p class="compact-bullet">If \(m\) is irrational, then \(L\) can contain at most one integer point (two integer points would give a rational slope). Hence the bound holds. Thus we may assume \(m\) is rational.</p>
+<p>Write \(m = p/q\) in lowest terms, \(q&gt;0\), \(\gcd(p,q)=1\). Choose an integer point \((x_0,y_0)\) on \(L\). Then all integer points on \(L\) are</p>
+<p>\[
+(x,y) = (x_0 + q t,\; y_0 + p t),\qquad t\in\mathbb Z.
+\] Let the set of \(t\) for which the point lies in \(P_n\) be a consecutive integer interval \(t_{\min},\dots,t_{\max}\); let \(N\) be the number of such \(t\). Then \(t_{\max}-t_{\min} = N-1\).</p>
+<p>For any such point we have the constraints</p>
+<p>\[
+1 \le x \le n,\qquad 1 \le y \le n,\qquad 2 \le x+y \le n+1.
+\] In particular,</p>
+<p>\begin{align*}
+q\,(N-1) &= |x_{\max}-x_{\min}| \le n-1, \quad\text{(A)}\\
+|p|\,(N-1) &= |y_{\max}-y_{\min}| \le n-1, \quad\text{(B)}\\
+|p+q|\,(N-1) &= |(x+y)_{\max}-(x+y)_{\min}| \le n-1. \quad\text{(C)}
+\end{align*} Set \(M = \max\{q,\ |p|,\ |p+q|\}\). Then (A)-(C) give</p>
+<p>\[
+N-1 \le \frac{n-1}{M}.
+\] Now, because \(L\) is sunny, we have \(p \neq 0\) (otherwise horizontal) and \(p+q \neq 0\) (otherwise slope \(-1\)). We claim that \(M \ge 2\). Suppose \(M = 1\). Then \(q = 1\) (since \(q&gt;0\)), \(|p| \le 1\), \(|p+q| \le 1\). As \(p \neq 0\), either \(p = 1\) or \(p = -1\).</p>
+<p class="compact-bullet">If \(p = 1\), then \(|p+q| = |1+1| = 2 &gt; 1\), contradiction.</p>
+<p class="compact-bullet">If \(p = -1\), then \(p+q = 0\), which is forbidden.</p>
+<p>Hence \(M \ge 2\). Consequently,</p>
+<p>\[
+N-1 \le \frac{n-1}{2}\quad\Longrightarrow\quad N \le \frac{n+1}{2}.
+\] Since \(N\) is an integer, \(N \le \left\lfloor\frac{n+1}{2}\right\rfloor\). \(\square\)</p>
+<h5>3. No covering by all sunny lines for \(n \ge 4\)</h5>
+<p><strong>Lemma 2.</strong> For \(n \ge 4\) there is no set of \(n\) distinct sunny lines that covers \(P_n\).</p>
+<p><em>Proof.</em></p>
+<p><em>Even \(n\):</em>Write \(n = 2m\). By Lemma 1 each sunny line contains at most \(m\) points. Therefore the total number of incidences (counting each point as many times as lines through it) is at most \(n \cdot m = 2m^2\). But</p>
+<p>\[
+|P_n| = \frac{n(n+1)}{2} = m(2m+1) = 2m^2 + m &gt; 2m^2 \qquad (m\ge1),
+\] so it is impossible to cover all points.</p>
+<p><em>Odd \(n\):</em>Write \(n = 2m+1\) with \(m \ge 2\) (i.e. \(n \ge 5\)). Lemma 1 gives each sunny line at most \(m+1\) points. Hence</p>
+<p>\[
+\sum_{i=1}^{n} |L_i \cap P_n| \le n (m+1) = (2m+1)(m+1).
+\] But</p>
+<p>\[
+|P_n| = \frac{(2m+1)(2m+2)}{2} = (2m+1)(m+1).
+\] Thus the inequality must be an equality. In particular, each line contains exactly \(m+1\) points, and the sum of the sizes equals \(|P_n|\). Since every point is covered at least once, equality forces each point to be covered exactly once, and therefore the \(n\) lines are pairwise disjoint.</p>
+<p>We now classify all sunny lines that can contain exactly \(m+1\) points in \(P_n\).</p>
+<p><strong>Lemma 3.</strong> Let \(n = 2m+1 \ge 3\). If a sunny line \(L\) satisfies \(|L \cap P_n| = m+1\), then \(L\) is one of the three lines</p>
+<p>\[
+L_A: y = x,\qquad L_B: y = -2x + (n+2),\qquad L_C: y = -\tfrac12 x + \tfrac{n+2}{2}.
+\] <em>Proof.</em> Write \(L\) in reduced form \(y = \frac{p}{q}x + d\) with \(q&gt;0\), \(\gcd(p,q)=1\), \(p \neq 0\), \(p+q \neq 0\). Let \(N = m+1\).</p>
+<p>From (A)-(C) we have (with \(N-1 = m\) and \(n-1 = 2m\))</p>
+<p>\[
+q\,m \le 2m,\quad |p|\,m \le 2m,\quad |p+q|\,m \le 2m,
+\] hence</p>
+<p>\[
+q \le 2,\quad |p| \le 2,\quad |p+q| \le 2.
+\] We examine the possibilities.</p>
+<p><strong>Case </strong>\(q = 1\).<strong> Then </strong>\(|p| \le 2\) and \(|p+1| \le 2\). Since \(p \neq 0\) and \(p+1 \neq 0\) (i.e. \(p \neq -1\)), the admissible integers are \(p = 1\) and \(p = -2\).</p>
+<p><strong>Case </strong>\(q = 2\).<strong> Then </strong>\(\gcd(p,2)=1\), so \(p\) is odd. \(|p| \le 2\) forces \(p = \pm 1\). \(|p+2| \le 2\) eliminates \(p = 1\) because \(|3| &gt; 2\); thus only \(p = -1\) remains.</p>
+<p>Now we determine the intercept \(d\) so that exactly \(m+1\) integer points of \(P_n\) lie on the line.</p>
+<p><strong>Subcase (1,1):</strong> \(L: y = x + d\).</p>
+<p>Let the integer points be \((a+i,\ a+i+d)\) for \(i = 0,1,\dots,m\) (since \(x\) increases by \(q=1\)). The \(x\)-coordinates range from \(a\) to \(a+m\) and must satisfy \(1 \le a+i \le 2m+1\). Hence \(1 \le a \le m+1\). The constraints from the bounds on \(y\) and on \(x+y\) yield:</p>
+<p>\[
+\begin{cases}
+a+d \ge 1,\\
+a+m+d \le 2m+1,\\
+2a+2m+d \le 2m+2.
+\end{cases}
+\] The third inequality gives \(d \le 2-2a\); the second gives \(d \le m+1 - a\); the first gives \(d \ge 1-a\).</p>
+<p>For consistency we need \(1-a \le 2-2a\), i.e. \(a \le 1\). Thus \(a = 1\). Then the bounds become \(0 \le d \le \min\{m,\,0\} = 0\), so \(d = 0\). Hence \(L: y = x\).</p>
+<p><strong>Subcase (1,-2):</strong> \(L: y = -2x + d\).</p>
+<p>Again the points are \((a+i,\ -2(a+i)+d)\) with \(i=0,\dots,m\) and \(1 \le a \le m+1\). The tightest constraints come from \(y \ge 1\) (at \(i=m\)), \(y \le 2m+1\) (at \(i=0\)), and \(x+y \le 2m+2\) (at \(i=0\)):</p>
+<p>\[
+\begin{aligned}
+-2(a+m)+d \ge 1 \;&\Longrightarrow\; d \ge 1 + 2a + 2m,\\
+-2a + d \le 2m+1 \;&\Longrightarrow\; d \le 2m+1 + 2a,\\
+-a + d \le 2m+2 \;&\Longrightarrow\; d \le 2m+2 + a.
+\end{aligned}
+\] The first two give</p>
+<p>\[
+1+2a+2m \le d \le 2m+1+2a.
+\] Hence \(d\) must equal \(2m+1+2a\) (the only integer satisfying both). Substituting into the third inequality yields</p>
+<p>\[
+2m+1+2a \le 2m+2 + a \;\Longrightarrow\; a \le 1.
+\] Since \(a \ge 1\), we have \(a = 1\). Then \(d = 2m+1+2 = 2m+3 = n+2\). So \(L: y = -2x + (n+2)\).</p>
+<p><strong>Subcase (2,-1):</strong> \(L: y = -\tfrac12 x + d\).</p>
+<p>The \(x\)-coordinates differ by \(q=2\). Let the smallest be \(a\). Then the points are \((a+2i,\ -\tfrac12(a+2i)+d)\) for \(i=0,\dots,m\). To stay within the bounds \(1 \le x \le 2m+1\) we need</p>
+<p>\[
+a \ge 1 \quad\text{and}\quad a+2m \le 2m+1 \;\Longrightarrow\; a \le 1,
+\] so \(a = 1\). Thus the \(x\)-coordinates are \(1,3,5,\dots,2m+1\).</p>
+<p>For the \(y\)-coordinates to be integers, \(d\) must have the form \(d = d' + \tfrac12\) with \(d' \in \mathbb Z\). Then</p>
+<p>\[
+y_i = -\tfrac12(2i+1) + d = -i - \tfrac12 + d' + \tfrac12 = d' - i.
+\] Now apply the constraints:</p>
+<p class="compact-bullet">\(y_i \ge 1\) for all \(i\): the smallest \(y\) occurs at \(i=m\) (since slope negative), so \(d' - m \ge 1 \;\Rightarrow\; d' \ge m+1\).</p>
+<p class="compact-bullet">\(y_i \le 2m+1\) for all \(i\): the largest \(y\) occurs at \(i=0\), giving \(d' \le 2m+1\).</p>
+<p class="compact-bullet">\(x_i + y_i = (2i+1) + (d' - i) = d' + i + 1 \le 2m+2\): the most restrictive is at \(i=m\), giving \(d' + m + 1 \le 2m+2 \;\Rightarrow\; d' \le m+1\).</p>
+<p>Thus \(d' \ge m+1\) and \(d' \le m+1\), so \(d' = m+1\). Then \(d = m+1 + \tfrac12 = \tfrac{2m+3}{2} = \tfrac{n+2}{2}\). Hence \(L: y = -\tfrac12 x + \tfrac{n+2}{2}\).</p>
+<p>We have exhausted all possibilities; therefore any sunny line with exactly \(m+1\) points must be one of the three listed. \(\square\)</p>
+<p>Returning to the proof of Lemma 2 for odd \(n\ge 5\): we have \(n\) distinct sunny lines, each must contain exactly \(m+1\) points, hence each must be one of \(L_A, L_B, L_C\). But there are only three distinct such lines, while \(n \ge 5\) gives a contradiction. Hence no covering exists for odd \(n\ge 5\) either. (For \(n=3\) the three lines are exactly these three, and that case is covered by the construction.) This completes the proof of Lemma 2. \(\square\)</p>
+<h5>4. Induction on \(n\)</h5>
+<p>We now prove by strong induction that for every \(n\ge 3\) the number \(k\) of sunny lines in any covering of \(P_n\) by \(n\) distinct lines can only be \(0,1,3\).</p>
+<p><strong>Base case </strong>\(n = 3\).<strong> Constructions in 1 show that </strong>\(k = 0,1,3\) are attainable. We must show that \(k = 2\) is impossible.</p>
+<p>Assume three lines cover \(P_3\) with exactly two sunny. Let the sunny lines be \(L_1, L_2\) and the third line \(L_3\) be non-sunny.</p>
+<p>Lemma 1 implies that each sunny line contains at most two points of \(P_3\). The only pairs of points in \(P_3\) that are collinear with a sunny line (i.e. with slope different from \(0\), undefined, or \(-1\)) are exactly the three pairs:</p>
+<p>\[
+\{(1,1),(2,2)\}\ (\text{slope }1),\quad \{(1,3),(2,1)\}\ (\text{slope }-2),\quad \{(1,2),(3,1)\}\ (\text{slope }-1/2).
+\] Hence any sunny line that contains two points must be one of the three lines</p>
+<p>\[
+\ell_1: y=x,\quad \ell_2: y=-2x+5,\quad \ell_3: y=-\tfrac12 x+\tfrac52.
+\] Now consider the possibilities.</p>
+<p><em>If both \(L_1\) and \(L_2\) contain two points and are disjoint.</em> Then they must be two of the three lines \(\ell_1,\ell_2,\ell_3\). Those three lines are pairwise disjoint, so they cover four points. The two remaining points lie on the third \(\ell\), which is sunny. The third line \(L_3\) is non-sunny, so it cannot cover both of those points (the unique line through them is sunny). Contradiction.</p>
+<p><em>If at least one of \(L_1, L_2\) contains at most one point.</em> Then the two sunny lines together cover at most three points. Consequently, the non-sunny line \(L_3\) must cover at least three points. The only lines that contain three points of \(P_3\) are the three "boundary" lines:</p>
+<p>\[
+y=1,\quad x=1,\quad x+y=4.
+\] (One verifies that any other line contains at most two points.) So \(L_3\) is one of these three.</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(L_3 = y=1\)<strong>: covers </strong>\((1,1),(2,1),(3,1)\). The uncovered points are \((1,2),(1,3),(2,2)\). Each of these three points lies on a different one of \(\ell_1,\ell_2,\ell_3\) (namely \((2,2)\in\ell_1\), \((1,3)\in\ell_2\), \((1,2)\in\ell_3\)). Two sunny lines can cover at most two of them (each \(\ell_i\) contains exactly one). Hence impossible.}</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(L_3 = x=1\)<strong>: covers </strong>\((1,1),(1,2),(1,3)\). Uncovered: \((2,1),(2,2),(3,1)\). Again these are one per \(\ell_i\); two sunny lines cannot cover all three. Contradiction.}</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(L_3 = x+y=4\)<strong>: covers </strong>\((1,3),(2,2),(3,1)\). Uncovered: \((1,1),(1,2),(2,1)\), again one per \(\ell_i\). Contradiction.} Thus \(k = 2\) is impossible, so the only possible values for \(n=3\) are \(0,1,3\).</p>
+<p><strong>Inductive step.</strong> Assume the statement holds for all \(m\) with \(3 \le m &lt; n\), where \(n \ge 4\). Consider any covering of \(P_n\) by \(n\) distinct lines.</p>
+<p>Define three special lines:</p>
+<p>\[
+R:\ y=1,\qquad C:\ x=1,\qquad D:\ x+y = n+1.
+\] Note that \(R, C, D\) are not sunny (horizontal, vertical, slope \(-1\) respectively).</p>
+<p><strong>Claim.</strong> At least one of \(R, C, D\) belongs to the covering.</p>
+<p><em>Proof of claim.</em> Suppose none of them is present. Then:</p>
+<p class="compact-bullet">The line \(y=1\) contains \(n\) distinct points \((a,1)\). To cover a point \((a,1)\), the line must intersect \(y=1\) at that point. A horizontal line different from \(y=1\) does not intersect \(y=1\). Hence every line that covers a point on \(y=1\) must be non-horizontal. Moreover, a non-horizontal line meets \(y=1\) in at most one point. Therefore we need at least \(n\) non-horizontal lines; since there are exactly \(n\) lines, <em>all lines are non-horizontal, and each covers exactly one point on \(y=1\).</em></p>
+<p class="compact-bullet">The line \(x=1\) contains \(n\) points \((1,b)\). Since \(C\) is absent, a vertical line different from \(x=1\) does not contain any point with \(x=1\). Hence every line covering a point on \(x=1\) must be non-vertical. Since all lines are already non-horizontal, they must all be non-vertical to cover those points (a vertical line would miss \(x=1\) unless it is \(x=1\) itself). Thus all lines are non-vertical.</p>
+<p class="compact-bullet">The line \(x+y=n+1\) contains \(n\) points. Since \(D\) is absent, a line with slope \(-1\) other than \(D\) is parallel to it and does not intersect it. Therefore every line covering a point on \(D\) must have slope different from \(-1\). Hence all lines have slope \(\neq -1\).</p>
+<p>Therefore every line is non-horizontal, non-vertical, and slope \(\neq -1\); i.e., every line is sunny. But Lemma 2 states that for \(n\ge 4\) there is no covering of \(P_n\) by \(n\) sunny lines. Contradiction. Hence the claim holds. \(\square\)</p>
+<p>Now we examine which of \(R, C, D\) is present. (If more than one is present, we may choose any one; the argument works in each case.)</p>
+<p><em>If \(R\) is present:</em> Remove \(R\) from the set. The remaining \(n-1\) lines still cover all points of \(P_n\) with \(y\ge 2\) (because \(R\) only covered points with \(y=1\)). Apply the translation \(\phi_R: (x,y) \mapsto (x, y-1)\). This map sends the set \(\{(x,y)\in P_n \mid y\ge 2\}\) bijectively onto \(P_{n-1}\). Moreover, \(\phi_R\) sends each line to a line (translations preserve lines). The resulting family consists of \(n-1\) distinct lines (translation preserves distinctness) and covers \(P_{n-1}\) (each point of \(P_{n-1}\) corresponds to a point with \(y\ge 2\) that was covered). Since \(R\) is not sunny, the number of sunny lines among the \(n-1\) lines remains \(k\).</p>
+<p>Thus we have a covering of \(P_{n-1}\) by \(n-1\) distinct lines with exactly \(k\) sunny lines. By the induction hypothesis (applied to \(m=n-1\)), we must have \(k \in \{0,1,3\}\).</p>
+<p><em>If \(C\) is present:</em> Remove \(C\) and use \(\phi_C: (x,y) \mapsto (x-1, y)\). It maps \(\{(x,y)\in P_n \mid x\ge 2\}\) onto \(P_{n-1}\). \(C\) is non-sunny, so \(k\) unchanged. Induction gives \(k \in \{0,1,3\}\).</p>
+<p><em>If \(D\) is present:</em> Remove \(D\). The remaining \(n-1\) lines cover all points of \(P_n\) that are not on \(D\). Observe that \(P_{n-1} \subseteq P_n\) and \(P_{n-1} \cap D = \emptyset\) (since points in \(P_{n-1}\) satisfy \(a+b\le n\), while \(D\) requires \(a+b = n+1\). Hence they cover \(P_{n-1}\). \(D\) is not sunny, so \(k\) stays the same. Induction yields \(k \in \{0,1,3\}\).</p>
+<p>In every possible case we conclude \(k \in \{0,1,3\}\), which completes the inductive step.</p>
+<p>By strong induction, the statement holds for all integers \(n \ge 3\).</p>
+<h5>5. Conclusion</h5>
+<p>We have shown that for every \(n \ge 3\) the only possible numbers of sunny lines in a covering of \(P_n\) by \(n\) distinct lines are \(0\), \(1\), and \(3\). Explicit constructions demonstrate that each of these values is indeed attainable.</p>
+<div class="math-block">\[
+\boxed{k \in \{0,\,1,\,3\}\ \text{ for all } n\ge 3.}
+\]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('imo-2025-problem-2-content')">
+                    <span>IMO 2025 Problem 2</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="imo-2025-problem-2-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Let $\Omega$ and $\Gamma$ be circles with centres $M$ and $N$, respectively, such that the radius of $\Omega$ is less than the radius of $\Gamma$. Suppose $\Omega$ and $\Gamma$ intersect at two distinct points $A$ and $B$. Line $MN$ intersects $\Omega$ at $C$ and $\Gamma$ at $D$, so that $C$, $M$, $N$, $D$ lie on $MN$ in that order. Let $P$ be the circumcenter of triangle $ACD$. Line $AP$ meets $\Omega$ again at $E \neq A$ and meets $\Gamma$ again at $F \neq A$. Let $H$ be the orthocenter of triangle $PMN$.</p>
+<p>Prove that the line through $H$ parallel to $AP$ is tangent to the circumcircle of triangle $BEF$.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('imo-2025-problem-2-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="imo-2025-problem-2-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p>We will prove the statement using analytic geometry. The configuration is invariant under similarity transformations, so we may fix convenient coordinates.</p>
+<h5>1. Coordinate setup</h5>
+<p>Place \(M\) and \(N\) on the \(x\)-axis. Without loss of generality, set \(MN = 1\) (scale the figure appropriately). Let</p>
+<p>\[
+M = (0,0),\qquad N = (1,0).
+\] Denote the radius of \(\Omega\) (with center \(M\)) by \(r\) and the radius of \(\Gamma\) (with center \(N\)) by \(R\), with \(0 &lt; r &lt; R\). Since the circles intersect in two distinct points, we have</p>
+<div class="math-block">\[
+R - r &lt; 1 &lt; R + r.
+\]</div>
+<h5>2. Intersection points \(A\) and \(B\)</h5>
+<p>The equations of the circles are</p>
+<p>\[
+\begin{cases}
+x^2 + y^2 = r^2, & \text{(\(\Omega\))}\\[2mm]
+(x-1)^2 + y^2 = R^2, & \text{(\(\Gamma\))}.
+\end{cases}
+\] Subtracting gives \(2x-1 = R^2 - r^2\), so</p>
+<p>\[
+x = a = \frac{1 + r^2 - R^2}{2}.
+\] Let \(h &gt; 0\) be such that \(a^2 + h^2 = r^2\). The two intersections are symmetric about the \(x\)-axis; we take</p>
+<div class="math-block">\[
+A = (a,\, h),\qquad B = (a,\, -h).
+\]</div>
+<h5>3. Points \(C\) and \(D\) on line \(MN\)</h5>
+<p>The line \(MN\) is the \(x\)-axis. Intersection of \(\Omega\) with the \(x\)-axis: \(x^2 = r^2 \Rightarrow x = \pm r\). Because the order on the line is \(C\), \(M\), \(N\), \(D\), point \(C\) must lie left of \(M\) and \(D\) right of \(N\). Hence</p>
+<div class="math-block">\[
+C = (-r,\, 0),\qquad D = (1+R,\, 0).
+\]</div>
+<h5>4. Circumcenter \(P\) of \(\triangle ACD\)</h5>
+<p>Points \(C\) and \(D\) lie on the \(x\)-axis, so the perpendicular bisector of \(CD\) is the vertical line through the midpoint of \(CD\):</p>
+<p>\[
+\text{midpoint} = \left(\frac{-r + 1+R}{2},\,0\right) = \left(\frac{1+R-r}{2},\,0\right).
+\] Thus</p>
+<p>\[
+x_P = \frac{1+R-r}{2}.
+\] To find \(y_P\), use \(PA = PC\):</p>
+<p>\[
+(x_P - a)^2 + (y_P - h)^2 = (x_P + r)^2 + y_P^2.
+\] Expanding and using \(a^2+h^2 = r^2\) yields</p>
+<p>\[
+-2h y_P = 2(r+a)x_P \quad\Longrightarrow\quad y_P = -\frac{(r+a)x_P}{h}.
+\] Hence</p>
+<div class="math-block">\[
+P = \left(\frac{1+R-r}{2},\; -\frac{(r+a)x_P}{h}\right).
+\]</div>
+<h5>5. Simplifying notation with auxiliary parameters</h5>
+<p>Introduce</p>
+<p>\[
+p = R + r,\qquad q = R - r,\qquad S = 1 + R + r = 1 + p.
+\] Then</p>
+<p>\[
+r = \frac{p - q}{2},\quad R = \frac{p + q}{2},\quad a = \frac{1 - p q}{2},\quad x_P = \frac{1 + q}{2}.
+\] From \(h^2 = r^2 - a^2\) we obtain</p>
+<p>\[
+h^2 = \frac{(p^2-1)(1-q^2)}{4}.
+\] Also</p>
+<div class="math-block">\[
+r + a = \frac{S(1 - q)}{2}.
+\]</div>
+<h5>6. Vector \(\overrightarrow{AP}\)</h5>
+<p>Set \(\vec{v} = \overrightarrow{AP} = (v_1,\, v_2)\).</p>
+<p>\[
+v_1 = x_P - a = \frac{1+q}{2} - \frac{1 - p q}{2} = \frac{q + p q}{2} = \frac{q S}{2}.
+\] For \(v_2\):</p>
+<p>\[
+v_2 = y_P - h = -\frac{(r+a)x_P}{h} - h = -\frac{(r+a)x_P + h^2}{h}.
+\] Since \(h^2 = (r-a)(r+a)\),</p>
+<p>\[
+(r+a)x_P + h^2 = (r+a)(x_P + r - a).
+\] Compute \(x_P + r - a\):</p>
+<p>\[
+x_P + r - a = \frac{1+q}{2} + r - \frac{1 - p q}{2} = \frac{q + 2r + p q}{2}.
+\] But \(2r = p - q\), so</p>
+<p>\[
+q + 2r + p q = q + (p - q) + p q = p + p q = p(1 + q).
+\] Thus</p>
+<p>\[
+x_P + r - a = \frac{p(1+q)}{2}.
+\] Now \((r+a) = \dfrac{S(1-q)}{2}\), so</p>
+<p>\[
+(r+a)(x_P + r - a) = \frac{S(1-q)}{2} \cdot \frac{p(1+q)}{2} = \frac{p S (1 - q^2)}{4}.
+\] Therefore</p>
+<div class="math-block">\[
+v_2 = -\frac{1}{h}\cdot\frac{p S (1 - q^2)}{4} = -\frac{p S (1 - q^2)}{4h}.
+\]</div>
+<h5>7. Points \(E\) and \(F\) (second intersections of \(AP\) with the circles)</h5>
+<p>Parameterize line \(AP\) as \(A + \lambda \vec{v}\). Substitute into \(\Omega\): \(|A + \lambda \vec{v}|^2 = r^2\). Because \(|A|^2 = r^2\), we get</p>
+<p>\[
+2\lambda (\vec{v}\cdot A) + \lambda^2 |\vec{v}|^2 = 0.
+\] Hence \(\lambda = 0\) (point \(A\)) or</p>
+<p>\[
+\lambda_E = -\frac{2\,\vec{v}\cdot A}{|\vec{v}|^2}.
+\] Similarly, for \(\Gamma\) substitute into \(|(A+\lambda\vec{v}) - N|^2 = R^2\) (since \(N=(1,0)\)). \(|A - N|^2 = R^2\), so</p>
+<p>\[
+\lambda_F = -\frac{2\,\vec{v}\cdot(A - N)}{|\vec{v}|^2}.
+\] Now compute the needed dot products.</p>
+<p>\[
+\vec{v}\cdot A = a v_1 + h v_2 = a\cdot\frac{q S}{2} + h\left(-\frac{p S (1 - q^2)}{4h}\right) = \frac{a q S}{2} - \frac{p S (1 - q^2)}{4}
+= \frac{S}{4}\bigl(2a q - p(1 - q^2)\bigr).
+\] But \(2a q = q(1 - p q) = q - p q^2\), so</p>
+<p>\[
+2a q - p(1 - q^2) = q - p q^2 - p + p q^2 = q - p.
+\] Thus</p>
+<p>\[
+\vec{v}\cdot A = \frac{S}{4}(q - p) = -\frac{S(p - q)}{4} = -\frac{S\cdot 2r}{4} = -\frac{r S}{2}.
+\] Next,</p>
+<p>\[
+\vec{v}\cdot(A - N) = \vec{v}\cdot A - v_1 = -\frac{r S}{2} - \frac{q S}{2} = -\frac{S(r+q)}{2} = -\frac{R S}{2},
+\] because \(r+q = R\).</p>
+<p>Consequently,</p>
+<p>\[
+\lambda_E = -\frac{2\bigl(-\frac{r S}{2}\bigr)}{|\vec{v}|^2} = \frac{r S}{|\vec{v}|^2},
+\qquad
+\lambda_F = -\frac{2\bigl(-\frac{R S}{2}\bigr)}{|\vec{v}|^2} = \frac{R S}{|\vec{v}|^2}.
+\] Hence</p>
+<div class="math-block">\[
+E = A + \frac{r S}{|\vec{v}|^2}\,\vec{v},
+\qquad
+F = A + \frac{R S}{|\vec{v}|^2}\,\vec{v}.
+\]</div>
+<h5>8. Orthocenter \(H\) of \(\triangle PMN\)</h5>
+<p>Vertices: \(M = (0,0)\), \(N = (1,0)\), \(P = (x_P, y_P)\).</p>
+<p>Side \(MN\) is horizontal, so the altitude from \(P\) is the vertical line \(x = x_P\).</p>
+<p>Altitude from \(M\) is the line through \(M\) perpendicular to \(PN\). Vector \(\overrightarrow{PN} = (1 - x_P,\,-y_P)\). A vector perpendicular to \(PN\) is \((y_P,\, 1 - x_P)\) (since \((1-x_P)y_P + (-y_P)(1-x_P)=0\)). Parametric equation: \(t\,(y_P,\,1 - x_P)\).</p>
+<p>The orthocenter \(H\) is the intersection of \(x = x_P\) with this altitude. So set</p>
+<p>\[
+t y_P = x_P \quad\Longrightarrow\quad t = \frac{x_P}{y_P}\ \ (y_P \neq 0).
+\] Then</p>
+<p>\[
+H = \bigl(x_P,\ t(1 - x_P)\bigr) = \left(x_P,\ \frac{x_P(1 - x_P)}{y_P}\right).
+\] Now substitute \(y_P = -\dfrac{(r+a)x_P}{h}\):</p>
+<p>\[
+\frac{x_P(1 - x_P)}{y_P} = \frac{x_P(1 - x_P)}{-\frac{(r+a)x_P}{h}} = -\frac{h(1 - x_P)}{r+a}.
+\] Compute \(1 - x_P = 1 - \dfrac{1+q}{2} = \dfrac{1 - q}{2}\). And \(r + a = \dfrac{S(1 - q)}{2}\). Therefore</p>
+<p>\[
+-\frac{h(1 - x_P)}{r+a} = -\frac{h \cdot \frac{1 - q}{2}}{\frac{S(1 - q)}{2}} = -\frac{h}{S}.
+\] Thus</p>
+<div class="math-block">\[
+H = \left(\frac{1+q}{2},\; -\frac{h}{S}\right).
+\]</div>
+<h5>9. Circumcenter \(O'\) of \(\triangle BEF\)</h5>
+<p>We will determine \(O' = (x, y)\) that is equidistant from \(B\), \(E\), \(F\).</p>
+<p>Because \(E\) and \(F\) lie on line \(AP\), the segment \(EF\) is collinear with \(\vec{v}\). The perpendicular bisector of \(EF\) consists of points \(X\) satisfying \(\vec{v}\cdot (X - M_{EF}) = 0\), where \(M_{EF}\) is the midpoint of \(EF\).</p>
+<p>The midpoint:</p>
+<p>\[
+M_{EF} = \frac{E+F}{2} = A + \frac{\lambda_E + \lambda_F}{2}\,\vec{v}.
+\] Since \(\lambda_E + \lambda_F = \dfrac{(r+R)S}{|\vec{v}|^2} = \dfrac{p S}{|\vec{v}|^2}\),</p>
+<p>\[
+M_{EF} = A + \frac{p S}{2|\vec{v}|^2}\,\vec{v}.
+\] Hence the condition \(\vec{v}\cdot X = \vec{v}\cdot M_{EF}\) gives</p>
+<p>\[
+\vec{v}\cdot O' = \vec{v}\cdot A + \frac{p S}{2}.
+\] But \(\vec{v}\cdot A = -\dfrac{r S}{2}\), so</p>
+<p>\[
+\vec{v}\cdot O' = -\frac{r S}{2} + \frac{p S}{2} = \frac{(p - r) S}{2} = \frac{R S}{2}. \quad\text{(1)}
+\] Next impose \(|O' - B|^2 = |O' - E|^2\). Write \(U = O' - A\). Then</p>
+<p>\[
+O' - B = U - w,\quad \text{with } w = B - A = (0,\,-2h),
+\] and</p>
+<p>\[
+O' - E = U - \lambda_E \vec{v}.
+\] Then \[
+|U - w|^2 = |U - \lambda_E \vec{v}|^2.
+\] Expand:</p>
+<p>\[
+|U|^2 - 2 U\cdot w + |w|^2 = |U|^2 - 2\lambda_E \vec{v}\cdot U + \lambda_E^2 |\vec{v}|^2.
+\] Cancel \(|U|^2\):</p>
+<p>\[
+-2 U\cdot w + |w|^2 = -2\lambda_E \vec{v}\cdot U + \lambda_E^2 |\vec{v}|^2. \quad\text{(2)}
+\] Now \(U\cdot w = (x - a)\cdot 0 + (y - h)(-2h) = -2h(y - h)\). Thus</p>
+<p>\[
+-2 U\cdot w + |w|^2 = -2[-2h(y - h)] + 4h^2 = 4h(y - h) + 4h^2 = 4h y.
+\] So (2) becomes</p>
+<p>\[
+4h y = -2\lambda_E \vec{v}\cdot U + \lambda_E^2 |\vec{v}|^2. \quad\text{(3)}
+\] We have</p>
+<p>\[
+\vec{v}\cdot U = \vec{v}\cdot(O' - A) = \vec{v}\cdot O' - \vec{v}\cdot A = \frac{R S}{2} - \left(-\frac{r S}{2}\right) = \frac{(R + r)S}{2} = \frac{p S}{2}.
+\] Recall \(\lambda_E = \dfrac{r S}{|\vec{v}|^2}\). Substitute into (3):</p>
+<p>\[
+4h y = -2\left(\frac{r S}{|\vec{v}|^2}\right)\cdot \frac{p S}{2} + \left(\frac{r S}{|\vec{v}|^2}\right)^2 |\vec{v}|^2
+= -\frac{r p S^2}{|\vec{v}|^2} + \frac{r^2 S^2}{|\vec{v}|^2}
+= \frac{r S^2}{|\vec{v}|^2}(r - p)
+= -\frac{r p S^2}{|\vec{v}|^2} + \frac{r^2 S^2}{|\vec{v}|^2}
+= -\frac{r R S^2}{|\vec{v}|^2} \qquad (\text{since } p - r = R).
+\] Thus</p>
+<div class="math-block">\[
+4h y = -\frac{r R S^2}{|\vec{v}|^2},
+\qquad\text{so}\qquad
+y = -\frac{r R S^2}{4h |\vec{v}|^2}. \quad\text{(4)}
+\]</div>
+<h5>10. Computation of \(|\vec{v}|^2\)</h5>
+<p>We have</p>
+<p>\[
+v_1 = \frac{q S}{2},\qquad v_2 = -\frac{p S (1 - q^2)}{4h}.
+\] Hence</p>
+<p>\[
+v_1^2 = \frac{q^2 S^2}{4},
+\] \[
+v_2^2 = \frac{p^2 S^2 (1 - q^2)^2}{16 h^2}.
+\] Using \(h^2 = \dfrac{(p^2-1)(1 - q^2)}{4}\),</p>
+<p>\[
+v_2^2 = \frac{p^2 S^2 (1 - q^2)}{4(p^2 - 1)}.
+\] Therefore</p>
+<p>\[
+|\vec{v}|^2 = \frac{S^2}{4}\left(q^2 + \frac{p^2 (1 - q^2)}{p^2 - 1}\right)
+= \frac{S^2}{4}\cdot \frac{q^2(p^2-1) + p^2(1 - q^2)}{p^2 - 1}.
+\] The numerator simplifies:</p>
+<p>\[
+q^2(p^2-1) + p^2(1 - q^2) = p^2 - q^2.
+\] Thus</p>
+<p>\[
+|\vec{v}|^2 = \frac{S^2}{4}\cdot \frac{p^2 - q^2}{p^2 - 1}.
+\] Now \(p^2 - q^2 = (R+r)^2 - (R-r)^2 = 4Rr.\) And \(p^2 - 1 = (p-1)(p+1) = (R+r-1)(R+r+1) = (R+r-1)S.\)</p>
+<p>Hence</p>
+<div class="math-block">\[
+|\vec{v}|^2 = \frac{S^2}{4}\cdot \frac{4Rr}{(R+r-1)S} = \frac{S R r}{R+r-1}. \quad\text{(5)}
+\]</div>
+<h5>11. Simplify \(y\) from (4)</h5>
+<p>Insert (5) into (4):</p>
+<div class="math-block">\[
+y = -\frac{r R S^2}{4h}\cdot \frac{R+r-1}{S R r} = -\frac{S (R+r-1)}{4h}. \quad\text{(6)}
+\]</div>
+<h5>12. Determine \(x\) from equation (1)</h5>
+<p>Equation (1): \(\vec{v}\cdot O' = v_1 x + v_2 y = \dfrac{R S}{2}\).</p>
+<p>We know \(v_1 = \dfrac{q S}{2}\), and from (6) we have \(y\). Compute \(v_2 y\).</p>
+<p>\[
+v_2 = -\frac{p S (1 - q^2)}{4h},\qquad y = -\frac{S (R+r-1)}{4h}.
+\] Thus</p>
+<p>\[
+v_2 y = \frac{p S^2 (1 - q^2) (R+r-1)}{16 h^2}.
+\] Recall \(4h^2 = (R+r-1) S (1 - q^2)\). Then \(16 h^2 = 4 (R+r-1) S (1 - q^2)\).</p>
+<p>\[
+v_2 y = \frac{p S^2 (1 - q^2) (R+r-1)}{4 (R+r-1) S (1 - q^2)} = \frac{p S}{4}.
+\] Now (1) becomes</p>
+<p>\[
+\frac{q S}{2}\, x + \frac{p S}{4} = \frac{R S}{2}.
+\] Divide by \(S \neq 0\):</p>
+<p>\[
+\frac{q}{2}\, x + \frac{p}{4} = \frac{R}{2}.
+\] Multiply by \(4\):</p>
+<p>\[
+2q x + p = 2R.
+\] Now \(q = R - r\), \(p = R + r\), so</p>
+<p>\[
+2(R - r) x + (R + r) = 2R
+\quad\Longrightarrow\quad 2(R - r) x = 2R - (R + r) = R - r.
+\] Since \(R \neq r\) (strict inequality), we obtain</p>
+<p>\[
+x = \frac{R - r}{2(R - r)} = \frac12.
+\] Therefore the circumcenter of \(\triangle BEF\) is</p>
+<div class="math-block">\[
+O' = \left(\frac12,\; -\frac{S (R+r-1)}{4h}\right). \quad\text{(7)}
+\]</div>
+<h5>13. Distance from \(O'\) to the line through \(H\) parallel to \(\vec{v}\)</h5>
+<p>Let \(\ell\) be the line through \(H\) with direction \(\vec{v}\).</p>
+<p>The distance from a point to a line with direction \(\vec{v}\) through \(H\) is</p>
+<p>\[
+d = \frac{|(O' - H) \times \vec{v}|}{|\vec{v}|},
+\] where the cross product (in the plane) is taken as the scalar \(\Delta x\cdot v_2 - \Delta y\cdot v_1\).</p>
+<p>Coordinates:</p>
+<p>\[
+H = \left(\frac{1+q}{2},\; -\frac{h}{S}\right).
+\] Compute differences:</p>
+<p>\[
+\Delta x = \frac12 - x_H = \frac12 - \frac{1+q}{2} = -\frac{q}{2}.
+\] \[
+\Delta y = y_{O'} - y_H = -\frac{S (R+r-1)}{4h} - \left(-\frac{h}{S}\right) = -\frac{S (R+r-1)}{4h} + \frac{h}{S}.
+\] Write as a single fraction:</p>
+<p>\[
+\Delta y = \frac{ -S^2 (R+r-1) + 4h^2 }{4h S}.
+\] But \(4h^2 = (R+r-1) S (1 - q^2)\). Hence</p>
+<p>\[
+\Delta y = \frac{ (R+r-1) S (1 - q^2) - S^2 (R+r-1) }{4h S}
+= \frac{ (R+r-1) S \bigl( (1 - q^2) - S \bigr)}{4h S}
+= \frac{ (R+r-1) \bigl( (1 - q^2) - S \bigr)}{4h}.
+\] Now \(S = 1 + p\), so</p>
+<p>\[
+(1 - q^2) - S = 1 - q^2 - 1 - p = -p - q^2.
+\] Thus</p>
+<p>\[
+\Delta y = -\frac{ (R+r-1) (p + q^2)}{4h}. \quad\text{(8)}
+\] Now compute the cross product:</p>
+<p>\[
+\Delta \times \vec{v} = \Delta x \cdot v_2 - \Delta y \cdot v_1.
+\] \[
+\Delta x \cdot v_2 = \left(-\frac{q}{2}\right)\left(-\frac{p S (1 - q^2)}{4h}\right) = \frac{q p S (1 - q^2)}{8h}.
+\] \[
+\Delta y \cdot v_1 = \left(-\frac{ (R+r-1) (p + q^2)}{4h}\right) \left(\frac{q S}{2}\right) = -\frac{q S (R+r-1) (p + q^2)}{8h}.
+\] Therefore</p>
+<p>\[
+\Delta \times \vec{v} = \frac{q p S (1 - q^2)}{8h} - \left( -\frac{q S (R+r-1) (p + q^2)}{8h} \right)
+= \frac{q S}{8h}\Bigl( p (1 - q^2) + (R+r-1)(p + q^2) \Bigr).
+\] But \(R+r-1 = p - 1\). So the bracket becomes</p>
+<p>\[
+p (1 - q^2) + (p - 1)(p + q^2).
+\] Expand:</p>
+<p>\[
+p(1 - q^2) = p - p q^2,
+\] \[
+(p - 1)(p + q^2) = p(p-1) + (p-1)q^2 = p^2 - p + p q^2 - q^2.
+\] Sum:</p>
+<p>\[
+(p - p q^2) + (p^2 - p + p q^2 - q^2) = p^2 - q^2.
+\] Thus</p>
+<p>\[
+\Delta \times \vec{v} = \frac{q S}{8h} (p^2 - q^2) = \frac{q S}{8h} \cdot 4Rr = \frac{q S R r}{2 h}.
+\] Since \(q = R - r\),</p>
+<div class="math-block">\[
+\Delta \times \vec{v} = \frac{ (R - r) S R r}{2 h}. \quad\text{(9)}
+\]</div>
+<h5>14. Squared distance from \(O'\) to \(\ell\)</h5>
+<p>\[
+d^2 = \frac{ \left( \dfrac{ (R - r) S R r}{2 h} \right)^2 }{ |\vec{v}|^2 }
+= \frac{ (R - r)^2 S^2 R^2 r^2}{4 h^2} \cdot \frac{1}{|\vec{v}|^2}.
+\] Substitute \(|\vec{v}|^2 = \dfrac{S R r}{R+r-1}\):</p>
+<p>\[
+d^2 = \frac{ (R - r)^2 S^2 R^2 r^2}{4 h^2} \cdot \frac{R+r-1}{S R r}
+= \frac{ (R - r)^2 S R r (R+r-1)}{4 h^2}. \quad\text{(10)}
+\] Now use \(4h^2 = (R+r-1) S (1 - q^2)\):</p>
+<div class="math-block">\[
+d^2 = \frac{ (R - r)^2 S R r (R+r-1)}{ (R+r-1) S (1 - q^2) }
+= \frac{ (R - r)^2 R r}{1 - (R - r)^2}. \quad\text{(11)}
+\]</div>
+<h5>15. Radius of the circumcircle of \(\triangle BEF\)</h5>
+<p>Compute \(R_c = |O' - B|\), with \(B = (a,\,-h)\) and \(O'\) as in (7).</p>
+<p>\[
+\Delta x' = \frac12 - a = \frac12 - \frac{1 - p q}{2} = \frac{p q}{2}.
+\] \[
+\Delta y' = y_{O'} + h = -\frac{S (R+r-1)}{4h} + h = \frac{4h^2 - S (R+r-1)}{4h}.
+\] Again, \(4h^2 = (R+r-1) S (1 - q^2)\),</p>
+<p>\[
+\Delta y' = \frac{ (R+r-1) S (1 - q^2) - S (R+r-1) }{4h} = \frac{ S (R+r-1) (1 - q^2 - 1)}{4h} = -\frac{ S (R+r-1) q^2}{4h}.
+\] Thus</p>
+<p>\[
+R_c^2 = \left(\frac{p q}{2}\right)^2 + \left(-\frac{ S (R+r-1) q^2}{4h}\right)^2
+= \frac{p^2 q^2}{4} + \frac{ S^2 (R+r-1)^2 q^4}{16 h^2}.
+\] Substitute \(16 h^2 = 4 (R+r-1) S (1 - q^2)\):</p>
+<p>\[
+R_c^2 = \frac{p^2 q^2}{4} + \frac{ S^2 (R+r-1)^2 q^4}{4 (R+r-1) S (1 - q^2)}
+= \frac{p^2 q^2}{4} + \frac{ S (R+r-1) q^4}{4 (1 - q^2)}.
+\] Write as</p>
+<p>\[
+R_c^2 = \frac{q^2}{4}\left( p^2 + \frac{ S (R+r-1) q^2}{1 - q^2} \right).
+\] Now \(S (R+r-1) = (p+1)(p-1) = p^2 - 1.\) Therefore</p>
+<p>\[
+R_c^2 = \frac{q^2}{4} \cdot \frac{ p^2(1 - q^2) + (p^2 - 1) q^2}{1 - q^2}
+= \frac{q^2}{4} \cdot \frac{ p^2 - p^2 q^2 + p^2 q^2 - q^2}{1 - q^2}
+= \frac{q^2}{4} \cdot \frac{ p^2 - q^2}{1 - q^2}.
+\] Since \(p^2 - q^2 = 4R r\) and \(q^2 = (R - r)^2\),</p>
+<div class="math-block">\[
+R_c^2 = \frac{ (R - r)^2}{4} \cdot \frac{4R r}{1 - (R - r)^2}
+= \frac{ (R - r)^2 R r}{1 - (R - r)^2}. \quad\text{(12)}
+\]</div>
+<h5>16. Conclusion</h5>
+<p>Comparing (11) and (12) we obtain</p>
+<p>\[
+d^2 = R_c^2,
+\] so \(d = R_c\) (all quantities are nonnegative).</p>
+<p>Hence the distance from the circumcenter \(O'\) of \(\triangle BEF\) to the line \(\ell\) (through \(H\) parallel to \(AP\)) equals the radius of its circumcircle. Therefore \(\ell\) is tangent to the circumcircle of \(\triangle BEF\).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('imo-2025-problem-3-content')">
+                    <span>IMO 2025 Problem 3</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="imo-2025-problem-3-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>A function $f \colon \mathbb{N} \to \mathbb{N}$ is said to be <em>bonza</em> if \[ f(a)\quad\text{divides}\quad b^a-f(b)^{f(a)} \] for all positive integers $a$ and $b$.</p>
+<p>Determine the smallest real constant $c$ such that $f(n) \leq cn$ for all bonza functions $f$ and all positive integers $n$.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('imo-2025-problem-3-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="imo-2025-problem-3-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<h5>1. Preliminary lemmas</h5>
+<p><strong>Lemma 1.</strong> \(f(1)=1\).</p>
+<p><em>Proof.</em> Taking \(a=b=1\) gives \(f(1)\mid 1^{1}-f(1)^{f(1)}=1-f(1)^{f(1)}\).</p>
+<p>Since \(f(1)\mid f(1)^{f(1)}\), we have \(f(1)\mid 1\). Hence \(f(1)=1\).</p>
+<p><strong>Lemma 2.</strong> For every positive integer \(a\), \(f(a)\mid a^{a}\).</p>
+<p><em>Proof.</em> Put \(b=a\) in the definition: \(f(a)\mid a^{a}-f(a)^{f(a)}\).</p>
+<p>Because \(f(a)\mid f(a)^{f(a)}\), it follows that \(f(a)\mid a^{a}\).</p>
+<p><strong>Corollary.</strong> If a prime \(p\) divides \(f(a)\), then \(p\) divides \(a\).</p>
+<p><em>Proof.</em> From \(f(a)\mid a^{a}\), any prime divisor of \(f(a)\) must divide \(a^{a}\), hence \(a\).</p>
+<h5>2. Determination of \(f(2)\), \(f(3)\) and \(f(5)\)</h5>
+<p>From Lemma 2 we have:</p>
+<p>\[
+f(2)\mid 2^{2}=4\quad\Longrightarrow\quad f(2)\in\{1,2,4\},
+\] \[
+f(3)\mid 3^{3}=27\quad\Longrightarrow\quad f(3)\in\{1,3,9,27\}.
+\] \[
+f(5)\mid 5^{5}=3125\quad\Longrightarrow\quad f(5)=5^{\delta}\ \text{with}\ 0\le\delta\le 5.
+\] Now use the mixed conditions \((a,b)=(2,3)\) and \((3,2)\):</p>
+<p>\[
+\begin{aligned}
+(2,3)&:\ f(2)\mid 3^{2}-f(3)^{f(2)}=9-f(3)^{f(2)},\\
+(3,2)&:\ f(3)\mid 2^{3}-f(2)^{f(3)}=8-f(2)^{f(3)}.
+\end{aligned}
+\] Let \(x=f(2),\ y=f(3)\). We test all \(x\in\{1,2,4\},\ y\in\{1,3,9,27\}\) (note all \(y\) are odd).</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(x=1\):<strong> </strong>\((2,3)\) automatic. \((3,2)\) gives \(y\mid 8-1^{y}=7\). Only \(y=1\) divides 7. So \((1,1)\) works.}</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(x=2\):<strong></strong>} \((2,3)\): \(2\mid 9-y^{2}\). Since \(y\) is odd, \(y^{2}\) is odd, \(9-\text{odd}\) is even - holds for all odd \(y\).</p>
+<p>\((3,2)\): \(y\mid 8-2^{y}\).</p>
+<p class="compact-bullet">\(y=1\): \(1\mid6\) - true.</p>
+<p class="compact-bullet">\(y=3\): \(3\mid 8-8=0\) - true.</p>
+<p class="compact-bullet">\(y=9\): \(9\mid 8-512=-504\) - true (\(-504/9=-56\)).</p>
+<p class="compact-bullet">\(y=27\): compute \(2^{27}\bmod27\). \(2^{9}\equiv512\equiv26\pmod{27}\), then \(2^{27}=(2^{9})^{3}\equiv26^{3}\equiv(-1)^{3}=-1\equiv26\pmod{27}\). So \(8-26=-18\not\equiv0\pmod{27}\) - false.</p>
+<p>Thus for \(x=2\) we have \((2,1),\ (2,3),\ (2,9)\).</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(x=4\):<strong></strong>} \((2,3)\): \(4\mid 9-y^{4}\). For odd \(y\), \(y^{4}\equiv1\pmod4\), so \(9-1=8\) divisible by 4 - holds for all odd \(y\). \((3,2)\): \(y\mid 8-4^{y}\).</p>
+<p class="compact-bullet">\(y=1\): \(1\mid8-4=4\) - true.</p>
+<p class="compact-bullet">\(y=3\): \(3\mid 8-64=-56\) - false.</p>
+<p class="compact-bullet">\(y=9\): \(4^{3}\equiv64\equiv1\pmod9\), so \(4^{9}\equiv1\pmod9\), then \(8-1=7\not\equiv0\pmod9\) - false.</p>
+<p class="compact-bullet">\(y=27\): \(4^{3}\equiv64\equiv10\pmod{27}\), so \(4^{9}\equiv10^{3}=1000\equiv1\pmod{27}\), thus \(4^{27}\equiv1\pmod{27}\), \(8-1=7\not\equiv0\pmod{27}\) - false.</p>
+<p>Hence only \((4,1)\) works.</p>
+<p>Therefore after \((2,3)\) and \((3,2)\) the possible pairs are</p>
+<p>\[
+(1,1),\ (2,1),\ (2,3),\ (2,9),\ (4,1). \quad\text{(1)}
+\] Now incorporate \(f(5)=5^{\delta}\). For each candidate pair we must satisfy</p>
+<p>\[
+\begin{aligned}
+(2,5)&:\ x\mid 25-5^{\delta x},\\
+(3,5)&:\ y\mid 125-5^{\delta y},\\
+(5,2)&:\ 5^{\delta}\mid 32 - x^{5^{\delta}},\\
+(5,3)&:\ 5^{\delta}\mid 243 - y^{5^{\delta}}.
+\end{aligned}
+\] We test \(\delta=0,1,2,3,4,5\) for each pair.</p>
+<p><strong>1. Pair </strong>\((x,y)=(1,1)\).<strong></strong></p>
+<p class="compact-bullet">\((2,5)\) automatic.</p>
+<p class="compact-bullet">\((3,5)\) automatic.</p>
+<p class="compact-bullet">\((5,2)\): \(5^{\delta}\mid 32-1^{5^{\delta}}=31\). So \(5^{\delta}\mid31\) forces \(\delta=0\).</p>
+<p class="compact-bullet">\((5,3)\): \(5^{\delta}\mid 243-1^{5^{\delta}}=242\). Again only \(\delta=0\) works.</p>
+<p>\(\Rightarrow (f(2),f(3),f(5))=(1,1,1)\).</p>
+<p><strong>2. Pair </strong>\((x,y)=(2,1)\).<strong></strong></p>
+<p class="compact-bullet">\((2,5)\): \(2\mid 25-5^{2\delta}\) - difference even, automatic.</p>
+<p class="compact-bullet">\((3,5)\): \(1\) divides everything.</p>
+<p class="compact-bullet">\((5,3)\): \(5^{\delta}\mid 243-1=242\). Since \(5\nmid242\), only \(\delta=0\).</p>
+<p class="compact-bullet">\((5,2)\) with \(\delta=0\): \(1\mid32-2=30\) - true.</p>
+<p>\(\Rightarrow (2,1,1)\).</p>
+<p><strong>3. Pair </strong>\((x,y)=(4,1)\).<strong></strong></p>
+<p class="compact-bullet">\((2,5)\): \(4\mid 25-5^{2\delta}\). Mod 4: \(25\equiv1\), \(5^{2\delta}\equiv1\), difference divisible by 4 - automatic.</p>
+<p class="compact-bullet">\((3,5)\): automatic.</p>
+<p class="compact-bullet">\((5,3)\): \(5^{\delta}\mid 242\) - forces \(\delta=0\).</p>
+<p class="compact-bullet">\((5,2)\) with \(\delta=0\): \(1\mid32-4=28\) - true.</p>
+<p>\(\Rightarrow (4,1,1)\).</p>
+<p><strong>4. Pair </strong>\((x,y)=(2,3)\).<strong></strong></p>
+<p class="compact-bullet">\((2,5)\): automatic (even difference).</p>
+<p class="compact-bullet">\((3,5)\): \(3\mid125-5^{3\delta}\).</p>
+<p class="compact-bullet">\((5,2)\): \(5^{\delta}\mid 32-2^{5^{\delta}}\).</p>
+<p class="compact-bullet">\((5,3)\): \(5^{\delta}\mid 243-3^{5^{\delta}}\).</p>
+<p>Test \(\delta\):</p>
+<p class="compact-bullet">\(\delta=0\): \(f(5)=1\). Then \(3\mid125-1=124\) - false.</p>
+<p class="compact-bullet">\(\delta=1\): \(f(5)=5\).</p>
+<p class="compact-bullet">\(3\mid125-5^{3}=0\) - true.</p>
+<p class="compact-bullet">\(5\mid32-2^{5}=0\) - true.</p>
+<p class="compact-bullet">\(5\mid243-3^{5}=0\) - true.</p>
+<p>So \(\delta=1\) works.</p>
+<p class="compact-bullet">\(\delta=2\): \(f(5)=25\). \(3\mid125-5^{6}\). Mod 3: \(125\equiv2\), \(5^{6}\equiv(5^{3})^{2}\equiv2^{2}=4\equiv1\), so difference \(2-1=1\) - false.</p>
+<p class="compact-bullet">\(\delta=3\): \(f(5)=125\).</p>
+<p class="compact-bullet">\(3\mid125-5^{9}\): \(5^{9}\equiv5^{3}\equiv125\equiv2\pmod3\), difference \(0\) - true.</p>
+<p class="compact-bullet">Check \((5,2)\): \(125\mid32-2^{125}\). Compute \(2^{125}\bmod125\): \(\varphi(125)=100\), so \(2^{125}\equiv2^{25}\pmod{125}\). \(2^{5}=32\), \(2^{10}\equiv24\), \(2^{20}\equiv24^{2}=576\equiv576-5\cdot125=76\), then \(2^{25}=2^{20}\cdot2^{5}\equiv76\cdot32=2432\equiv2432-19\cdot125=57\). So \(32-57=-25\) not divisible by 125 - false.</p>
+<p class="compact-bullet">\(\delta=4\): \(f(5)=625\). \(3\mid125-5^{12}\). \(5^{12}\equiv(5^{6})^{2}\equiv1^{2}=1\pmod3\), \(125\equiv2\), difference \(1\) - false.</p>
+<p class="compact-bullet">\(\delta=5\): \(f(5)=3125\).</p>
+<p class="compact-bullet">\(3\mid125-5^{15}\): \(5^{15}\equiv5^{3}\equiv125\equiv2\pmod3\), difference \(0\) - true.</p>
+<p class="compact-bullet">\((5,2)\): \(3125\mid32-2^{3125}\). Mod 125: \(3125\equiv25\pmod{100}\), so \(2^{3125}\equiv2^{25}\equiv57\pmod{125}\) as before, \(32-57=-25\) not divisible by 125 - false.</p>
+<p>Thus only \(\delta=1\) works, giving \((2,3,5)\).</p>
+<p><strong>5. Pair </strong>\((x,y)=(2,9)\).<strong></strong></p>
+<p>Test \(\delta\):</p>
+<p class="compact-bullet">\(\delta=0\): \(3\mid125-1=124\) - false.</p>
+<p class="compact-bullet">\(\delta=1\): \(5\mid125-5^{9}\). \(5^{9}\bmod9\): \(5^{6}\equiv1\pmod9\) (since \(\varphi(9)=6\)), so \(5^{9}\equiv5^{3}=125\equiv8\pmod9\). \(125\equiv8\), difference \(0\) - true.</p>
+<p>\((5,2)\): \(5\mid32-2^{5}=0\) - true. \((5,3)\): \(5\mid243-9^{5}\). \(9\equiv4\pmod5\), \(4^{5}=1024\equiv4\pmod5\). \(243\equiv3\pmod5\), so \(3-4=-1\not\equiv0\pmod5\) - false.</p>
+<p class="compact-bullet">\(\delta=2\): \(25\mid125-5^{18}\). \(5^{18}\equiv(5^{6})^{3}\equiv1^{3}=1\pmod9\), \(125\equiv8\), difference \(7\) - false.</p>
+<p class="compact-bullet">\(\delta=3\): \(125\mid125-5^{27}\). \(5^{27}\equiv5^{3}\equiv8\pmod9\), difference \(0\) - true.</p>
+<p>\((5,2)\): \(125\mid32-2^{125}\). As before, \(2^{125}\equiv57\pmod{125}\), \(32-57=-25\) - false.</p>
+<p class="compact-bullet">\(\delta=4\): \(625\mid125-5^{36}\). \(36\equiv0\pmod6\), so \(5^{36}\equiv1\pmod9\), difference \(7\) - false.</p>
+<p class="compact-bullet">\(\delta=5\): \(3125\mid125-5^{45}\). \(45\equiv3\pmod6\), \(5^{45}\equiv8\pmod9\), difference \(0\) - true.</p>
+<p>\((5,2)\): \(3125\mid32-2^{3125}\). Mod 125 fails as before.</p>
+<p>Hence no \(\delta\) satisfies all conditions.</p>
+<p><strong>Conclusion of classification.</strong> The only admissible triples \((f(2),f(3),f(5))\) are</p>
+<p>\[
+(1,1,1),\quad (2,1,1),\quad (4,1,1),\quad (2,3,5).
+\] We will analyze two families:</p>
+<p class="compact-bullet">\textbf{Family A:</p>
+<p>those with \(f(3)=1\), i.e. the first three triples.}</p>
+<p class="compact-bullet">\textbf{Family B:</p>
+<p>the triple \((2,3,5)\).}</p>
+<h5>3. Analysis of Family A (\(f(3)=1\))</h5>
+<p><strong>Lemma 3.</strong> If \(f(3)=1\), then \(f(q)=1\) for every odd prime \(q\).</p>
+<p><em>Proof.</em> From \((q,q)\) we have \(f(q)\mid q^{q}\), so \(f(q)=q^{k}\) for some \(0\le k\le q\).</p>
+<p>Consider \((q,3)\):</p>
+<p>\[
+f(q)\mid 3^{q}-f(3)^{f(q)}=3^{q}-1^{f(q)}=3^{q}-1.
+\] If \(k\ge1\), then \(q\mid f(q)\mid 3^{q}-1\). By Fermat's little theorem, \(3^{q}\equiv3\pmod q\), so \(q\mid 3-1=2\). Hence \(q=2\), contradicting that \(q\) is odd. Therefore \(k=0\) and \(f(q)=1\).</p>
+<p><strong>Lemma 4.</strong> In Family A, for every positive integer \(n\), \(f(n)\) is a power of 2.</p>
+<p><em>Proof.</em> Suppose an odd prime \(r\) divides \(f(n)\). By Lemma 2, \(r\mid n\). Now use \((n,r)\):</p>
+<p>\[
+f(n)\mid r^{n}-f(r)^{f(n)}.
+\] Since \(r\) is odd, Lemma 3 gives \(f(r)=1\). Hence</p>
+<p>\[
+f(n)\mid r^{n}-1.
+\] In particular, \(r\mid r^{n}-1\), i.e. \(r\mid -1\), contradiction. Thus no odd prime divides \(f(n)\); i.e. \(f(n)=2^{e(n)}\) for some \(e(n)\ge0\).</p>
+<p><strong>Lemma 5.</strong> For any \(n\), \(2^{e(n)}\mid 3^{n}-1\).</p>
+<p><em>Proof.</em> Take \((n,3)\):</p>
+<p>\[
+f(n)\mid 3^{n}-f(3)^{f(n)}=3^{n}-1^{f(n)}=3^{n}-1.
+\] Since \(f(n)=2^{e(n)}\), we have \(2^{e(n)}\mid 3^{n}-1\).</p>
+<p><strong>Lemma 6.</strong> For \(n\in\mathbb N\),</p>
+<p>\[
+v_{2}(3^{n}-1)=\begin{cases}
+1 & \text{if } n \text{ is odd},\\
+v_{2}(n)+2 & \text{if } n \text{ is even}.
+\end{cases}
+\] <em>Proof.</em></p>
+<p><em>Odd \(n\):</em> Write</p>
+<p>\[
+3^{n}-1=(3-1)(3^{n-1}+3^{n-2}+\cdots+1)=2\cdot(\text{odd sum}),
+\] because there are \(n\) terms, each odd, and \(n\) odd $\Rightarrow$ the sum is odd. Hence \(v_{2}=1\).</p>
+<p><em>Even \(n\):</em> Write \(n=2^{\alpha}m\) with \(m\) odd, \(\alpha\ge1\). We prove by induction on \(\alpha\) that \(v_{2}(3^{2^{\alpha}m}-1)=\alpha+2\).</p>
+<p><strong>Base </strong>\(\alpha=1\):<strong> </strong>\(n=2m\). Then</p>
+<p>\[
+3^{2m}-1=(3^{m}-1)(3^{m}+1).
+\] We know \(v_{2}(3^{m}-1)=1\) (since \(m\) odd). For \(3^{m}+1\), note \(3^{m}\equiv 3\pmod 8\) when \(m\) is odd, so \(3^{m}+1\equiv 4\pmod 8\), thus \(v_{2}(3^{m}+1)=2\). Hence</p>
+<p>\[
+v_{2}(3^{2m}-1)=1+2=3=1+2=\alpha+2.
+\] <strong>Inductive step:</strong> Assume true for a given \(\alpha\ge1\). Write \(n'=2^{\alpha+1}m = 2\cdot(2^{\alpha}m)\). Let \(k=2^{\alpha}m\). Then \[
+3^{n'}-1=(3^{k}-1)(3^{k}+1).
+\] By hypothesis, \(v_{2}(3^{k}-1)=\alpha+2\).</p>
+<p>Since \(k\) is even (because \(\alpha\ge1\)), \(3^{k}\equiv 1\pmod 4\), so \(3^{k}+1\equiv 2\pmod 4\), giving \(v_{2}(3^{k}+1)=1\).</p>
+<p>Thus</p>
+<p>\[
+v_{2}(3^{n'}-1)=(\alpha+2)+1=\alpha+3=(\alpha+1)+2.
+\] This completes the induction.</p>
+<p>From Lemmas 5 and 6 we obtain</p>
+<p>\[
+e(n)\le \begin{cases}
+1 & \text{if } n \text{ is odd},\\
+v_{2}(n)+2 & \text{if } n \text{ is even}.
+\end{cases}
+\] Consequently</p>
+<p>\[
+f(n)=2^{e(n)}\le \begin{cases}
+2 & \text{if } n \text{ odd},\\
+2^{v_{2}(n)+2} & \text{if } n \text{ even}.
+\end{cases}
+\] For even \(n\), \(2^{v_{2}(n)+2}=4\cdot2^{v_{2}(n)}\le 4n\) because \(2^{v_{2}(n)}\mid n\) implies \(2^{v_{2}(n)}\le n\). For odd \(n\), \(2\le 4n\) (since \(n\ge1\)).</p>
+<p>Hence <strong>in Family A</strong> we have</p>
+<div class="math-block">\[
+\boxed{f(n)\le4n\quad\text{for all }n\in\mathbb N}.
+\]</div>
+<h5>4. Analysis of Family B (\(f(2)=2,\ f(3)=3,\ f(5)=5\))</h5>
+<p><strong>Proposition 7.</strong> For every prime \(p\), \(f(p)=p\).</p>
+<p><em>Proof.</em> We proceed by strong induction on \(p\). The base cases \(p=2,3,5\) are given.</p>
+<p>Assume \(p&gt;5\) and that for every prime \(q&lt;p\) we already know \(f(q)=q\).</p>
+<p>From \((p,p)\) we have \(f(p)\mid p^{p}\), so \(f(p)=p^{k}\) for some integer \(k\) with \(0\le k\le p\). We show that \(k\) must be 1.</p>
+<p><strong>Step 1 - Eliminate </strong>\(k=0\) and \(k=2\).<strong></strong></p>
+<p>Take any prime \(q&lt;p\). Consider \((q,p)\):</p>
+<p>\[
+f(q)=q\mid p^{q}-f(p)^{q}=p^{q}-p^{kq}.
+\] Factor out \(p^{q}\):</p>
+<p>\[
+q\mid p^{q}(1-p^{(k-1)q}).
+\] Since \(q\neq p\), \(q\nmid p^{q}\). Hence</p>
+<p>\[
+q\mid 1-p^{(k-1)q}.
+\] By Fermat's little theorem, \(p^{q}\equiv p\pmod q\), and more generally \(p^{(k-1)q}\equiv p^{k-1}\pmod q\) (raising to the \(q\)th power is the identity modulo \(q\)). Thus</p>
+<div class="math-block">\[
+1-p^{k-1}\equiv 0\pmod q\quad\Longrightarrow\quad p^{k-1}\equiv 1\pmod q. \quad\text{(2)}
+\]</div>
+<p class="compact-bullet">If \(k=0\), then the original condition \((q,p)\) gives \(q\mid p^{q}-1\). Using FLT, \(p^{q}\equiv p\pmod q\), so \(p\equiv1\pmod q\).</p>
+<p class="compact-bullet">If \(k=2\), (2) gives \(p^{1}\equiv1\pmod q\), i.e. \(p\equiv1\pmod q\).</p>
+<p>Thus for both \(k=0\) and \(k=2\) we have</p>
+<p>\[
+p\equiv 1\pmod q \qquad\text{for every prime } q&lt;p. \quad\text{(3)}
+\] Now by <strong>Bertrand's postulate</strong> (for any integer \(m&gt;1\) there exists a prime between \(m\) and \(2m\)), for \(p&gt;3\) there exists a prime \(q\) with \(\frac{p}{2}&lt;q&lt;p\). From (3), \(q\mid p-1\). But \(q&gt;p/2\) and \(q\le p-1\) (since \(q&lt;p\)). The only positive multiple of \(q\) that is at most \(p-1\) is \(q\) itself (because \(2q&gt;p\)). Hence \(p-1=q\), so \(p=q+1\), which is even - contradicting that \(p&gt;2\) is odd. Therefore \(k\) cannot be \(0\) or \(2\).</p>
+<p><strong>Step 2 - Eliminate </strong>\(k\ge3\).<strong></strong></p>
+<p>Consider the pair \((p,\,p-1)\):</p>
+<p>\[
+f(p)=p^{k}\mid (p-1)^{p} - f(p-1)^{p^{k}}.
+\] Let \(r = f(p-1)\).</p>
+<p class="compact-bullet">\textbf{Modulo</p>
+<p>\(p\):<strong></strong>} \[
+  (p-1)^{p}\equiv (-1)^{p} = -1\pmod p,
+  \] and by Fermat's little theorem, \(r^{p^{k}}\equiv r\pmod p\) (since \(r^{p}\equiv r\pmod p\), and then by induction \(r^{p^{k}}\equiv r\pmod p\).</p>
+<p>Since \(p^{k}\mid D := (p-1)^{p} - r^{p^{k}}\), in particular \(p\mid D\). Reducing modulo \(p\) gives</p>
+<p>\[
+  -1 \equiv r \pmod p,\qquad\text{i.e.}\quad r\equiv -1\pmod p. \quad\text{(4)}
+  \] Write \(r = -1 + p t\) for some integer \(t\).</p>
+<p class="compact-bullet">\textbf{Expansion of</p>
+<p>\((p-1)^{p}\):<strong></strong>} By the binomial theorem,</p>
+<p>\[
+  (p-1)^{p} = \sum_{i=0}^{p}\binom{p}{i}p^{i}(-1)^{p-i}.
+  \] The term with \(i=0\) is \((-1)^{p} = -1\). The term with \(i=1\) is \(\binom{p}{1}p^{1}(-1)^{p-1} = p\cdot p\cdot1 = p^{2}\).</p>
+<p>For \(i\ge2\), \(\binom{p}{i}\) is divisible by \(p\), and together with \(p^{i}\) yields a factor \(p^{i+1}\ge p^{3}\). Thus we can write</p>
+<p>\[
+  (p-1)^{p} = -1 + p^{2} A,
+  \] where \(A\) is an integer and, because the \(i=1\) term contributes exactly \(p^{2}\) and the higher terms are multiples of \(p^{3}\), we have \(A\equiv 1\pmod p\) (in particular \(p\nmid A\)).</p>
+<p class="compact-bullet">\textbf{Expansion of</p>
+<p>\(r^{p^{k}}\):<strong></strong>} Write \(r = -1 + p t\). Then</p>
+<p>\[
+  r^{p^{k}} = \sum_{j=0}^{p^{k}}\binom{p^{k}}{j}(-1)^{p^{k}-j}(p t)^{j}.
+  \] Since \(p^{k}\) is odd, \((-1)^{p^{k}} = -1\).</p>
+<p class="compact-bullet">\(j=0\): term = \(-1\).</p>
+<p class="compact-bullet">\(j=1\): \(\binom{p^{k}}{1}(-1)^{p^{k}-1}p t = p^{k}\cdot 1\cdot p t = p^{k+1} t\).</p>
+<p class="compact-bullet">For \(j\ge2\): we show that each term is divisible by \(p^{k+2}\).</p>
+<p>Indeed, for \(j\ge2\),</p>
+<p>\[
+    v_{p}\Bigl(\binom{p^{k}}{j}\Bigr) = k - v_{p}(j),
+    \] hence</p>
+<p>\[
+    v_{p}\biggl(\binom{p^{k}}{j}p^{j}\biggr) = (k - v_{p}(j)) + j = k + j - v_{p}(j) \ge k+2,
+    \] because \(j\ge2\) and if \(p\nmid j\) then \(j\ge2\) and \(v_{p}(j)=0\); if \(p\mid j\) then \(j\ge p\) and \(v_{p}(j)\ge1\), so \(j - v_{p}(j) \ge j- (j-1) =1\)? Wait, need to be precise: For any \(j\) with \(2\le j\le p^{k}-1\), we have</p>
+<p>\[
+    v_{p}\Bigl(\binom{p^{k}}{j}\Bigr) = k - v_{p}(j)
+\] (a standard property for prime powers). Then \[
+    v_{p}\Bigl(\binom{p^{k}}{j} p^{j}\Bigr) = k - v_{p}(j) + j = k + j - v_{p}(j).
+    \] Since \(j\ge2\) and \(v_{p}(j)\le \log_{p} j &lt; j\), but we need at least \(k+2\). The minimal value occurs when \(j=2\) and \(p\nmid 2\) (since \(p\ge3\)), then \(v_{p}(j)=0\), giving \(k+2\). For \(j=p\) we have \(v_{p}(j)=1\), then \(k + p - 1 \ge k+2\) because \(p\ge3\). So indeed each term for \(j\ge2\) is divisible by \(p^{k+2}\).</p>
+<p>Therefore</p>
+<p>\[
+  r^{p^{k}} = -1 + p^{k+1} t + p^{k+2} S
+  \] for some integer \(S\).</p>
+<p class="compact-bullet">\textbf{Form the difference:</p>
+<p>} \[
+  D = (p-1)^{p} - r^{p^{k}} = (-1 + p^{2} A) - (-1 + p^{k+1} t + p^{k+2} S) = p^{2} A - p^{k+1} t - p^{k+2} S.
+  \] Factor \(p^{2}\):</p>
+<p>\[
+  D = p^{2}\bigl(A - p^{k-1} t - p^{k} S\bigr). \quad\text{(5)}
+  \] Since \(k\ge3\), we have \(k-1\ge2\), so \(p^{k-1} t\) and \(p^{k} S\) are both multiples of \(p^{2}\). Moreover,</p>
+<p>\[
+  A - p^{k-1} t - p^{k} S \equiv A \pmod p,
+  \] and \(p\nmid A\). Hence the expression in parentheses is <strong>not</strong> divisible by \(p\), and we obtain</p>
+<p>\[
+  v_{p}(D) = 2.
+  \] However, we require \(v_{p}(D) \ge k \ge 3\) (because \(p^{k}\mid D\)). This contradiction shows that \(k\ge3\) is impossible.</p>
+<p>Since \(k\) cannot be \(0\), \(2\), or \(\ge3\), the only remaining possibility is \(k=1\). Thus \(f(p)=p\).</p>
+<p><strong>Proposition 8.</strong> In Family B, \(f(n)=n\) for all positive integers \(n\).</p>
+<p><em>Proof.</em> Fix any \(n\) and any prime \(p\). Using the bonza condition with \(a=p\), \(b=n\):</p>
+<p>\[
+f(p)=p \mid n^{p} - f(n)^{p}.
+\] By Fermat's little theorem,</p>
+<p>\[
+n^{p}\equiv n\pmod p,\qquad f(n)^{p}\equiv f(n)\pmod p.
+\] Therefore</p>
+<p>\[
+p\mid n - f(n).
+\] This holds for <strong>every</strong> prime \(p\). The only integer divisible by all primes is 0, so \(n-f(n)=0\), i.e. \(f(n)=n\).</p>
+<p>Hence in Family B we have \(f(n)=n\le 4n\) for all \(n\).</p>
+<h5>5. Upper bound summary</h5>
+<p>We have shown:</p>
+<p class="compact-bullet">In Family A, \(f(n)\le 4n\) for all \(n\).</p>
+<p class="compact-bullet">In Family B, \(f(n)=n\le 4n\).</p>
+<p>Therefore <strong>for every bonza function </strong>\(f\) and every \(n\in\mathbb N\),<strong></strong></p>
+<div class="math-block">\[
+\boxed{f(n)\le 4n}.
+\]</div>
+<h5>6. Sharpness: a bonza function attaining \(4n\)</h5>
+<p>Define a function \(h:\mathbb N\to\mathbb N\) by</p>
+<p>\[
+h(1)=1,
+\] and for \(n\ge 2\):</p>
+<p>\[
+h(n)=\begin{cases}
+1 & \text{if } n \text{ is odd},\\[2pt]
+4 & \text{if } n=2,\\[2pt]
+2^{v_{2}(n)+2} & \text{if } n \text{ is even and } n&gt;2.
+\end{cases}
+\] We verify that \(h\) is bonza, i.e.,</p>
+<div class="math-block">\[
+h(a)\mid b^{a} - h(b)^{h(a)}\quad\text{for all } a,b\in\mathbb N.
+\]</div>
+<h5>Verification</h5>
+<p>We consider cases based on \(a\).</p>
+<p class="compact-bullet">\textbf{Case 1:</p>
+<p>\(a\) is odd.<strong></strong>} Then \(h(a)=1\) (by definition: for odd \(n&gt;1\), \(h(n)=1\); and \(a=1\) gives \(1\)). Since \(1\) divides any integer, the condition holds trivially.</p>
+<p class="compact-bullet">\textbf{Case 2:</p>
+<p>\(a=2\).<strong></strong>} Here \(h(2)=4\). We must show</p>
+<div class="math-block">\[
+  4\mid b^{2} - h(b)^{4}\quad\text{for all } b.
+  \]</div>
+<p class="compact-bullet">If \(b\) is odd: \(b^{2}\) is odd, \(h(b)=1\), so \(h(b)^{4}=1\). Then \(b^{2}-1\) is divisible by 4 because for an odd \(b\), \(b^{2}\equiv1\pmod8\), hence certainly by 4.</p>
+<p class="compact-bullet">If \(b=2\): \(b^{2}=4\), \(h(b)=4\), \(h(b)^{4}=4^{4}=256\). Then \(4-256=-252\), and \(-252\) is divisible by 4.</p>
+<p class="compact-bullet">If \(b\) is even and \(b&gt;2\): write \(b=2^{\beta}c\) with \(\beta\ge1\), \(c\) odd. Then \(h(b)=2^{\beta+2}\) (since \(b&gt;2\) even). Then \(h(b)^{4}=2^{4(\beta+2)}=2^{4\beta+8}\), which is divisible by 4. Moreover, \(b^{2}\) is divisible by 4 (since \(b\) is even). Thus \(b^{2}-h(b)^{4}\) is a difference of two multiples of 4, hence itself a multiple of 4.</p>
+<p>Therefore the condition holds for \(a=2\).</p>
+<p class="compact-bullet">\textbf{Case 3:</p>
+<p>\(a\) is even and \(a&gt;2\).<strong></strong>} Let \(\alpha = v_{2}(a)\) (so \(\alpha\ge1\); note that if \(a\) is even and \(&gt;2\), then either \(\alpha\ge2\) or \(\alpha=1\) with \(a=2m\), \(m\) odd \(\ge3\)). Then \(h(a)=2^{\alpha+2}\). We need to prove</p>
+<p>\[
+  2^{\alpha+2} \mid b^{a} - h(b)^{2^{\alpha+2}}.
+  \] We split into subcases according to \(b\).</p>
+<p class="compact-bullet">\textbf{Subcase 3a:</p>
+<p>\(b\) is odd.<strong></strong>} Then \(h(b)=1\). So we need \(2^{\alpha+2}\mid b^{a}-1\).</p>
+<p>Since \(a\) is even, write \(a = 2^{\alpha} m\) with \(m\) odd.</p>
+<p><strong>Claim:</strong> For any odd integer \(b\) and any integer \(s\ge1\),</p>
+<p>\[
+    b^{2^{s}} \equiv 1 \pmod{2^{s+2}}.
+    \] <em>Proof of claim.</em> For \(s=1\), any odd \(b\) satisfies \(b^{2}\equiv1\pmod8\), i.e. modulo \(2^{3}\). Assume the claim holds for some \(s\ge1\). Then</p>
+<p>\[
+    b^{2^{s}} = 1 + 2^{s+2} K
+\] for some integer \(K\). Squaring gives \[
+    b^{2^{s+1}} = (1 + 2^{s+2} K)^{2} = 1 + 2^{s+3} K + 2^{2s+4} K^{2} \equiv 1 \pmod{2^{s+3}},
+\] because the extra term is divisible by \(2^{s+3}\). This proves the claim.</p>
+<p>Applying the claim with \(s=\alpha\) yields</p>
+<p>\[
+    b^{2^{\alpha}} \equiv 1 \pmod{2^{\alpha+2}}.
+    \] Then</p>
+<p>\[
+    b^{a} = \bigl(b^{2^{\alpha}}\bigr)^{m} \equiv 1^{m} = 1 \pmod{2^{\alpha+2}},
+    \] and therefore \(b^{a}-1\) is divisible by \(2^{\alpha+2}\).</p>
+<p class="compact-bullet">\textbf{Subcase 3b:</p>
+<p>\(b=1\).<strong></strong>} Then \(b^{a}=1\), \(h(b)=h(1)=1\), so \(h(b)^{2^{\alpha+2}}=1\), and \(1-1=0\) is divisible by any integer.</p>
+<p class="compact-bullet">\textbf{Subcase 3c:</p>
+<p>\(b=2\).<strong></strong>} Here \(h(b)=h(2)=4\). So we need</p>
+<p>\[
+    2^{\alpha+2} \mid 2^{a} - 4^{2^{\alpha+2}} = 2^{a} - (2^{2})^{2^{\alpha+2}} = 2^{a} - 2^{2\cdot 2^{\alpha+2}} = 2^{a} - 2^{2^{\alpha+3}}.
+    \] Let \(D = 2^{a} - 2^{2^{\alpha+3}}\). The \(2\)-adic valuation of a difference of two powers of two is</p>
+<p>\[
+    v_{2}(D) = \begin{cases}
+    a & \text{if } a &lt; 2^{\alpha+3},\\
+    2^{\alpha+3} & \text{if } a &gt; 2^{\alpha+3},\\
+    \text{higher} & \text{if } a = 2^{\alpha+3} \text{ (then } D=0\text{)}.
+    \end{cases}
+    \] We claim \(v_{2}(D)\ge\alpha+2\).</p>
+<p><strong>Lemma 9.</strong> If \(a\) is even and \(a&gt;2\), then \(a \ge \alpha+2\) where \(\alpha=v_{2}(a)\).</p>
+<p><em>Proof.</em> Write \(a = 2^{\alpha}\cdot m\) with \(m\) odd.</p>
+<p class="compact-bullet">If \(\alpha = 1\), then \(a = 2m\) with \(m\) odd. Since \(a&gt;2\), we have \(m\ge3\), so \(a\ge6\). Meanwhile \(\alpha+2 = 3\). So \(a \ge 3\).</p>
+<p class="compact-bullet">If \(\alpha \ge 2\), then \(a \ge 2^{\alpha}\). It remains to show \(2^{\alpha} \ge \alpha+2\) for \(\alpha\ge2\). This is true for \(\alpha=2\) (\(4\ge4\)), and if true for \(\alpha\), then \(2^{\alpha+1} = 2\cdot2^{\alpha} \ge 2(\alpha+2) = 2\alpha+4 \ge (\alpha+1)+2\) for \(\alpha\ge -1\), which holds. Hence \(a \ge \alpha+2\).</p>
+<p>Now we have two possibilities:</p>
+<p class="compact-bullet">If \(a \le 2^{\alpha+3}\), then \(v_{2}(D) = a\) (if \(a &lt; 2^{\alpha+3}\)) or \(D=0\) (if \(a = 2^{\alpha+3}\)). In either case, since \(a \ge \alpha+2\), we get \(v_{2}(D) \ge \alpha+2\).</p>
+<p class="compact-bullet">If \(a &gt; 2^{\alpha+3}\), then \(v_{2}(D) = 2^{\alpha+3}\). Since \(\alpha\ge1\), \(2^{\alpha+3} \ge 2^{4}=16\) for \(\alpha=1\), and \(\alpha+2=3\); clearly \(2^{\alpha+3} \ge \alpha+2\) (e.g. for \(\alpha=1\), \(16\ge3\); for larger \(\alpha\) it's even larger). Thus \(v_{2}(D) \ge \alpha+2\).</p>
+<p>Therefore \(2^{\alpha+2}\mid D\).</p>
+<p class="compact-bullet">\textbf{Subcase 3d:</p>
+<p>\(b\) is even and \(b&gt;2\).<strong></strong>} Write \(b = 2^{\beta}c\) with \(\beta = v_{2}(b)\ge1\) and \(c\) odd. Since \(b&gt;2\), we have \(\beta\ge1\); note that if \(b=2\) we already handled.</p>
+<p>Then \(h(b) = 2^{\beta+2}\) (by definition, because \(b\) is even and \(b&gt;2\)).</p>
+<p>We need to show \(2^{\alpha+2}\) divides</p>
+<p>\[
+    b^{a} - \bigl(2^{\beta+2}\bigr)^{2^{\alpha+2}} = b^{a} - 2^{(\beta+2)2^{\alpha+2}}.
+    \] Observe that the second term is a power of two, and its exponent is \((\beta+2)2^{\alpha+2} \ge 2^{\alpha+2}\) (since \(\beta\ge1\) gives \(\beta+2\ge3\)). Hence it is certainly divisible by \(2^{\alpha+2}\).</p>
+<p>For the first term,</p>
+<p>\[
+b^{a} = (2^{\beta}c)^{a} = 2^{\beta a} c^{a}.
+\] Since \(c^{a}\) is odd, the \(2\)-adic valuation of \(b^{a}\) is \(\beta a\). By Lemma 9, \(a \ge \alpha+2\). Therefore \[
+    \beta a \ge a \ge \alpha+2.
+    \] Thus \(2^{\alpha+2} \mid b^{a}\).</p>
+<p>Consequently both \(b^{a}\) and the second term are multiples of \(2^{\alpha+2}\), so their difference is also a multiple of \(2^{\alpha+2}\).</p>
+<p>All subcases are exhausted, and in each the required divisibility holds.</p>
+<p>Thus \(h\) is bonza.</p>
+<p>Now evaluate \(h(n)\) for powers of two:</p>
+<p class="compact-bullet">\(h(2)=4 = 2\cdot2\).</p>
+<p class="compact-bullet">For any \(t\ge2\), \(n=2^{t}\) is even and \(&gt;2\), so</p>
+<p>\[
+h(2^{t}) = 2^{v_{2}(2^{t})+2} = 2^{t+2} = 4\cdot 2^{t} = 4n.
+\] In particular, \(h(4)=16 = 4\cdot4\). Hence</p>
+<p>\[
+\frac{h(n)}{n} = 4 \quad\text{for all } n=2^{t}\ (t\ge2).
+\] If \(c&lt;4\), then for \(n=4\) (or any \(2^{t}\) with \(t\ge2\)) we have</p>
+<p>\[
+h(4) = 16 &gt; c\cdot 4,
+\] so \(c\) cannot satisfy \(f(n)\le cn\) for all bonza functions. Therefore no constant smaller than 4 works.</p>
+<h5>7. Conclusion</h5>
+<p>We have proved that \(4\) is an upper bound for \(f(n)/n\) and that this bound is attainable. Consequently, the smallest real constant \(c\) with the property that \(f(n)\le cn\) for every bonza function \(f\) and every \(n\in\mathbb N\) is</p>
+<div class="math-block">\[
+\boxed{4}.
+\]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('imo-2025-problem-4-content')">
+                    <span>IMO 2025 Problem 4</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="imo-2025-problem-4-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>An infinite sequence \(a_1, a_2, \dots\) consists of positive integers has each of which has at least three proper divisors. Suppose that for each $n\geq 1$, $a_{n+1}$ is the sum of the three largest proper divisors of $a_n$. Determine all possible values of $a_1$.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('imo-2025-problem-4-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="imo-2025-problem-4-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p>Let \(a_1,a_2,\dots\) be an infinite sequence of positive integers such that each \(a_n\) has at least three proper divisors, and for each \(n\ge 1\)</p>
+<p>\[
+a_{n+1}=\text{sum of the three largest proper divisors of }a_n.
+\] Define the function \(f\) by \(f(N) =\) sum of the three largest proper divisors of \(N\).</p>
+<h5>1. A useful formula for \(f(N)\)</h5>
+<p>Let the positive divisors of \(N\) be</p>
+<p>\[
+1=d_1&lt;d_2&lt;\dots&lt;d_k=N,
+\] where \(k\ge4\) because \(N\) has at least three proper divisors. The three largest proper divisors are \(d_{k-3}, d_{k-2}, d_{k-1}\). Using the divisor pairing \(d_i\cdot d_{k+1-i}=N\), we get</p>
+<p>\[
+d_{k-1}=\frac{N}{d_2},\quad d_{k-2}=\frac{N}{d_3},\quad d_{k-3}=\frac{N}{d_4}.
+\] Thus</p>
+<div class="math-block">\[
+f(N)=\frac{N}{d_2}+\frac{N}{d_3}+\frac{N}{d_4}=N\left(\frac{1}{d_2}+\frac{1}{d_3}+\frac{1}{d_4}\right). \quad\text{(1)}
+\]</div>
+<h5>2. Fixed points</h5>
+<p>A fixed point satisfies \(f(N)=N\). From (1) this is equivalent to</p>
+<p>\[
+\frac{1}{d_2}+\frac{1}{d_3}+\frac{1}{d_4}=1. \quad\text{(2)}
+\] Let \(a=d_2,\;b=d_3,\;c=d_4\) (so \(2\le a&lt;b&lt;c\)). Solve \(1/a+1/b+1/c=1\).</p>
+<p class="compact-bullet">\textbf{If</p>
+<p>\(a=2\)<strong>, then </strong>\(1/b+1/c=1/2\). Multiplying gives \(2(b+c)=bc\) or \((b-2)(c-2)=4\). With \(b&lt;c\), the only solution is \(b-2=1,\;c-2=4\), i.e., \((a,b,c)=(2,3,6)\).}</p>
+<p class="compact-bullet">\textbf{If</p>
+<p>\(a=3\)<strong>, then </strong>\(1/b+1/c=2/3\). But the maximum for \(b\ge4,c\ge5\) is \(1/4+1/5=9/20&lt;2/3\), so no solution.}</p>
+<p class="compact-bullet">\textbf{If</p>
+<p>\(a\ge4\)<strong>, the sum is at most </strong>\(1/4+1/5+1/6=37/60&lt;1\).} Hence the unique triple is \((2,3,6)\). Therefore a fixed point must have</p>
+<p>\[
+d_2=2,\quad d_3=3,\quad d_4=6.
+\] Interpretation:</p>
+<p class="compact-bullet">\(2\mid N\) (so \(N\) even),</p>
+<p class="compact-bullet">\(3\mid N\),</p>
+<p class="compact-bullet">There is no divisor between \(3\) and \(6\); i.e., \(4\nmid N\) and \(5\nmid N\).</p>
+<p class="compact-bullet">Because \(2\) is the smallest divisor \(&gt;1\), we must have \(\nu_2(N)=1\) (otherwise \(4\mid N\) would be a divisor \(&lt;6\)).</p>
+<p>Thus the set \(\mathcal{F}\) of all fixed points is</p>
+<div class="math-block">\[
+\boxed{\mathcal{F}=\bigl\{N\in\mathbb{N}\;\big|\; \nu_2(N)=1,\;3\mid N,\;5\nmid N\bigr\}.}
+\]</div>
+<h5>3. Special case: \(12\mid N\)</h5>
+<p>If \(12\mid N\), then \(2,3,4\mid N\) and these are the three smallest proper divisors (since \(4\) is the smallest possible after \(2,3\)). Then</p>
+<div class="math-block">\[
+f(N)=\frac{N}{2}+\frac{N}{3}+\frac{N}{4}=\frac{13}{12}N. \quad\text{(3)}
+\]</div>
+<h5>4. Lemma on odd numbers</h5>
+<p><strong>Lemma 1.</strong> Let \(X\) be an odd positive integer with at least three proper divisors. Then \(f(X)&lt;X\) and \(f(X)\) is odd.</p>
+<p><em>Proof.</em> All divisors of an odd number are odd. The three smallest divisors greater than \(1\) are at least \(3,5,7\). Therefore</p>
+<p>\[
+\frac{1}{d_2}+\frac{1}{d_3}+\frac{1}{d_4}\le\frac{1}{3}+\frac{1}{5}+\frac{1}{7}=\frac{71}{105}&lt;1,
+\] so \(f(X)&lt;X\). Moreover, each quotient \(X/d_i\) is odd (odd divided by odd). The sum of three odd numbers is odd, hence \(f(X)\) is odd.</p>
+<p>An immediate corollary:</p>
+<p><em>In an infinite orbit, no term can be odd, because starting from an odd term the sequence would be strictly decreasing and infinite - impossible. Hence every term of an infinite sequence is <strong>even</strong>.</em></p>
+<h5>5. Lemma for even numbers not divisible by \(12\)</h5>
+<p><strong>Lemma 2.</strong> Let \(Y\) be an even integer with at least three proper divisors and \(12\nmid Y\). If the orbit of \(Y\) is infinite, then \(Y\in\mathcal{F}\).</p>
+<p><em>Proof.</em> Since \(12\nmid Y\) and \(Y\) is even, we have either \(4\nmid Y\) or \(3\nmid Y\) (or both). Consider two cases.</p>
+<h5>Case 1: \(3\mid Y\)</h5>
+<p>Because \(12\nmid Y\), we must have \(4\nmid Y\); thus \(\nu_2(Y)=1\). Write \(Y=2M\) with \(M\) odd. Since \(3\mid Y\) and \(\gcd(2,3)=1\), we get \(3\mid M\).</p>
+<p>The three smallest proper divisors are \(d_2=2\) and \(d_3=3\). The fourth divisor \(d_4\) depends on \(5\).</p>
+<p class="compact-bullet">\textbf{Subcase 1a:</p>
+<p>\(5\mid M\). Then \(5\mid Y\) and \(5&lt;6\), so \(d_4=5\). Then} \[
+f(Y)=\frac{Y}{2}+\frac{Y}{3}+\frac{Y}{5}=\frac{31}{30}Y&gt;Y.
+\] Moreover, \(Y\) is divisible by \(30\) (it contains factors \(2,3,5\)), so \(Y=30Z\) with \(Z\) odd. Then \(f(Y)=31Z\), which is odd. By Lemma 1, the orbit from an odd number is strictly decreasing and finite - contradiction to infinite orbit. Hence this subcase cannot occur.</p>
+<p class="compact-bullet">\textbf{Subcase 1b:</p>
+<p>\(5\nmid M\). Then no divisor equals \(4\) or \(5\); the next divisor after \(2,3\) is \(6=2\cdot3\). Hence \(d_4=6\), and} \[
+f(Y)=\frac{Y}{2}+\frac{Y}{3}+\frac{Y}{6}=Y.
+\] Thus \(Y\) is a fixed point, i.e., \(Y\in\mathcal{F}\).</p>
+<p>Therefore, if the orbit is infinite, we must be in Subcase 1b, so \(Y\in\mathcal{F}\).</p>
+<h5>Case 2: \(3\nmid Y\)</h5>
+<p>Then \(Y\) is even but not divisible by \(3\). For any such \(Y\) we have</p>
+<p>\[
+\frac{1}{d_2}+\frac{1}{d_3}+\frac{1}{d_4}\le\frac{1}{2}+\frac{1}{4}+\frac{1}{5}=\frac{19}{20}&lt;1,
+\] so \(f(Y)&lt;Y\). If the orbit never contained a term divisible by \(3\), then we would have an infinite strictly decreasing sequence - impossible. Hence there exists a smallest index \(m\ge2\) with \(3\mid a_m\). Then \(a_{m-1}\) is not divisible by \(3\), and \(a_m=f(a_{m-1})&lt;a_{m-1}\).</p>
+<p>Now examine \(a_{m-1}\).</p>
+<p class="compact-bullet">\textbf{Subcase 2a:</p>
+<p>\(a_{m-1}\) is odd. By Lemma 1, \(a_m=f(a_{m-1})\) is odd and less than \(a_{m-1}\). Since \(a_m\) is odd and divisible by \(3\), Lemma 1 again implies that from \(a_m\) onward the sequence is strictly decreasing and odd - finite, contradiction.}</p>
+<p class="compact-bullet">\textbf{Subcase 2b:</p>
+<p>\(a_{m-1}\) is even. Write \(Y=a_{m-1}=2M\), with \(M\) odd. Since \(3\nmid Y\), we have \(3\nmid M\). We will show that \(a_m\) is odd, reducing to Subcase 2a and giving a contradiction.} Let \(r=Y\bmod 3\) (\(r=1\) or \(2\)). For any divisor \(d\) of \(Y\) (which is coprime to \(3\)), we have \(d\equiv1\) or \(2\pmod3\) and \(d^{-1}\equiv d\pmod3\) (because \(1\cdot1\equiv1,\;2\cdot2\equiv1\pmod3\)). Hence</p>
+<p>\[
+\frac{Y}{d}\equiv r\cdot d\pmod3.
+\] Thus</p>
+<p>\[
+f(Y)\equiv r\bigl(d_2+d_3+d_4\bigr)\pmod3.
+\] Since \(r\neq0\), the condition \(3\mid f(Y)\) is equivalent to</p>
+<p>\[
+2+d_3+d_4\equiv0\pmod3. \quad\text{(4)}
+\] Now, \(d_2=2\). Determine \(d_3,d_4\).</p>
+<p>First, <strong></strong>\(4\) cannot divide \(Y\)<strong>. If </strong>\(4\mid Y\), then \(d_3=4\), and (4) gives \(2+4+d_4\equiv0\Rightarrow d_4\equiv0\pmod3\), impossible because \(3\nmid Y\). So \(\nu_2(Y)=1\): \(Y=2M\) with \(M\) odd, and \(4\nmid Y\).</p>
+<p>Thus the smallest divisor greater than \(2\) is an odd number; call it \(p\). Since \(3\nmid Y\), \(p\neq3\), so \(p\ge5\).</p>
+<p>The next divisor \(d_4\) is the smallest divisor larger than \(p\). Since \(4\nmid Y\), the next even divisor would be \(2p\). So either</p>
+<p class="compact-bullet">\(d_4=q\) (an odd divisor, \(p&lt;q&lt;2p\)) if such an odd divisor exists, or</p>
+<p class="compact-bullet">\(d_4=2p\) (if there is no odd divisor between \(p\) and \(2p\)).</p>
+<p>Check the two possibilities against (4) with \(d_3=p\):</p>
+<div class="math-block">\[
+2+p+d_4\equiv0\pmod3. \quad\text{(5)}
+\]</div>
+<p class="compact-bullet">If \(d_4=2p\), then \(2+p+2p=2+3p\equiv2\pmod3\), not \(0\). Hence \(d_4\) cannot be \(2p\). Therefore there exists an odd divisor \(q\) with \(p&lt;q&lt;2p\) and \(d_4=q\).</p>
+<p>Then (5) becomes \(2+p+q\equiv0\pmod3\). Since \(p,q\not\equiv0\pmod3\), the only way is</p>
+<p>\[
+p\equiv q\equiv2\pmod3.
+\] Now compute \(f(Y)\):</p>
+<p>\[
+f(Y)=\frac{Y}{2}+\frac{Y}{p}+\frac{Y}{q}=M+\frac{2M}{p}+\frac{2M}{q}.
+\] Because \(p,q\) divide \(M\) (they are odd divisors of \(Y=2M\)), the fractions are integers. Now</p>
+<p class="compact-bullet">\(M\) is odd,</p>
+<p class="compact-bullet">\(\frac{2M}{p}=2\cdot\frac{M}{p}\) is even,</p>
+<p class="compact-bullet">\(\frac{2M}{q}\) is even.</p>
+<p>Thus \(f(Y)=\text{odd}+\text{even}+\text{even}=\text{odd}\).</p>
+<p>Hence \(a_m=f(Y)\) is odd. But \(3\mid a_m\) (by definition of \(m\)). So \(a_m\) is an odd multiple of \(3\). By Lemma 1, the orbit from \(a_m\) is strictly decreasing and odd - finite, contradiction.</p>
+<p>Both subcases lead to contradiction. Therefore <strong>Case 2 cannot occur</strong>. The only possibility is Case 1, and specifically Subcase 1b, which forces \(Y\in\mathcal{F}\).</p>
+<h5>6. Necessity - form of \(a_1\) in an infinite orbit</h5>
+<p>Assume the sequence is infinite. Let \(N=a_1\). Define</p>
+<p>\[
+t=\max\{k\ge0\mid 12^k\mid N\}.
+\] Write \(N=12^tR\) with \(12\nmid R\).</p>
+<p>We claim that for \(i=1,\dots,t\), the term \(a_i\) is divisible by \(12\). Proof by induction: \(a_1=12^tR\) is divisible by \(12\) (if \(t\ge1\)). Suppose \(a_i\) is divisible by \(12\). Since \(12\mid a_i\), we have by (3) that \(a_{i+1}=\frac{13}{12}a_i\). If we write \(a_i=12^s\cdot S\) with \(12\nmid S\) and \(s\ge1\), then \(a_{i+1}=12^{s-1}(13S)\). Since \(12\nmid S\) and \(13\) is coprime to \(12\), we have \(12\nmid13S\). Thus \(a_{i+1}\) is divisible by \(12^{s-1}\). Starting with \(s=t\) at \(i=1\), after \(i\) steps the exponent of \(12\) is \(t-i+1\). Hence as long as \(i\le t\), the exponent is at least \(1\), i.e., \(12\mid a_i\).</p>
+<p>Thus we can apply (3) exactly \(t\) times:</p>
+<p>\[
+a_{t+1}=\left(\frac{13}{12}\right)^t a_1 = \frac{13^t}{12^t}\cdot 12^tR = 13^tR.
+\] Now \(12\nmid R\) and \(\gcd(13,12)=1\), so \(12\nmid 13^tR\); i.e., \(12\nmid a_{t+1}\).</p>
+<p>The orbit of \(a_{t+1}\) is also infinite (tail of an infinite sequence). By the corollary of Lemma 1, \(a_{t+1}\) cannot be odd; hence \(a_{t+1}\) is even. Also each term has at least three proper divisors. Therefore \(a_{t+1}\) satisfies the hypotheses of Lemma 2 (even, not divisible by \(12\), infinite orbit). Lemma 2 then yields</p>
+<p>\[
+a_{t+1}\in\mathcal{F}.
+\] Recall \(a_{t+1}=13^tR\). Since \(13^t\) is coprime to \(30\), the properties defining \(\mathcal{F}\) must already hold for \(R\):</p>
+<p class="compact-bullet">\(\nu_2(a_{t+1})=\nu_2(R)=1\),</p>
+<p class="compact-bullet">\(3\mid a_{t+1}\) and \(3\nmid13^t\) $\Rightarrow$ \(3\mid R\),</p>
+<p class="compact-bullet">\(5\nmid a_{t+1}\) and \(5\nmid13^t\) $\Rightarrow$ \(5\nmid R\).</p>
+<p>Thus \(R\in\mathcal{F}\). We have shown</p>
+<div class="math-block">\[
+\boxed{a_1=12^{\,t}\cdot K\quad\text{with }t\ge0,\ K\in\mathcal{F}}.
+\]</div>
+<h5>7. Sufficiency - every such number works</h5>
+<p>We prove by induction on \(t\) that if \(a_1=12^tK\) with \(K\in\mathcal{F}\), then the sequence is infinite.</p>
+<p class="compact-bullet">\textbf{Base case</p>
+<p>\(t=0\):<strong> </strong>\(a_1=K\in\mathcal{F}\). By definition of a fixed point, \(f(K)=K\). Hence the sequence is constant: \(a_n=K\) for all \(n\). Since \(K\) has at least three proper divisors (as shown when characterizing \(\mathcal{F}\)), the sequence is infinite.}</p>
+<p class="compact-bullet">\textbf{Inductive step:</p>
+<p>Assume the statement holds for all starting values with parameter \(t-1\) (where \(t\ge1\)). Let \(a_1=12^tK\) with \(K\in\mathcal{F}\). Because \(12\mid a_1\), we can use (3):} \[
+a_2=f(a_1)=\frac{13}{12}a_1=\frac{13}{12}\cdot12^tK=12^{t-1}(13K).
+\] Now, because \(K\in\mathcal{F}\), we have \(\nu_2(K)=1,\ 3\mid K,\ 5\nmid K\). Multiplying by \(13\) (coprime to \(30\)) preserves these properties, so \(13K\in\mathcal{F}\). Thus</p>
+<p>\[
+a_2=12^{t-1}L\quad\text{with }L=13K\in\mathcal{F}.
+\] By the induction hypothesis, the sequence starting from \(a_2\) is infinite. Consequently, the whole sequence from \(a_1\) is infinite.</p>
+<p>This completes the induction, establishing sufficiency.</p>
+<h5>8. Final characterization</h5>
+<p>Combining necessity and sufficiency, the possible values of \(a_1\) are exactly those positive integers that can be written as</p>
+<p>\[
+a_1 = 12^{\,t} \cdot K \qquad (t\ge0,\ K\in\mathcal{F}),
+\] where</p>
+<p>\[
+\mathcal{F}=\bigl\{K\in\mathbb{N}\;\big|\; \nu_2(K)=1,\ 3\mid K,\ 5\nmid K\bigr\}.
+\] Equivalently, in terms of prime exponents:</p>
+<p>\[
+\nu_2(a_1)\text{ is odd},\quad \nu_3(a_1)&gt;\tfrac12\nu_2(a_1),\quad 5\nmid a_1.
+\] More explicitly, writing</p>
+<p>\[
+t = \left\lfloor\frac{\nu_2(a_1)}{2}\right\rfloor,\qquad \ell = \nu_3(a_1)-(t+1)\ge0,\qquad \gcd(R,30)=1,
+\] we have</p>
+<p>\[
+a_1 = 2^{2t+1}\cdot3^{t+1+\ell}\cdot R.
+\] \[
+\boxed{a_1 = 12^{\,t} \cdot K \text{ with } t \ge 0 \text{ and } K \text{ satisfying } 2\parallel K,\ 3\mid K,\ 5\nmid K.}
+\] \[
+\boxed{a_1 = 2^{2t+1}\cdot 3^{t+1+\ell}\cdot R,\quad t,\ell\ge0,\ \gcd(R,30)=1.}
+\] This completely solves the problem.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('imo-2025-problem-5-content')">
+                    <span>IMO 2025 Problem 5</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="imo-2025-problem-5-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Alice and Bazza are playing the <em>inekoalaty game</em>, a two‑player game whose rules depend on a positive real number $\lambda$ which is known to both players. On the $n$th turn of the game (starting with $n=1$) the following happens:</p>
+<ul>
+<li>If $n$ is odd, Alice chooses a nonnegative real number $x_n$ such that \[ x_1 + x_2 + \cdots + x_n \le \lambda n.  \]</li>
+<li>If $n$ is even, Bazza chooses a nonnegative real number $x_n$ such that \[ x_1^2 + x_2^2 + \cdots + x_n^2 \le n.  \]</li>
+</ul>
+<p>If a player cannot choose a suitable $x_n$, the game ends and the other player wins. If the game goes on forever, neither player wins. All chosen numbers are known to both players.</p>
+<p>Determine all values of $\lambda$ for which Alice has a winning strategy and all those for which Bazza has a winning strategy.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('imo-2025-problem-5-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="imo-2025-problem-5-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p>We begin by setting notation and a couple of useful lemmas. For each \(n\ge 1\), let</p>
+<p>\[
+S_n = \sum_{i=1}^n x_i, \qquad Q_n = \sum_{i=1}^n x_i^2.
+\] The rules are:</p>
+<p class="compact-bullet">On odd turns \(n\), Alice chooses \(x_n\ge 0\) with \(S_n\le \lambda n\).</p>
+<p class="compact-bullet">On even turns \(n\), Bazza chooses \(x_n\ge 0\) with \(Q_n\le n\).</p>
+<p>If a player cannot make a legal move, the game ends and the other wins. If it continues forever, the result is a draw (no winner).</p>
+<h5>Two elementary lemmas</h5>
+<p><strong>Lemma 1.</strong> After any even turn \(n\), we have \(S_n\le n\) and \(Q_n\le n\).</p>
+<p><em>Proof.</em> The condition for even \(n\) is \(Q_n\le n\). By the Cauchy-Schwarz inequality,</p>
+<p>\[
+S_n^2 \le n\cdot Q_n \le n\cdot n = n^2,
+\] hence \(S_n\le n\).</p>
+<p><strong>Lemma 2.</strong> Suppose that on all odd turns up to \(2M\) Alice plays \(0\) (so the only nonzero numbers are Bazza's choices on even turns). Then after turn \(2M\) we have</p>
+<p>\[
+S_{2M}\le M\sqrt{2}.
+\] <em>Proof.</em> Write \(y_i=x_{2i}\) for \(i=1,\dots,M\). Then</p>
+<p>\[
+S_{2M} = \sum_{i=1}^M y_i, \qquad Q_{2M} = \sum_{i=1}^M y_i^2.
+\] By Cauchy-Schwarz,</p>
+<p>\[
+S_{2M}^2 \le M\cdot Q_{2M}.
+\] Lemma 1 with \(n=2M\) gives \(Q_{2M}\le 2M\). Therefore</p>
+<div class="math-block">\[
+S_{2M}^2 \le M\cdot 2M = 2M^2 \quad\Longrightarrow\quad S_{2M}\le M\sqrt{2}. \quad\square
+\]</div>
+<h5>1. The case \(\lambda &gt; \dfrac{1}{\sqrt{2}}\) - Alice wins</h5>
+<p>Alice will force a win in a finite number of moves. Choose an integer \(M\) large enough so that</p>
+<p>\[
+\lambda(2M+1)-M\sqrt{2} &gt; \sqrt{2}. \quad\text{(1)}
+\] (Such \(M\) exists because \(\lambda &gt; 1/\sqrt{2}\) implies \(2\lambda-\sqrt{2}&gt;0\), so the left-hand side tends to \(+\infty\) as \(M\to\infty\).) Her strategy is:</p>
+<p class="compact-bullet">On turns \(1,3,5,\dots,2M-1\) (all odd turns before \(2M+1\)) she plays \(x_n=0\).</p>
+<p class="compact-bullet">On turn \(2M+1\) she plays \(x_{2M+1} = \lambda(2M+1)-S_{2M}\).</p>
+<p>We must check that the zeros are legal and that the move on turn \(2M+1\) is well-defined.</p>
+<h5>Legality of the zeros</h5>
+<p>After each even turn \(2k\) (\(1\le k\le M\)), by Lemma 2 we have \(S_{2k}\le k\sqrt{2}\). For the odd turn \(2k+1\), Alice wants to choose \(0\); this is allowed iff</p>
+<p>\[
+S_{2k}+0 \le \lambda(2k+1).
+\] Since \(S_{2k}\le k\sqrt{2}\), it suffices to show \(k\sqrt{2} &lt; \lambda(2k+1)\). Rewrite as \(\lambda &gt; \dfrac{k\sqrt{2}}{2k+1}\). The function \(k\mapsto \dfrac{k\sqrt{2}}{2k+1}\) increases with \(k\) (its limit is \(\sqrt{2}/2 = 1/\sqrt{2}\)). Because \(\lambda &gt; 1/\sqrt{2}\), we have \(\lambda &gt; \dfrac{k\sqrt{2}}{2k+1}\) for every \(k\); hence \(k\sqrt{2} &lt; \lambda(2k+1)\). Thus each \(0\) is legal.</p>
+<h5>The decisive move</h5>
+<p>After turn \(2M\), Lemma 2 gives \(S_{2M}\le M\sqrt{2}\). Define</p>
+<p>\[
+a = x_{2M+1} = \lambda(2M+1)-S_{2M}.
+\] From (1) and the bound on \(S_{2M}\),</p>
+<p>\[
+a \ge \lambda(2M+1)-M\sqrt{2} &gt; \sqrt{2} &gt; 0,
+\] so \(a\) is nonnegative and satisfies \(S_{2M}+a = \lambda(2M+1)\), hence the sum constraint on turn \(2M+1\) is met.</p>
+<p>Now we analyze the sum of squares after this move. Let \(S = S_{2M}\). Then</p>
+<p>\[
+Q_{2M+1} = Q_{2M} + a^2.
+\] By Cauchy-Schwarz applied to the \(M\) numbers \(x_2,x_4,\dots,x_{2M}\) we have</p>
+<p>\[
+S^2 \le M\cdot Q_{2M} \quad\Longrightarrow\quad Q_{2M} \ge \frac{S^2}{M}.
+\] Therefore</p>
+<p>\[
+Q_{2M+1} \ge \frac{S^2}{M} + a^2 = \frac{S^2}{M} + \bigl(\lambda(2M+1)-S\bigr)^2.
+\] Define the function</p>
+<p>\[
+f(S) = \frac{S^2}{M} + \bigl(\lambda(2M+1)-S\bigr)^2, \qquad 0\le S\le M\sqrt{2}.
+\] We need a lower bound for \(f(S)\).</p>
+<p><strong>Monotonicity of </strong>\(f\).<strong> Compute</strong></p>
+<p>\[
+f'(S) = \frac{2S}{M} - 2\bigl(\lambda(2M+1)-S\bigr) = 2\Bigl( S\Bigl(1+\frac{1}{M}\Bigr) - \lambda(2M+1)\Bigr), \qquad f''(S)=\frac{2}{M}+2&gt;0.
+\] Thus \(f'\) is strictly increasing. The critical point \(f'(S)=0\) gives</p>
+<p>\[
+S_0 = \frac{M\cdot \lambda(2M+1)}{M+1}.
+\] Because \(\lambda &gt; 1/\sqrt{2}\), we have \(2\lambda &gt; \sqrt{2}\), and for sufficiently large \(M\) (which we may assume)</p>
+<p>\[
+S_0 &gt; M\sqrt{2}.
+\] (Simply check that \(S_0 &gt; M\sqrt{2} \iff \lambda(2M+1) &gt; \sqrt{2}(M+1)\), which holds for large \(M\) since the left grows like \(2\lambda M\) and the right like \(\sqrt{2} M\).)</p>
+<p>Since \(f'\) is increasing and \(S_0 &gt; M\sqrt{2}\), we have \(f'(S) &lt; f'(S_0)=0\) for all \(S\le M\sqrt{2}\). Hence \(f\) is strictly decreasing on \([0,M\sqrt{2}]\). Consequently its minimum on the interval is attained at \(S = M\sqrt{2}\):</p>
+<p>\[
+\min_{0\le S\le M\sqrt{2}} f(S) = f(M\sqrt{2}) = \frac{(M\sqrt{2})^2}{M} + \bigl(\lambda(2M+1)-M\sqrt{2}\bigr)^2 = 2M + \bigl(\lambda(2M+1)-M\sqrt{2}\bigr)^2.
+\] Thus</p>
+<p>\[
+Q_{2M+1} \ge 2M + \bigl(\lambda(2M+1)-M\sqrt{2}\bigr)^2.
+\] But condition (1) says \(\lambda(2M+1)-M\sqrt{2} &gt; \sqrt{2}\), so</p>
+<p>\[
+\bigl(\lambda(2M+1)-M\sqrt{2}\bigr)^2 &gt; 2.
+\] Therefore</p>
+<p>\[
+Q_{2M+1} &gt; 2M + 2.
+\] Now it is Bazza's turn (turn \(2M+2\)). He must choose \(x_{2M+2}\ge 0\) such that</p>
+<p>\[
+Q_{2M+2} = Q_{2M+1} + x_{2M+2}^2 \le 2M+2.
+\] Even if he plays \(x_{2M+2}=0\), we obtain \(Q_{2M+2}=Q_{2M+1} &gt; 2M+2\), which violates the constraint. Hence Bazza has no legal move, and Alice wins.</p>
+<h5>2. The case \(\lambda &lt; \dfrac{1}{\sqrt{2}}\) - Bazza wins</h5>
+<p>Bazza will use the following strategy on every even turn \(n\):</p>
+<p>\[
+x_n = \sqrt{\,n - Q_{n-1}\,}.
+\] In words, he takes the largest possible number that still keeps the sum of squares at most \(n\). We will prove by induction that after each of his moves (i.e., after turn \(2m\)) we have</p>
+<p>\[
+\text{(i) } Q_{2m}=2m, \qquad \text{(ii) } S_{2m} \ge m\sqrt{2}. \quad\text{(2)}
+\] <strong>Base case </strong>\(m=1\) (turn \(2\)).<strong> After turn 1, Alice has chosen some </strong>\(a_1\ge 0\) with \(a_1\le \lambda\). Then</p>
+<p>\[
+x_2 = \sqrt{2 - a_1^2}
+\] (which is real because \(a_1^2 \le \lambda^2 &lt; 1/2 &lt; 2\)). We get</p>
+<p>\[
+Q_2 = a_1^2 + (2 - a_1^2) = 2.
+\] For the sum,</p>
+<p>\[
+S_2 = a_1 + \sqrt{2 - a_1^2}.
+\] Squaring gives</p>
+<p>\[
+S_2^2 = a_1^2 + (2 - a_1^2) + 2a_1\sqrt{2 - a_1^2} = 2 + 2a_1\sqrt{2 - a_1^2} \ge 2,
+\] so \(S_2 \ge \sqrt{2}\). Thus (2) holds for \(m=1\).</p>
+<p><strong>Inductive step.</strong> Assume (2) is true for \(m-1\), i.e., after turn \(2(m-1)\) we have</p>
+<p>\[
+Q_{2(m-1)} = 2(m-1), \qquad S_{2(m-1)} \ge (m-1)\sqrt{2}.
+\] <em>Turn \(2m-1\) (odd):</em> Alice chooses \(a \ge 0\) with \[
+S_{2(m-1)} + a \le \lambda(2m-1). \quad\text{(3)}
+\] <em>Turn \(2m\) (even):</em> Bazza computes</p>
+<p>\[
+x_{2m} = \sqrt{2m - Q_{2m-1}}.
+\] First we verify that the square root is defined, i.e., \(Q_{2m-1} \le 2m\).</p>
+<p>We have</p>
+<p>\[
+Q_{2m-1} = Q_{2(m-1)} + a^2 = 2(m-1) + a^2.
+\] Hence we need \(a^2 \le 2\), or \(a \le \sqrt{2}\). To see that this always holds, use (3) and the inductive lower bound on \(S_{2(m-1)}\):</p>
+<p>\[
+a \le \lambda(2m-1) - S_{2(m-1)} \le \lambda(2m-1) - (m-1)\sqrt{2}. \quad\text{(4)}
+\] We claim that the right-hand side of (4) is at most \(\sqrt{2}\). Indeed,</p>
+<p>\[
+\lambda(2m-1) - (m-1)\sqrt{2} \le \sqrt{2}
+\;\Longleftrightarrow\; \lambda(2m-1) \le m\sqrt{2}.
+\] Because \(\lambda &lt; 1/\sqrt{2}\), we have \(2\lambda &lt; \sqrt{2}\). Then</p>
+<p>\[
+\lambda(2m-1) = 2\lambda m - \lambda \le \sqrt{2}\,m - \lambda &lt; \sqrt{2}\,m,
+\] so the inequality holds (the left side is \(2\lambda m - \lambda\), the right side is \(\sqrt{2}\,m\); since \(2\lambda m \le \sqrt{2}\,m\), we get \(\lambda(2m-1) \le \sqrt{2}\,m\). More formally: \[
+\lambda(2m-1) \le \sqrt{2}\,m \;\Longleftrightarrow\; (2\lambda - \sqrt{2})m \le \lambda.
+\] The left-hand side is \(\le 0\) (because \(2\lambda - \sqrt{2} &lt; 0\)), while the right-hand side is positive, so the inequality is true for all \(m\ge 1\). Therefore \(a \le \sqrt{2}\), so \(a^2 \le 2\), and the square root is defined.</p>
+<p>Now compute:</p>
+<p>\[
+x_{2m} = \sqrt{2m - \bigl(2(m-1) + a^2\bigr)} = \sqrt{2 - a^2}.
+\] Then</p>
+<p>\[
+Q_{2m} = Q_{2m-1} + x_{2m}^2 = \bigl(2(m-1) + a^2\bigr) + (2 - a^2) = 2m.
+\] For the sum:</p>
+<p>\[
+S_{2m} = S_{2(m-1)} + a + \sqrt{2 - a^2}.
+\] Observe that for any \(a\) with \(0\le a\le \sqrt{2}\),</p>
+<p>\[
+\bigl(a + \sqrt{2 - a^2}\bigr)^2 = 2 + 2a\sqrt{2 - a^2} \ge 2,
+\] hence \(a + \sqrt{2 - a^2} \ge \sqrt{2}\). Using the inductive bound \(S_{2(m-1)} \ge (m-1)\sqrt{2}\), we obtain</p>
+<p>\[
+S_{2m} \ge (m-1)\sqrt{2} + \sqrt{2} = m\sqrt{2}.
+\] This completes the induction.</p>
+<h5>Alice loses</h5>
+<p>From (2) we have \(S_{2m} \ge m\sqrt{2}\) for every \(m\). Since \(\lambda &lt; 1/\sqrt{2}\), we have \(\sqrt{2} - 2\lambda &gt; 0\). Choose \(m\) large enough so that \[
+m\sqrt{2} &gt; \lambda(2m+1). \quad\text{(5)}
+\] (Such \(m\) exists because \(m(\sqrt{2} - 2\lambda) &gt; \lambda\) eventually holds.)</p>
+<p>Consider turn \(2m+1\). After turn \(2m\),</p>
+<p>\[
+S_{2m} \ge m\sqrt{2} &gt; \lambda(2m+1)
+\] by (5). Therefore, even if Alice tries to play \(x_{2m+1}=0\), we have \[
+S_{2m+1} = S_{2m} &gt; \lambda(2m+1),
+\] which violates the sum constraint. Consequently she has no legal move, and Bazza wins.</p>
+<h5>3. The case \(\lambda = \dfrac{1}{\sqrt{2}}\) - Draw</h5>
+<p>We show that neither player has a winning strategy by exhibiting a strategy for each that prevents the opponent from winning.</p>
+<h5>Bazza prevents Alice from winning</h5>
+<p>Bazza uses the same maximal strategy as in case 2: on each even turn \(n\), set \(x_n = \sqrt{n - Q_{n-1}}\). We check that the induction in case 2 still works when \(\lambda = 1/\sqrt{2}\).</p>
+<p>For the inductive step, from (3) and the lower bound \(S_{2(m-1)} \ge (m-1)\sqrt{2}\) we obtain</p>
+<p>\[
+a \le \lambda(2m-1) - (m-1)\sqrt{2}.
+\] With \(\lambda = 1/\sqrt{2}\), \[
+\lambda(2m-1) - (m-1)\sqrt{2} = \frac{2m-1}{\sqrt{2}} - (m-1)\sqrt{2} = \frac{2m-1 - 2(m-1)}{\sqrt{2}} = \frac{1}{\sqrt{2}}.
+\] Thus \(a \le 1/\sqrt{2} &lt; \sqrt{2}\), so \(a^2 \le 1/2\), and the square root \(\sqrt{2 - a^2}\) is well-defined. The rest of the induction is unchanged, yielding</p>
+<p>\[
+Q_{2m}=2m, \qquad S_{2m} \ge m\sqrt{2} \quad\text{for all } m. \quad\text{(6)}
+\] Now consider any odd turn \(2m+1\). Alice must choose \(a' \ge 0\) such that</p>
+<p>\[
+S_{2m} + a' \le \lambda(2m+1) = \dfrac{2m+1}{\sqrt{2}}.
+\] From (6), \(S_{2m} \ge m\sqrt{2} = \dfrac{2m}{\sqrt{2}}\). Therefore \[
+a' \le \frac{2m+1}{\sqrt{2}} - S_{2m} \le \frac{2m+1}{\sqrt{2}} - \frac{2m}{\sqrt{2}} = \frac{1}{\sqrt{2}}.
+\] Consequently \(a'^2 \le \dfrac{1}{2}\), and</p>
+<p>\[
+Q_{2m+1} = Q_{2m} + a'^2 = 2m + a'^2 \le 2m + \frac{1}{2} &lt; 2m+2.
+\] Thus after Alice's move, we have \(Q_{2m+1} &lt; 2m+2\). Bazza can then reply with \(x_{2m+2}=0\) (or any number keeping \(Q_{2m+2} \le 2m+2\)). In particular, Bazza always has a legal move, so Alice cannot force a win.</p>
+<h5>Alice prevents Bazza from winning</h5>
+<p>Alice adopts the strategy: on every odd turn she plays \(0\).</p>
+<p>Then the only nonzero numbers are Bazza's even-turn choices. By Lemma 2, after turn \(2m\) we have</p>
+<p>\[
+S_{2m} \le m\sqrt{2}.
+\] The sum constraint on turn \(2m+1\) is</p>
+<p>\[
+S_{2m+1} = S_{2m} + x_{2m+1} \le \lambda(2m+1) = \dfrac{2m+1}{\sqrt{2}}.
+\] Since</p>
+<p>\[
+S_{2m} \le m\sqrt{2} = \dfrac{2m}{\sqrt{2}} &lt; \dfrac{2m+1}{\sqrt{2}},
+\] the choice \(x_{2m+1}=0\) satisfies the inequality. Hence Alice never loses on her turn.</p>
+<p>Moreover, with this strategy Bazza cannot force a win, because Alice always has a legal move (namely \(0\)). Therefore Bazza does not possess a winning strategy.</p>
+<p>Since both players have strategies that thwart a forced win, the game is a draw; it can also be continued indefinitely (e.g., with Bazza always choosing \(0\) as well). So \(\lambda = 1/\sqrt{2}\) leads to no winner.</p>
+<h5>Conclusion</h5>
+<p>We have determined the outcome for all positive \(\lambda\):</p>
+<div class="math-block">\[
+\boxed{
+\begin{array}{l}
+\text{Alice has a winning strategy if and only if } \lambda &gt; \dfrac{1}{\sqrt{2}}. \\[6pt]
+\text{Bazza has a winning strategy if and only if } \lambda &lt; \dfrac{1}{\sqrt{2}}. \\[6pt]
+\text{When } \lambda = \dfrac{1}{\sqrt{2}}, \text{ the game is a draw (no winner).}
+\end{array}
+}
+\]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('imo-2025-problem-6-content')">
+                    <span>IMO 2025 Problem 6</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="imo-2025-problem-6-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Consider a $2025 \times 2025$ grid of unit squares. Matilda wishes to place on the grid some rectangular tiles, possibly of different sizes, such that each side of every tile lies on a grid line and every unit square is covered by at most one tile.</p>
+<p>Determine the minimum number of tiles Matilda needs to place so that each row and each column of the grid has exactly one unit square that is not covered by any tile.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 0/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('imo-2025-problem-6-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="imo-2025-problem-6-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p>Let \(n = 2025\). The grid consists of \(n^2\) unit squares. We must choose a set of squares to remain uncovered such that each row and each column contains exactly one uncovered square; equivalently, the uncovered squares form a permutation matrix. The remaining \(n^2 - n\) squares must be covered by non-overlapping axis-aligned rectangles (tiles) whose sides lie on the grid lines. The goal is to minimize the number of tiles.</p>
+<h5>1. Reduction to the diagonal configuration</h5>
+<p>Let the uncovered square in row \(i\) be at column \(c_i\); then \(c_1, c_2, \dots, c_n\) is a permutation of \(\{1,\dots,n\}\). Consider the column permutation \(\sigma\) defined by \(\sigma(c_i) = i\). Applying \(\sigma\) to the column indices (i.e., renaming column \(j\) to \(\sigma(j)\)) transforms the uncovered squares into the diagonal positions \((i,i)\). The tiling is transformed by moving each tile together with the columns; this does not change the number of tiles, and the covering properties remain valid because the grid structure is preserved (only the labels of columns are changed). Therefore, the minimum number of tiles over all configurations is the same as the minimum over configurations where the uncovered squares are exactly the main diagonal \(\{(i,i) \mid 1\le i\le n\}\).</p>
+<p>Consequently, <strong>we may assume without loss of generality that the diagonal squares are the only uncovered ones</strong>.</p>
+<h5>2. A construction using \(2n-2\) tiles</h5>
+<p>We now exhibit a tiling of the board with the diagonal uncovered, using exactly \(2n-2\) rectangles.</p>
+<p class="compact-bullet">\textbf{Lower triangle</p>
+<p>(\(i &gt; j\)): For each column \(j = 1, 2, \dots, n-1\), place a vertical tile that covers every cell in column \(j\) whose row index is greater than \(j\). Formally,} \[
+  R^{(L)}_j = \{(i,j) \mid j+1 \le i \le n\}.
+  \] These \(n-1\) rectangles are pairwise disjoint (they lie in different columns) and cover all squares with \(i&gt;j\).</p>
+<p class="compact-bullet">\textbf{Upper triangle</p>
+<p>(\(i &lt; j\)): For each row \(i = 1, 2, \dots, n-1\), place a horizontal tile that covers every cell in row \(i\) whose column index is greater than \(i\):} \[
+  R^{(U)}_i = \{(i,j) \mid i+1 \le j \le n\}.
+  \] These \(n-1\) rectangles are also pairwise disjoint (they occupy distinct rows) and cover all squares with \(i&lt;j\).</p>
+<p>The two families are disjoint because a square with \(i&gt;j\) belongs to some \(R^{(L)}_j\) (column \(j\)) and a square with \(i&lt;j\) belongs to some \(R^{(U)}_i\) (row \(i\)); no square can satisfy both conditions. The diagonal squares \((i,i)\) are not covered by any tile. Thus we have a valid covering of all off-diagonal squares using</p>
+<p>\[
+k = (n-1)+(n-1) = 2n-2
+\] tiles.</p>
+<h5>3. Lower bound: at least \(2n-2\) tiles</h5>
+<p>Now take any tiling \(\mathcal{T}\) of the board that leaves exactly the diagonal squares uncovered. Partition the off-diagonal squares into two sets:</p>
+<p>\[
+L = \{(i,j) \mid i &gt; j\}, \qquad U = \{(i,j) \mid i &lt; j\}.
+\] <strong>Lemma 1.</strong> Every tile \(T \in \mathcal{T}\) is entirely contained either in \(L\) or in \(U\).</p>
+<p><em>Proof.</em> Suppose a tile \(T\) contains a square from \(L\) and a square from \(U\). Represent \(T\) as the Cartesian product of an interval of rows and an interval of columns:</p>
+<p>\[
+T = \{(i,j) \mid a \le i \le b,\; c \le j \le d\},
+\] with \(1 \le a \le b \le n\), \(1 \le c \le d \le n\). If the intervals \([a,b]\) and \([c,d]\) intersect, then there exists an integer \(r \in [a,b] \cap [c,d]\), and the square \((r,r)\) belongs to \(T\), contradicting the fact that diagonal squares are uncovered. Hence \([a,b]\) and \([c,d]\) are disjoint.</p>
+<p class="compact-bullet">If \(b &lt; c\), then for any \((i,j) \in T\) we have \(i \le b &lt; c \le j\), so \(i &lt; j\); thus \(T \subseteq U\), contradicting the presence of an \(L\)square.</p>
+<p class="compact-bullet">If \(d &lt; a\), then \(j \le d &lt; a \le i\), so \(i &gt; j\), giving \(T \subseteq L\), contradiction.</p>
+<p>Therefore a tile cannot contain squares from both \(L\) and \(U\); it must lie wholly in one of them.</p>
+<p><strong>Lemma 2.</strong> In the lower triangle \(L\), consider the \(n-1\) cells</p>
+<p>\[
+D_L = \{(i,i-1) \mid i = 2,3,\dots,n\}.
+\] No tile that is a subset of \(L\) can contain two distinct cells from \(D_L\).</p>
+<p><em>Proof.</em> Let \(T \subseteq L\) be a tile, so \(T = [a,b] \times [c,d]\). Because \(T \subseteq L\), we have \(i &gt; j\) for every \((i,j) \in T\). In particular, the cell \((a,d)\) (the topmost row and rightmost column of the tile) satisfies \(a &gt; d\).</p>
+<p>Assume, for contradiction, that \(T\) contains two distinct cells \((i,i-1)\) and \((j,j-1)\) with \(i &lt; j\). From \((i,i-1) \in T\) we obtain</p>
+<p>\[
+a \le i \le b,\quad c \le i-1 \le d.
+\] Since \(a &gt; d\) and \(d \ge i-1\), we have \(a &gt; i-1\), hence \(a \ge i\). Combined with \(a \le i\), we get \(a = i\).</p>
+<p>Now \(a = i\) and \(a &gt; d\) imply \(i &gt; d\), i.e., \(d &lt; i\). But \(d \ge i-1\) from the containment, so \(d = i-1\).</p>
+<p>Now apply the same reasoning to \((j,j-1) \in T\). We obtain \(a = j\) and \(d = j-1\). But we already have \(a = i\), so \(i = j\), contradicting \(i &lt; j\). Hence \(T\) cannot contain two cells of \(D_L\).</p>
+<p><strong>Lemma 3.</strong> In the upper triangle \(U\), consider the \(n-1\) cells</p>
+<p>\[
+D_U = \{(i,i+1) \mid i = 1,2,\dots,n-1\}.
+\] No tile that is a subset of \(U\) can contain two distinct cells from \(D_U\).</p>
+<p><em>Proof.</em> Let \(T \subseteq U\) be a tile, \(T = [a,b] \times [c,d]\). Since \(T \subseteq U\), we have \(i &lt; j\) for every \((i,j) \in T\). In particular, the cell \((b,c)\) (the bottommost row and leftmost column) satisfies \(b &lt; c\).</p>
+<p>Suppose \(T\) contains \((i,i+1)\) and \((j,j+1)\) with \(i &lt; j\). From \((i,i+1) \in T\) we have</p>
+<p>\[
+a \le i \le b,\quad c \le i+1 \le d.
+\] Because \(c &gt; b\) and \(b \ge i\), we get \(c &gt; i\), thus \(c \ge i+1\). But \(c \le i+1\) from the containment, so \(c = i+1\).</p>
+<p>Moreover, \(c &gt; b \ge i\) and \(c = i+1\) imply \(b &lt; i+1\), i.e., \(b \le i\). Combined with \(i \le b\), we obtain \(b = i\).</p>
+<p>Now from \((j,j+1) \in T\) we similarly deduce \(c = j+1\) and \(b = j\). Since \(c = i+1\), we have \(i+1 = j+1\), so \(i = j\), contradiction. Hence \(T\) cannot contain two cells of \(D_U\).</p>
+<p><strong>Lower bound argument.</strong> The sets \(D_L\) and \(D_U\) each contain \(n-1\) squares, and every square must be covered. By Lemma 1, any tile that covers a square from \(L\) is entirely contained in \(L\); similarly, any tile covering a square from \(U\) is entirely in \(U\).</p>
+<p class="compact-bullet">\(D_L\) must be covered by tiles that lie in \(L\). Lemma 2 tells us that each such tile can cover at most one element of \(D_L\). Therefore at least \(|D_L| = n-1\) tiles are required that belong to \(L\).</p>
+<p class="compact-bullet">\(D_U\) must be covered by tiles that lie in \(U\), and Lemma 3 says each such tile can cover at most one element of \(D_U\), so at least \(n-1\) tiles are needed that belong to \(U\).</p>
+<p>A tile cannot be in both \(L\) and \(U\) because \(L\) and \(U\) are disjoint. Hence the total number of tiles is at least</p>
+<div class="math-block">\[
+(n-1) + (n-1) = 2n-2.
+\]</div>
+<h5>4. Minimum number of tiles</h5>
+<p>We have shown:</p>
+<p class="compact-bullet">There exists a tiling with \(2n-2\) tiles (Construction).</p>
+<p class="compact-bullet">Any tiling uses at least \(2n-2\) tiles (Lower bound).</p>
+<p>Therefore the minimum possible number of tiles is exactly \(2n-2\).</p>
+<p>Substituting \(n = 2025\) gives</p>
+<p>\[
+2 \times 2025 - 2 = 4050 - 2 = 4048.
+\] \[
+\boxed{4048}
+\]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
+    </main>
+    <script>
+        window.addEventListener('message', function(event) {
+            if (!event.data || event.data.type !== 'themeChange') return;
+            document.documentElement.setAttribute('data-theme', event.data.theme === 'light' ? 'light' : 'dark');
+        });
+
+        function typesetMath(element) {
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise([element]).catch(function(err) {
+                    console.log('MathJax typeset error: ' + err.message);
+                });
+            }
+        }
+
+        function toggleContext(contextId) {
+            const content = document.getElementById(contextId);
+            if (!content) return;
+            const button = content.previousElementSibling;
+
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                button.classList.remove('active');
+            } else {
+                content.classList.add('show');
+                button.classList.add('active');
+                typesetMath(content);
+            }
+        }
+
+        function toggleSolution(solutionId) {
+            const content = document.getElementById(solutionId);
+            if (!content) return;
+            const button = content.previousElementSibling;
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                button.classList.remove('active');
+            } else {
+                content.classList.add('active');
+                button.classList.add('active');
+                typesetMath(content);
+            }
+        }
+    </script>
+</body>
+</html>

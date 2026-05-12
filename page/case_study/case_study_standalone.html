@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intern-S1模型案例研究：IPhO 2025 Q2-Part3-C4</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Light Theme Colors */
+            --primary-400: #9333EA;
+            --primary-500: #7E22CE;
+            --primary-600: #6B21A8;
+            --primary-700: #581C87;
+            
+            /* Light Backgrounds */
+            --bg-page: #F5F5F5;
+            --bg-surface: #FAFAFA;
+            --bg-elevated: #FFFFFF;
+            --bg-card: #FFFFFF;
+            
+            /* Text Colors */
+            --text-primary: #18181B;
+            --text-secondary: #52525B;
+            --text-tertiary: #71717A;
+            
+            /* Border Colors */
+            --border-subtle: #E4E4E7;
+            --border-medium: #D4D4D8;
+            
+            /* Typography */
+            --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 6px;
+            --space-sm: 10px;
+            --space-md: 14px;
+            --space-lg: 18px;
+            --space-xl: 24px;
+            --space-2xl: 32px;
+            
+            /* Border Radius */
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-page);
+            color: var(--text-primary);
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            padding: 30px;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .header {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+        
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-400);
+            margin-bottom: 5px;
+        }
+        
+        .problem-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 15px 20px;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+            align-items: stretch;
+        }
+        
+        .problem-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .problem-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-400);
+            margin-bottom: 10px;
+        }
+        
+        .problem-content {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex: 1;
+        }
+        
+        .context-column {
+            flex: 1.2;
+            font-size: 14px;
+            line-height: 1.25;
+            color: var(--text-secondary);
+        }
+        
+        .context-column p {
+            margin: 0 0 4px 0;
+        }
+        
+        .context-column strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .question-column {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.35;
+            color: var(--text-secondary);
+        }
+        
+        .question-column p {
+            margin: 0 0 4px 0;
+        }
+        
+        .question-column p:first-child {
+            margin-bottom: 6px;
+        }
+        
+        .question-column strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .image-column {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: stretch;
+        }
+        
+        .problem-image {
+            max-height: 100%;
+            width: auto;
+            max-width: 100px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .model-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+        
+        .model-name {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .model-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .answer-evaluation-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: 23%;
+            flex-shrink: 0;
+            margin-bottom: 8px;
+        }
+        
+        .model-score {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 14px;
+        }
+        
+        .model-score.perfect {
+            background: rgba(34, 197, 94, 0.2);
+            color: #16A34A;
+        }
+        
+        .model-score.partial {
+            background: rgba(251, 191, 36, 0.2);
+            color: #D97706;
+        }
+        
+        .model-score.low {
+            background: rgba(239, 68, 68, 0.2);
+            color: #DC2626;
+        }
+        
+        .score-icon {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .answer-section {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .evaluation-section {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-400);
+            margin-bottom: 4px;
+            flex-shrink: 0;
+        }
+        
+        .answer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            overflow: hidden;
+            flex: 1;
+        }
+        
+        .answer-item {
+            font-size: 8.5px;
+            line-height: 1.2;
+            color: var(--text-secondary);
+            padding: 3px 5px;
+            background: var(--bg-surface);
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        
+        .evaluation-criteria {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            overflow: hidden;
+            flex: 1;
+        }
+        
+        .solution-section {
+            height: 77%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .solution-content {
+            font-size: 8px;
+            line-height: 1.28;
+            color: var(--text-secondary);
+            padding: 6px 8px;
+            background: var(--bg-surface);
+            border-radius: 6px;
+            overflow: hidden;
+            flex: 1;
+            column-count: 2;
+            column-gap: 12px;
+            column-fill: auto;
+        }
+        
+        .solution-content p {
+            margin-bottom: 2px;
+        }
+        
+        .solution-content strong {
+            color: var(--text-primary);
+        }
+        
+        .criterion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 3px;
+            font-size: 8px;
+            line-height: 1.2;
+            color: var(--text-secondary);
+        }
+        
+        /* Individual model card scaling - each card adapts to its content */
+        #model-p1 .answer-item {
+            font-size: 9.2px;
+        }
+        
+        #model-p1 .criterion-item {
+            font-size: 15px;
+        }
+        
+        #model-p1 .solution-content {
+            font-size: 13.2px;
+            line-height: 1.5;
+        }
+        
+        #model-gemini .answer-item {
+            font-size: 12.2px;
+        }
+        
+        #model-gemini .criterion-item {
+            font-size: 15px;
+        }
+        
+        #model-gemini .solution-content {
+            font-size: 5.5px;
+            line-height: 1.3;
+        }
+        
+        #model-gpt5 .answer-item {
+            font-size: 12.2px;
+        }
+        
+        #model-gpt5 .criterion-item {
+            font-size: 15px;
+        }
+        
+        #model-gpt5 .solution-content {
+            font-size: 13.5px;
+            line-height: 2.0;
+        }
+        
+        .criterion-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        
+        .criterion-icon.correct {
+            color: #16A34A;
+        }
+        
+        .criterion-icon.incorrect {
+            color: #DC2626;
+        }
+        
+        /* Hide scrollbar */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Intern-S1模型案例研究：IPhO 2025 Q2-Part3-C4</h1>
+        </div>
+        
+        <!-- Problem Section -->
+        <div class="problem-section">
+            <div class="problem-left">
+                <div class="problem-title">问题 (C.4)</div>
+                <div class="problem-content">
+                    <!-- Context Column -->
+                    <div class="context-column">
+                        <p><strong>背景：</strong>1765年，英国钟表匠考克斯发明了一种时钟，其唯一能量来源是大气压波动。系统使用水银容器，大气压变化导致水银在容器间移动产生能量。</p>
+                        
+                        <p><strong>简化模型：</strong>圆柱形水槽（水银浴）、两段式气压管（排空空气）、滑轮系统连接质量 $M$ 可在水平面滑动。系统参数：$\xi = \frac{S_{\mathrm{b}} + S_{\mathrm{c}}}{S_{\mathrm{b}} S_{\mathrm{c}}} \frac{F_{\mathrm{s}}}{A}$，$\lambda = \frac{2 \rho g X}{A}$。</p>
+                        
+                        <p><strong>目标：</strong>大气压振幅 $A = 5 \times 10^{2}$ Pa，周期 $\tau_{1} = 1$ 周。摩擦力在一个周期内耗散的能量 $W$ 可通过调整 $F_{\mathrm{s}}$ 和 $X$ 最大化。</p>
+                    </div>
+                    
+                    <!-- Question Column -->
+                    <div class="question-column">
+                        <p><strong>要求：</strong>考虑 $S_{\mathrm{b}} \simeq S_{\mathrm{c}}$ 和 $S_{\mathrm{t}} \ll S_{\mathrm{b}}$，确定：</p>
+                        <p>(1) $F_{\mathrm{s}}^{\star}$ 和 (2) $X^{\star}$ 关于 $\rho, g, S_{\mathrm{c}}$ 和 $A$ 的表达式</p>
+                        <p>(3) 表达相应的最大能量 $W^{\star}$</p>
+                        <p>(4) 在 $A = 5 \times 10^{2} \mathrm{Pa}$ 时计算其以 mJ 为单位的数值</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image Column -->
+            <div class="image-column">
+                <img src="case_study/case/IPhO_2025_2_a_1 copy.png" alt="物理装置示意图" class="problem-image">
+            </div>
+        </div>
+        
+        <!-- Models Grid -->
+        <div class="models-grid">
+            <!-- Intern-S1 Model Card -->
+            <div class="model-card" id="model-p1">
+                <div class="model-header">
+                    <div class="model-name">Intern-S1</div>
+                    <div class="model-score perfect">
+                        <svg class="score-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>1.0 分</span>
+                    </div>
+                </div>
+
+                <div class="model-body">
+                <!-- Answer and Evaluation Wrapper -->
+                <div class="answer-evaluation-wrapper">
+                    <!-- Answer Section -->
+                    <div class="answer-section">
+                        <div class="section-title">答案</div>
+                        <div class="answer-content">
+                            <div class="answer-item">(1) $F_{\mathrm{s}}^{\star} = \dfrac{S_{\mathrm{c}} A}{2}$</div>
+                            <div class="answer-item">(2) $X^{\star} = \dfrac{A}{4 \rho g}$</div>
+                            <div class="answer-item">(3) $W^{\star} = \dfrac{S_{\mathrm{c}} A^{2}}{2 \rho g}$</div>
+                            <div class="answer-item">(4) $W^{\star} \approx 19.8$ mJ</div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Section -->
+                    <div class="evaluation-section">
+                        <div class="section-title">评分详情</div>
+                        <div class="evaluation-criteria">
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>摩擦功 $W = 4 F_S X$ (0.2分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>约束条件正确 (0.3分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>最优位移 (0.1分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>最优摩擦力 (0.1分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>最优功 (0.2分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>数值正确 (0.1分)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Solution Section -->
+                <div class="solution-section">
+                    <div class="section-title">完整解答</div>
+                    <div class="solution-content">
+                        <p>为确定在考克斯时钟中使固体摩擦耗散能量最大的最优参数，我们在假设 $ S_b \approx S_c $ 且 $ S_t \ll S_b, S_c $ 的条件下分析系统。每个周期 $ \tau_1 $ 的耗散能量为：</p>
+                        <p>$$W = 4 F_s X$$</p>
+                        <p>该式来源于质量 $ M $ 在 $ -X $ 与 $ X $ 之间往返运动，每个周期的总位移为 $ 4X $。系统的约束来自于幅值为 $ A $ 的压力扰动 $ P_1(t) $，其必须足以克服由水银位移产生的恢复力与摩擦力之和。</p>
+                        <p><strong>（1）最优摩擦力 $ F_s^* $</strong></p>
+                        <p>大气压波动可提供的最大力为 $ S_c A $，其中 $ S_c $ 为水槽的截面积。在 $ x = X $ 的挡块处，需满足力平衡：</p>
+                        <p>$$S_c A = 2 S_c \rho g X + F_s$$</p>
+                        <p>解得：</p>
+                        <p>$$F_s = S_c (A - 2 \rho g X)$$</p>
+                        <p>代回能量表达式 $ W = 4 F_s X $，得到：</p>
+                        <p>$$W = 4 S_c (A - 2 \rho g X) X$$</p>
+                        <p><strong>（2）最优位移 $ X^* $</strong></p>
+                        <p>对 $ X $ 求导并令其为零：</p>
+                        <p>$$\frac{dW}{dX} = 4 S_c (A - 4 \rho g X) = 0 \quad \Rightarrow \quad X^* = \frac{A}{4 \rho g}$$</p>
+                        <p><strong>（3）最大能量 $ W^* $ 与（1）</strong></p>
+                        <p>代回得到：</p>
+                        <p>$$F_s^* = S_c \left( A - 2 \rho g \cdot \frac{A}{4 \rho g} \right) = \frac{S_c A}{2}$$</p>
+                        <p>$$W^* = 4 F_s^* X^* = 4 \cdot \frac{S_c A}{2} \cdot \frac{A}{4 \rho g} = \frac{S_c A^2}{2 \rho g}$$</p>
+                        <p><strong>（4）数值计算</strong></p>
+                        <p>已知 $ S_c = 210\,\text{cm}^2 = 0.021\,\text{m}^2 $，$ A = 500\,\text{Pa} $，$ \rho = 13534\,\text{kg/m}^3 $（水银密度），$ g = 9.8\,\text{m/s}^2 $，则：</p>
+                        <p>$$W^* = \frac{0.021 \times (500)^2}{2 \times 13534 \times 9.8} = \frac{5250}{265266.4} \approx 0.01979\,\text{J} = 19.79\,\text{mJ}$$</p>
+                        <p>取两位有效数字：$ W^* \approx 20\,\text{mJ} $。</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Gemini-2.5-Pro Model Card -->
+            <div class="model-card" id="model-gemini">
+                <div class="model-header">
+                    <div class="model-name">Gemini-2.5-Pro</div>
+                    <div class="model-score partial">
+                        <svg class="score-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        <span>0.5 分</span>
+                    </div>
+                </div>
+
+                <div class="model-body">
+                <!-- Answer and Evaluation Wrapper -->
+                <div class="answer-evaluation-wrapper">
+                    <!-- Answer Section -->
+                    <div class="answer-section">
+                        <div class="section-title">答案</div>
+                        <div class="answer-content">
+                            <div class="answer-item">(1) $F_{\mathrm{s}}^{\star} = \frac{A S_c}{4}$</div>
+                            <div class="answer-item">(2) $X^{\star} = \frac{A}{2 \rho g}$</div>
+                            <div class="answer-item">(3) $W^{\star} = \frac{A^2 S_c}{2 \rho g}$</div>
+                            <div class="answer-item">(4) $W^{\star} \approx 19.7$ mJ</div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Section -->
+                    <div class="evaluation-section">
+                        <div class="section-title">评分详情</div>
+                        <div class="evaluation-criteria">
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>摩擦功正确 (0.2分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon incorrect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>约束条件错误 (0分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon incorrect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>位移错误 (0分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon incorrect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>摩擦力错误 (0分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>最优功正确 (0.2分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>数值正确 (0.1分)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Solution Section -->
+                <div class="solution-section">
+                    <div class="section-title">完整解答</div>
+                    <div class="solution-content">
+                        <p>回答该问题需要对考克斯时钟的简化模型进行多步分析。目标是找到使一个大气压变化周期内由摩擦耗散的能量 $ W $ 达到最大时的最优静摩擦力 $ F_s^{\star} $ 与限幅位移 $ X^{\star} $。</p>
+                        <p><strong>步骤 1：分析力与系统行为</strong></p>
+                        <p>机制的核心在于大气压 $ P_a(t) $、水槽与气压管的位置以及水银在它们之间的分布之间的相互作用，这共同决定了作用在质量 $ M $ 上的合力。设 $ T_c $、$ T_{tb} $ 分别为由水槽与气压管通过钢索施加于 $ M $ 的拉力。若采用图 6 所示滑轮组（每个悬挂部件各有一只可动滑轮）的标准配置，则 $ M $ 的水平位移 $ x $ 对应两悬挂件的竖直位移为 $ x/2 $。令 $ z_c, z_{tb} $ 为水槽与气压管的竖直位置，则</p>
+                        <p>$$z_c(x) = z_{c,0} - \frac{x}{2}, \quad z_{tb}(x) = z_{tb,0} + \frac{x}{2}$$</p>
+                        <p> cables 对 $ M $ 的合力为 $ F_M = T_{tb} - T_c $。两根系于 $ M $ 的钢索的张力各为其所支撑重力的一半：</p>
+                        <p>$$T_c = \tfrac{1}{2}(m_c + m_{l,c})g,\quad T_{tb} = \tfrac{1}{2}(m_{tb} + m_{l,tb})g$$</p>
+                        <p>其中 $ m_{l,c}, m_{l,tb} $ 分别为水槽与管内水银的质量。于是</p>
+                        <p>$$F_M = \tfrac{g}{2}(m_{tb} + m_{l,tb} - m_c - m_{l,c})$$</p>
+                        <p>用水银总质量守恒 $ m_l = m_{l,c} + m_{l,tb} $ 得</p>
+                        <p>$$F_M = \tfrac{g}{2}(m_{tb} - m_c - m_l + 2m_{l,tb})$$</p>
+                        <p>接着需把 $ m_{l,tb} $ 与 $ x, P_a $ 联系起来。气压计原理给出 $ P_a = \rho g (z_{surf,tb} - z_{surf,c}) $（柱上方压强取零）。两容器液面的高低由其位置和各自所含水银体积决定。经过详细推导可得管内水银体积 $ V_{l,tb} $ 依赖于管与水槽的相对位置以及 $ P_a $；两底部的相对高度为 $ z_{tb}(x) - z_c(x) = (z_{tb,0}-z_{c,0}) + x $，从而得到</p>
+                        <p>$$m_{l,tb} = \rho V_{l,tb} \propto -x + \frac{P_a}{\rho g}$$</p>
+                        <p>代回上式得到恢复型合力 $ F_M \propto -x $。</p>
+                        <p>然而题目引入的参数 $ \xi $ 与 $ \lambda $ 的定义与量纲分析（见草稿）表明系统是双稳态的，即呈现反恢复（反弹簧）特性 $ F_M \propto +x $，这对应与前述不同的滑轮连接。若改采用更简单的滑轮关系：悬挂件的竖直位移等于钢索端的水平位移，即 $ z_c(x)=z_{c,0}+x,\; z_{tb}(x)=z_{tb,0}-x $，则有 $ m_{l,tb} \propto +x $，进而 $ F_M \propto +x $。为与题目结构一致，以下采用该模型。</p>
+                        <p>完整推导得到 $ M $ 所受 cable 合力：</p>
+                        <p>$$F_M(x,t) = \frac{S_b S_c}{S_b+S_c} P_1(t) + \frac{\rho g S_b S_c}{S_b+S_c} x$$</p>
+                        <p>并假定在 $ x=0,\; P_1=0 $ 时系统平衡。系统为双稳态，质量会被推向 $ x=\pm X $ 的挡块；为了持续取能，质量需在 $ -X $ 与 $ X $ 间周期切换。</p>
+                        <p>从 $ x=X $ 起动向左运动的判据是向左拉力克服静摩擦 $ F_s $：即 $ -F_M(X,t) > F_s $，或 $ F_M(X,t) < -F_s $。代入得</p>
+                        <p>$$\frac{S_b S_c}{S_b+S_c} P_1(t) + \frac{\rho g S_b S_c}{S_b+S_c} X < -F_s$$</p>
+                        <p>两边同除以 $ A\, \tfrac{S_b S_c}{S_b+S_c} $，并用 $ S_t \ll S_b, S_c $ 近似与参数定义</p>
+                        <p>$$\lambda \simeq \frac{2\rho g X}{A}, \quad \xi \simeq \frac{S_b+S_c}{S_b S_c} \frac{F_s}{A}$$</p>
+                        <p>得到：$ \tfrac{P_1(t)}{A} + \tfrac{\lambda}{2} < -\xi $。由于 $ \min \tfrac{P_1(t)}{A} = -1 $，该切换仅当 $ \tfrac{\lambda}{2} + \xi < 1 $ 时可能。</p>
+                        <p>同理，从 $ x=-X $ 起动向右需 $ \tfrac{P_1(t)}{A} > \tfrac{\lambda}{2} + \xi $，而 $ \max \tfrac{P_1(t)}{A}=1 $，亦给出相同条件。故永久往复运动的条件为</p>
+                        <p>$$\frac{\lambda}{2} + \xi < 1$$</p>
+                        <p><strong>步骤 2：建立并求解最优化</strong></p>
+                        <p>一周期耗散能量为 $ W $。在往复工况下，质量每周期行程 $ 4X $，故</p>
+                        <p>$$W = 4 F_s X$$</p>
+                        <p>在运行可行域边界取最优，即 $ \tfrac{\lambda}{2} + \xi = 1 $。代入参数定义并取 $ S_b \simeq S_c $ 得</p>
+                        <p>$$\rho g X + \frac{2}{S_c} F_s = A$$</p>
+                        <p>在该线性约束下最大化 $ F_s X $。令</p>
+                        <p>$$X = \frac{1}{\rho g} \left( A - \frac{2}{S_c} F_s \right)$$</p>
+                        <p>则</p>
+                        <p>$$W(F_s) = \frac{4}{\rho g} \left( A F_s - \frac{2}{S_c} F_s^2 \right)$$</p>
+                        <p>抛物线开口向下，极值点由导数为零给出：</p>
+                        <p>$$\frac{dW}{dF_s} = \frac{4}{\rho g} \left( A - \frac{4}{S_c} F_s \right) = 0$$</p>
+                        <p>解得最优静摩擦力</p>
+                        <p>$$(1)\; F_s^{\star} = \frac{A S_c}{4}$$</p>
+                        <p>由约束求得最优位移限幅</p>
+                        <p>$$\rho g X^{\star} + \frac{2}{S_c} F_s^{\star} = A \;\Rightarrow\; (2)\; X^{\star} = \frac{A}{2 \rho g}$$</p>
+                        <p><strong>步骤 3：最大能量</strong></p>
+                        <p>$$W^{\star} = 4 F_s^{\star} X^{\star} = 4 \left( \frac{A S_c}{4} \right) \left( \frac{A}{2 \rho g} \right) = (3)\; \frac{A^2 S_c}{2 \rho g}$$</p>
+                        <p><strong>步骤 4：数值计算</strong></p>
+                        <p>$ A = 5\times 10^2\,\mathrm{Pa},\; S_c = 2.10\times 10^{-2}\,\mathrm{m}^2,\; g=9.8\,\mathrm{m\,s^{-2}} $，水银密度取 $ \rho \approx 13600\,\mathrm{kg\,m^{-3}} $：</p>
+                        <p>$$W^{\star} = \frac{(500)^2 (2.10 \times 10^{-2})}{2 \times 13600 \times 9.8} \approx 0.019695\,\mathrm{J} \approx 19.7\,\mathrm{mJ}$$</p>
+                        <p><strong>答案：</strong>[$\boxed{\tfrac{A S_c}{4}}$, $\boxed{\tfrac{A}{2 \rho g}}$, $\boxed{\tfrac{A^2 S_c}{2 \rho g}}$, $\boxed{19.7}$]</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- GPT-5 Model Card -->
+            <div class="model-card" id="model-gpt5">
+                <div class="model-header">
+                    <div class="model-name">GPT-5</div>
+                    <div class="model-score low">
+                        <svg class="score-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>0.3 分</span>
+                    </div>
+                </div>
+
+                <div class="model-body">
+                <!-- Answer and Evaluation Wrapper -->
+                <div class="answer-evaluation-wrapper">
+                    <!-- Answer Section -->
+                    <div class="answer-section">
+                        <div class="section-title">答案</div>
+                        <div class="answer-content">
+                            <div class="answer-item">(1) $F_{\mathrm{s}}^{\star} = A S_c/4$</div>
+                            <div class="answer-item">(2) $X^{\star} = A/(4\rho g)$</div>
+                            <div class="answer-item">(3) $W^{\star} = A^2 S_c/(4\rho g)$</div>
+                            <div class="answer-item">(4) $W^{\star} \approx 9.9$ mJ</div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Section -->
+                    <div class="evaluation-section">
+                        <div class="section-title">评分详情</div>
+                        <div class="evaluation-criteria">
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>摩擦功正确 (0.2分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon incorrect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>约束条件错误 (0分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon correct" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>最优位移正确 (0.1分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon incorrect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>摩擦力错误 (0分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon incorrect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>功的表达式错误 (0分)</span>
+                            </div>
+                            <div class="criterion-item">
+                                <svg class="criterion-icon incorrect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>数值错误 (0分)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Solution Section -->
+                <div class="solution-section">
+                    <div class="section-title">完整解答</div>
+                    <div class="solution-content">
+                        <p><strong>以下为简明的分步解法。</strong></p>
+                        <p>— 在一个周期 $\tau_1$ 内，质量从 $-X$ 到 $+X$ 再返回，总滑动距离为 $4X$。库仑摩擦大小为 $F_s$，每周期耗散能量为</p>
+                        <p>$$W = 4 F_s X.$$</p>
+                        <p>— 装置能够工作（质量在两个挡块之间往返），当大气压驱动幅值 $A$ 在挡块处既能克服摩擦阈值又能克服静液恢复贡献。按题面定义参数：</p>
+                        <p>$$\xi \simeq \frac{2}{S_c}\frac{F_s}{A},  \quad \lambda \simeq \frac{2\rho g X}{A}.$$</p>
+                        <p>工作域边界为 $\xi + \lambda = 1$。在此线性约束且 $A$ 固定下最大化 $W = 4 F_s X$，最优点发生在 $\xi = \lambda = 1/2$。</p>
+                        <p>— 因而</p>
+                        <p>由 $\xi^* = 1/2$ 得：$ \tfrac{2}{S_c}(F_s^*/A) = \tfrac{1}{2} \Rightarrow F_s^* = \tfrac{A S_c}{4}$。</p>
+                        <p>由 $\lambda^* = 1/2$ 得：$ 2\rho g X^*/A = \tfrac{1}{2} \Rightarrow X^* = A/(4\rho g)$。</p>
+                        <p>— 每周期最大耗散能量：</p>
+                        <p>$$W^* = 4 F_s^* X^* = 4 \times (A S_c/4) \times (A/(4\rho g)) = \frac{A^2 S_c}{4\rho g}.$$</p>
+                        <p>— 数值（$A = 5.0\times10^2$ Pa，$S_c = 210$ cm$^2$ $= 2.10\times10^{-2}$ m$^2$，$\rho \approx 13.6\times10^3$ kg·m$^{-3}$，$g = 9.8$ m·s$^{-2}$）：</p>
+                        <p>$$W^* \approx \frac{ (5.0\times10^2)^2 \times 2.10\times10^{-2} }{ 4 \times 13.6\times10^3 \times 9.8 } \approx 9.9\times10^{-3}\,\text{J} = 9.9\,\text{mJ}.$$</p>
+                        <p><strong>答案：</strong>[$\boxed{A S_c/4}$, $\boxed{A/(4\rho g)}$, $\boxed{A^2 S_c/(4\rho g)}$, $\boxed{9.9}$]</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

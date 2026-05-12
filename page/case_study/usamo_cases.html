@@ -1,0 +1,3251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USAMO 2026 Case Studies</title>
+<script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            background: var(--bg-page);
+        }
+        
+        body {
+            background: var(--bg-page);
+            color: var(--text-primary);
+            transition: background-color var(--duration-normal) var(--easing-default), color var(--duration-normal) var(--easing-default);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: var(--radius-full);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-500);
+        }
+        
+        /* Selection */
+        ::selection {
+            background: rgba(59, 130, 246, 0.3);
+            color: var(--text-primary);
+        }
+        
+        :root {
+            /* Dark Theme Colors */
+            --primary-400: #60A5FA;
+            --primary-500: #3B82F6;
+            --primary-600: #2563EB;
+            --primary-700: #1D4ED8;
+            
+            --accent-blue: #60A5FA;
+            --accent-cyan: #22D3EE;
+            --accent-purple: #93C5FD;
+            
+            /* Dark Backgrounds */
+            --bg-page: #0A0A0A;
+            --bg-surface: #141414;
+            --bg-elevated: #1A1A1A;
+            --bg-card: #1E1E1E;
+            
+            /* Text Colors */
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --text-tertiary: #71717A;
+            --text-muted: #52525B;
+            
+            /* Border Colors */
+            --border-subtle: #27272A;
+            --border-medium: #3F3F46;
+            --border-strong: #52525B;
+            
+            /* Gradient Accents */
+            --gradient-purple: linear-gradient(135deg, #60A5FA 0%, #1D4ED8 100%);
+            --gradient-blue: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            --gradient-mesh: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                             radial-gradient(at 100% 0%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+                             radial-gradient(at 100% 100%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+            
+			/* Typography */
+			--font-serif: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif;
+            --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 6px;
+            --space-sm: 10px;
+            --space-md: 14px;
+            --space-lg: 18px;
+            --space-xl: 24px;
+            --space-2xl: 32px;
+            --space-3xl: 48px;
+            --space-4xl: 64px;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+            
+            /* Shadows - Dark Theme */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 12px 48px rgba(59, 130, 246, 0.3);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.4);
+            
+            /* Animation */
+            --duration-fast: 200ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+            --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+            --easing-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Light Theme */
+        :root[data-theme="light"] {
+            /* Light Backgrounds */
+            --bg-page: #FFFFFF;
+            --bg-surface: #F5F5F5;
+            --bg-elevated: #FAFAFA;
+            --bg-card: #FFFFFF;
+            
+            /* Light Text Colors */
+            --text-primary: #1A1A1A;
+            --text-secondary: #525252;
+            --text-tertiary: #737373;
+            --text-muted: #A3A3A3;
+            
+            /* Light Border Colors */
+            --border-subtle: #E5E5E5;
+            --border-medium: #D4D4D4;
+            --border-strong: #A3A3A3;
+            
+            /* Light Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-card-hover: 0 12px 48px rgba(59, 130, 246, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Language Switcher */
+		.lang-switcher {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			display: inline-flex;
+			gap: 8px;
+			background: transparent;
+			border: none;
+			border-radius: var(--radius-full);
+			padding: 4px;
+			z-index: 2;
+		}
+
+		.lang-switcher button {
+			appearance: none;
+			border: none;
+			background: transparent;
+			color: var(--text-secondary);
+			font-family: var(--font-sans);
+			font-weight: 600;
+			font-size: 13px;
+			padding: 6px 12px;
+			border-radius: var(--radius-full);
+			cursor: pointer;
+			transition: color var(--duration-normal) var(--easing-default);
+		}
+
+		.lang-switcher button.active {
+			background: transparent;
+			color: var(--text-primary);
+		}
+
+		/* TOC (hover to open) */
+		.toc {
+			position: fixed;
+			top: 72px; /* below language switcher */
+			right: 16px;
+			z-index: 1100;
+		}
+
+		.toc-trigger {
+			appearance: none;
+			border: none;
+			background: transparent;
+			color: var(--text-secondary);
+			font-family: var(--font-sans);
+			font-weight: 600;
+			font-size: 13px;
+			padding: 8px 12px;
+			border-radius: var(--radius-full);
+			cursor: pointer;
+			transition: color var(--duration-normal) var(--easing-default);
+		}
+
+		.toc-trigger:hover {
+			color: var(--text-primary);
+		}
+
+		.toc-panel {
+			position: absolute;
+			top: 42px;
+			right: 0;
+			width: 320px;
+			max-height: 60vh;
+			overflow: auto;
+			padding: 12px;
+			background: var(--bg-elevated);
+			border: 1px solid var(--border-subtle);
+			border-radius: var(--radius-lg);
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(-6px);
+			transition: all var(--duration-normal) var(--easing-default);
+		}
+
+		.toc:hover .toc-panel,
+		.toc:focus-within .toc-panel {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+
+		.toc-title {
+			font-weight: 700;
+			margin: 4px 4px 8px 4px;
+			color: var(--text-primary);
+		}
+
+		#tocList {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		#tocList li {
+			margin: 6px 0;
+		}
+
+		#tocList a {
+			color: var(--text-secondary);
+			text-decoration: none;
+			font-size: 14px;
+		}
+
+		#tocList a:hover {
+			color: var(--primary-400);
+			text-decoration: underline;
+		}
+
+		#tocList li.toc-h3 a { padding-left: 14px; display: inline-block; }
+        
+        body {
+            font-family: var(--font-sans);
+            font-size: 19px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-page);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 500;
+        }
+        
+        /* Navigation Bar */
+        .nav-bar-wrapper {
+            width: 100%;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-bar {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+            gap: var(--space-xl);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            appearance: none;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--easing-default);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .theme-toggle:hover {
+            color: var(--text-primary);
+            background: var(--bg-elevated);
+        }
+        
+        .theme-toggle-icon {
+            width: 18px;
+            height: 18px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .theme-toggle:active .theme-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        
+        /* Page Title Section */
+        .page-title-section {
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            background: var(--bg-page);
+        }
+        
+        .page-title {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: var(--font-serif);
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+        
+        /* Content Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        /* Highlight Card */
+        .highlight-card {
+            display: flex;
+            gap: var(--space-md);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: var(--space-xl) 0;
+            margin: var(--space-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-icon {
+            display: none;
+        }
+        
+        .highlight-content {
+            font-size: 20px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .highlight-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        /* Article Images */
+        .article-image-container {
+            margin: var(--space-2xl) 0;
+            cursor: zoom-in;
+        }
+        
+        .article-image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+        .image-caption {
+            padding: var(--space-md) 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        /* Image Grid Layout */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+        }
+        
+        .image-grid .article-image-container {
+            margin: 0;
+        }
+        
+        /* Interactive Chart Container */
+        .interactive-chart-container {
+            position: relative;
+            background: var(--bg-page);
+        }
+        
+        .chart-iframe-wrapper {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-page);
+            /* Aspect ratio 1000:650 = 1.538 */
+            padding-bottom: 65%;
+        }
+        
+        .chart-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: transparent;
+        }
+        
+        .chart-caption {
+            padding: var(--space-sm) 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn var(--duration-normal) var(--easing-default);
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: var(--radius-md);
+            animation: zoomIn var(--duration-slow) var(--easing-smooth);
+        }
+        
+        .lightbox-close {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            width: 48px;
+            height: 48px;
+            background: rgba(20, 20, 20, 0.8);
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--duration-normal) var(--easing-default);
+            color: var(--text-secondary);
+        }
+        
+        .lightbox-close:hover {
+            color: var(--text-primary);
+        }
+        
+        /* Typography */
+        h2 {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: var(--space-2xl);
+            margin-bottom: var(--space-md);
+            line-height: 1.25;
+            position: relative;
+            padding-bottom: var(--space-sm);
+        }
+        
+        
+        h3 {
+            font-family: var(--font-serif);
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-sm);
+            line-height: 1.35;
+        }
+        
+        p {
+            margin-bottom: var(--space-md);
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        /* Links */
+        a {
+            color: var(--primary-400);
+            text-decoration: none;
+            transition: all var(--duration-normal) var(--easing-default);
+            position: relative;
+        }
+        
+        a:hover {
+            color: var(--primary-500);
+            text-decoration: underline;
+        }
+        
+        /* External Link Buttons */
+        .external-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        /* Model Download Section */
+        .model-download-section {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: var(--space-lg) 0;
+        }
+        
+        .model-download-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .model-download-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+            justify-content: center;
+        }
+        
+        .model-download-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: 10px 16px;
+            text-decoration: none;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .model-download-card:hover {
+            border-color: var(--primary-500);
+            background: var(--bg-card);
+            transform: translateY(-1px);
+        }
+        
+        .huggingface-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .model-download-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .model-download-card-subtitle {
+            display: none;
+        }
+        
+        .btn-external {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            background: transparent;
+            color: var(--primary-400);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 400;
+            border-radius: 0;
+            text-decoration: none;
+            transition: color var(--duration-normal) var(--easing-default);
+            position: relative;
+            overflow: visible;
+            border: none;
+        }
+        
+        .btn-external:hover {
+            color: var(--primary-500);
+            text-decoration: underline;
+        }
+        
+        .external-icon {
+            width: 14px;
+            height: 14px;
+        }
+        
+        /* Lists */
+        ul {
+            margin: var(--space-md) 0;
+            padding-left: var(--space-lg);
+        }
+        
+        li {
+            margin-bottom: var(--space-sm);
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        li::marker {
+            color: var(--primary-400);
+        }
+        
+        li p {
+            display: inline;
+            color: var(--text-secondary);
+        }
+        
+        /* Separator */
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+            margin: var(--space-3xl) 0;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            margin-top: var(--space-xl);
+        }
+        
+        /* ECharts Container */
+        .chart-container {
+            margin: var(--space-xl) 0;
+            background: var(--bg-page);
+            border: none;
+            border-radius: 0;
+            padding: var(--space-lg) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .legend-swatch {
+            width: 32px;
+            height: 20px;
+            border-radius: var(--radius-sm);
+            border: none;
+        }
+        
+        .legend-swatch.striped {
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--text-secondary),
+                var(--text-secondary) 2px,
+                var(--bg-elevated) 2px,
+                var(--bg-elevated) 4px
+            );
+        }
+        
+        .legend-swatch.solid {
+            background: var(--text-secondary);
+        }
+        
+        #ipho-chart {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Responsive chart */
+        @media (max-width: 1023px) {
+            #ipho-chart {
+                height: 450px;
+            }
+            
+            .chart-title {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .chart-container {
+                padding: var(--space-md);
+            }
+            
+            #ipho-chart {
+                height: 400px;
+            }
+            
+            .chart-title {
+                font-size: 20px;
+            }
+            
+            .legend-item {
+                font-size: 12px;
+            }
+        }
+        
+        /* Responsive iframe/image switching */
+        .chart-mobile-img {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+        
+        @media (max-width: 1023px) {
+            .chart-iframe-wrapper {
+                display: none !important;
+            }
+            
+            .chart-mobile-img {
+                display: block;
+            }
+
+            .proofbench-chart-wrapper {
+                display: block !important;
+            }
+
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+            }
+            to { 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Scroll Animations */
+        .content-section,
+        .article-image-container,
+        .highlight-card {
+            animation: slideUp 0.6s var(--easing-smooth) backwards;
+        }
+        
+        .content-section:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+        
+        .content-section:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1023px) {
+            .page-title-section {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 48px;
+                line-height: 1.25;
+                padding: 0 var(--space-md);
+            }
+            
+            .container {
+                padding: 0 var(--space-xl);
+            }
+            
+            .image-grid {
+                gap: var(--space-md);
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .page-title-section {
+                padding: var(--space-lg) var(--space-sm);
+            }
+            
+            .page-title {
+                font-size: 32px;
+                line-height: 1.3;
+                padding: 0 var(--space-sm);
+                letter-spacing: -0.01em;
+            }
+            
+            .hero-header {
+                padding: var(--space-2xl) var(--space-md);
+            }
+            
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            h2 {
+                font-size: 24px;
+                margin-top: var(--space-2xl);
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .highlight-card {
+                padding: 20px;
+            }
+            
+            .highlight-content {
+                font-size: 16px;
+            }
+            
+            .btn-external {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .external-links {
+                flex-direction: column;
+            }
+            
+            .model-download-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .model-download-card {
+                flex: 0 1 auto;
+            }
+            
+            .lightbox-close {
+                top: var(--space-md);
+                right: var(--space-md);
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 28px;
+                line-height: 1.35;
+                padding: 0 var(--space-xs);
+            }
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: var(--space-xl);
+            right: var(--space-xl);
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-purple);
+            border: none;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--duration-normal) var(--easing-default), visibility var(--duration-normal) var(--easing-default);
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            opacity: 0.9;
+        }
+        
+        .scroll-to-top svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-purple);
+            width: 0%;
+            z-index: 10000;
+            transition: width 0.1s ease-out;
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Case Study Section */
+        .case-study-problem {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .case-study-problem-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-400);
+            margin-bottom: var(--space-md);
+        }
+        
+        .case-study-problem-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .case-study-problem-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .case-study-problem-content h4:first-child {
+            margin-top: 0;
+        }
+        
+        .case-study-problem-content ul {
+            margin: var(--space-sm) 0;
+            padding-left: var(--space-xl);
+        }
+        
+        .case-study-problem-content li {
+            margin: var(--space-xs) 0;
+        }
+        
+        .case-study-problem-content .problem-question {
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
+            background: var(--bg-surface);
+            border-left: 3px solid var(--primary-500);
+            border-radius: 4px;
+            font-weight: 500;
+            color: var(--text-primary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        /* Context Toggle Button */
+        .context-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            margin-bottom: var(--space-lg);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--primary-400);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .context-toggle:hover {
+            background: var(--bg-surface);
+            border-color: var(--primary-500);
+        }
+        
+        .context-toggle-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .context-toggle.active .context-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Context Content */
+        .context-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--easing-default);
+        }
+        
+        .context-content.show {
+            max-height: 10000px;
+        }
+        
+        .context-inner {
+            padding-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--border-subtle);
+            margin-bottom: var(--space-lg);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            transition: border-color var(--duration-normal) var(--easing-default);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .model-card:hover {
+            border-color: var(--primary-500);
+        }
+        
+        .model-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .model-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .model-score {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .model-score.perfect {
+            color: #10B981;
+        }
+        
+        .model-score.partial {
+            color: #F59E0B;
+        }
+        
+        .model-score.low {
+            color: #EF4444;
+        }
+        
+        .score-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .answer-section {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .answer-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .answer-content {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            padding: var(--space-md);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+        
+        .answer-item {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .evaluation-section {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .evaluation-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .evaluation-criteria {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        
+        .criterion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .criterion-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+        
+        .criterion-icon.correct {
+            color: #10B981;
+        }
+        
+        .criterion-icon.incorrect {
+            color: #EF4444;
+        }
+        
+        .solution-section {
+            margin-top: var(--space-lg);
+        }
+        
+        .solution-toggle {
+            width: 100%;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            padding: var(--space-md);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        .solution-toggle:hover {
+            background: var(--border-subtle);
+            border-color: var(--primary-500);
+        }
+        
+        .solution-toggle-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--duration-normal) var(--easing-default);
+        }
+        
+        .solution-toggle.active .solution-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .solution-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--duration-slow) var(--easing-default);
+        }
+        
+        .solution-content.active {
+            max-height: 100000px;
+        }
+        
+        .solution-inner {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: var(--space-lg);
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-height: 500px;
+            overflow-y: auto;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .solution-inner::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .solution-inner::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 4px;
+        }
+        
+        .solution-inner p {
+            margin-bottom: var(--space-md);
+        }
+
+        .olympiad-case-containers {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-xl);
+            align-items: start;
+            margin-bottom: var(--space-3xl);
+        }
+
+        .olympiad-case-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: var(--space-lg);
+        }
+
+        .olympiad-container-title {
+            margin: 0 0 var(--space-lg);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-400);
+        }
+
+        .olympiad-case-frame {
+            width: 100%;
+            height: min(76vh, 860px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            background: var(--bg-page);
+        }
+
+        .olympiad-cases {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+            margin-top: var(--space-lg);
+            margin-bottom: 0;
+        }
+
+        .olympiad-case {
+            margin-bottom: 0;
+        }
+
+        .olympiad-case-toggle {
+            margin-bottom: 0;
+            font-size: 20px;
+        }
+
+        .olympiad-case-inner {
+            padding-top: var(--space-lg);
+        }
+
+        .olympiad-question p:last-child,
+        .olympiad-solution-inner p:last-child {
+            margin-bottom: 0;
+        }
+
+        .olympiad-answer {
+            margin-top: var(--space-lg);
+        }
+
+        .olympiad-solution-inner {
+            max-height: 70vh;
+        }
+
+        .math-block {
+            margin: var(--space-md) 0;
+            overflow-x: visible;
+        }
+
+        mjx-container[display="true"] {
+            overflow-x: visible !important;
+            overflow-y: visible !important;
+        }
+
+        .compact-bullet::before {
+            content: "▷ ";
+            color: var(--primary-400);
+            font-weight: 700;
+        }
+        
+        @media (max-width: 1023px) {
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .models-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: var(--space-lg);
+            }
+
+            .olympiad-case-containers {
+                grid-template-columns: minmax(0, 1fr);
+                gap: var(--space-lg);
+            }
+            
+            .case-study-problem {
+                padding: var(--space-md);
+            }
+            
+            .model-card {
+                padding: var(--space-md);
+                min-width: 0;
+            }
+            
+            .answer-content {
+                padding: var(--space-sm);
+                font-size: 14px;
+            }
+            
+            .solution-inner {
+                padding: var(--space-md);
+                font-size: 14px;
+            }
+            
+            .context-inner {
+                font-size: 14px;
+            }
+            
+            .case-study-problem-content {
+                font-size: 14px;
+            }
+            
+            .case-study-problem-content table {
+                font-size: 12px;
+            }
+        }
+        
+        /* Organization Logos Section */
+        .org-logos-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .org-logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform var(--duration-normal) var(--easing-default), opacity var(--duration-normal) var(--easing-default);
+            opacity: 0.8;
+        }
+        
+        .org-logo-item:hover {
+            transform: translateY(-2px);
+            opacity: 1;
+        }
+        
+        .org-logo-item img {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+            transition: all var(--duration-normal) var(--easing-default);
+        }
+        
+        @media (max-width: 968px) {
+            .org-logos-section {
+                gap: 15px;
+            }
+            
+            .org-logo-item img {
+                height: 28px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .org-logos-section {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .org-logo-item img {
+                height: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .org-logos-section {
+                gap: 10px;
+            }
+            
+            .org-logo-item img {
+                height: 20px;
+            }
+        }
+        
+        /* Acknowledgements Section */
+        .acknowledgements-section {
+            margin-top: var(--space-4xl);
+            padding: var(--space-2xl) 0;
+            background: transparent;
+        }
+        
+        .acknowledgements-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .acknowledgements-intro {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .acknowledgements-list {
+            list-style: disc;
+            padding-left: var(--space-xl);
+        }
+        
+        .acknowledgements-list li {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+        
+        .acknowledgements-list li::marker {
+            color: var(--text-secondary);
+        }
+        
+        .acknowledgements-list strong {
+            font-weight: 700;
+        }
+        
+        .acknowledgements-list strong a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--easing-default);
+        }
+        
+        .acknowledgements-list strong a:hover {
+            color: var(--primary-400);
+            text-decoration: underline;
+        }
+        
+        .acknowledgements-outro {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 767px) {
+            .acknowledgements-section {
+                padding: var(--space-lg) 0;
+            }
+            
+            .acknowledgements-list li {
+                font-size: 14px;
+            }
+        }
+        
+        /* Citation Section */
+        .citation-section {
+            margin-top: var(--space-4xl);
+            padding: var(--space-2xl) var(--space-xl);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+        }
+        
+        .citation-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .citation-bibtex-wrapper {
+            position: relative;
+        }
+        
+        .citation-bibtex-content {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            padding-top: var(--space-3xl);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .citation-copy-btn {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            padding: 6px 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-medium);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all var(--duration-fast) var(--easing-default);
+        }
+        
+        .citation-copy-btn:hover {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-color: var(--primary-500);
+        }
+        
+        .citation-copy-btn.copied {
+            background: var(--bg-surface);
+            color: var(--primary-400);
+            border-color: var(--primary-500);
+        }
+        
+        @media (max-width: 767px) {
+            .citation-section {
+                padding: var(--space-lg) var(--space-md);
+            }
+            
+            .citation-bibtex-content {
+                font-size: 12px;
+                padding: var(--space-2xl) var(--space-md) var(--space-md);
+            }
+            
+            .citation-copy-btn {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+    <style>
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-page);
+    color: var(--text-primary);
+}
+
+.case-frame-page {
+    padding: var(--space-lg);
+    background: var(--bg-page);
+}
+
+:root[data-theme="light"] .case-frame-page,
+:root[data-theme="light"] body,
+:root[data-theme="light"] html {
+    background: #FFFFFF;
+}
+
+:root[data-theme="light"] .case-study-problem {
+    background: #FFFFFF;
+    border-color: #D1D5DB;
+}
+
+:root[data-theme="light"] .context-toggle,
+:root[data-theme="light"] .solution-toggle,
+:root[data-theme="light"] .answer-content,
+:root[data-theme="light"] .solution-inner {
+    background: #F3F4F6;
+    border-color: #D1D5DB;
+}
+
+:root[data-theme="light"] .problem-question {
+    background: #F9FAFB !important;
+}
+
+:root[data-theme="light"] .context-inner,
+:root[data-theme="light"] .case-study-problem-content,
+:root[data-theme="light"] .answer-content,
+:root[data-theme="light"] .answer-item,
+:root[data-theme="light"] .solution-inner {
+    color: #111827;
+}
+
+:root[data-theme="light"] .answer-content strong,
+:root[data-theme="light"] .solution-inner strong,
+:root[data-theme="light"] .case-study-problem-content strong {
+    color: #000000;
+}
+
+:root[data-theme="light"] .case-study-problem-content h4,
+:root[data-theme="light"] .answer-title,
+:root[data-theme="light"] .evaluation-title,
+:root[data-theme="light"] .solution-toggle {
+    color: #111827;
+}
+
+:root[data-theme="light"] .context-toggle,
+:root[data-theme="light"] .case-study-problem-title {
+    color: #1E5AA8;
+}
+
+        .olympiad-cases {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <main class="case-frame-page">
+<div class="case-study-list olympiad-cases">
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('usamo-2026-problem-1-content')">
+                    <span>USAMO 2026 Problem 1</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="usamo-2026-problem-1-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Let $n$ be an integer greater than $1$. For which real numbers $x$ is \[
+\lfloor nx \rfloor - \sum_{k=1}^{n} \frac{\lfloor kx \rfloor}{k}
+\] maximal, and what is the maximal value that this expression can take?</p>
+<p><em>Note</em>: $\lfloor z \rfloor$ denotes the greatest integer less than or equal to $z$.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('usamo-2026-problem-1-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="usamo-2026-problem-1-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p><strong>Step 1. Reduction to the fractional part.</strong> Let \(n&gt;1\) be an integer. For any real \(x\), write \(x = \lfloor x\rfloor + \{x\} = m + \theta\), where \(m\in\mathbb Z\) and \(\theta\in[0,1)\). For each \(k\ge 1\),</p>
+<p>\[
+\lfloor kx \rfloor = \lfloor km + k\theta \rfloor = km + \lfloor k\theta \rfloor,
+\] because \(km\) is an integer. Hence the expression becomes</p>
+<p>\[
+E(x) = \lfloor nx \rfloor - \sum_{k=1}^{n}\frac{\lfloor kx\rfloor}{k}
+= \bigl( nm + \lfloor n\theta\rfloor \bigr) - \sum_{k=1}^{n}\frac{km + \lfloor k\theta\rfloor}{k}
+= \lfloor n\theta\rfloor - \sum_{k=1}^{n}\frac{\lfloor k\theta\rfloor}{k}.
+\] Thus \(E(x)\) depends only on \(\theta\); we define</p>
+<p>\[
+F(\theta) = \lfloor n\theta\rfloor - \sum_{k=1}^{n}\frac{\lfloor k\theta\rfloor}{k},\qquad \theta\in[0,1).
+\] <strong>Step 2. Value on the interval </strong>\(\bigl[1-\frac1n,\,1\bigr)\).<strong> Assume </strong>\(\theta\in\left[1-\frac1n,\,1\right)\). Then \(\theta\ge \frac{n-1}{n}\) and \(\theta&lt;1\), so for every \(k=1,\dots,n\),</p>
+<p>\[
+k\theta \ge k\cdot\frac{n-1}{n}=k-\frac{k}{n}\ge k-1,
+\] and \(k\theta &lt; k\). Consequently \(\lfloor k\theta\rfloor = k-1\) for all \(k\). In particular \(\lfloor n\theta\rfloor = n-1\). Therefore</p>
+<p>\[
+F(\theta) = (n-1) - \sum_{k=1}^{n}\frac{k-1}{k}.
+\] Now</p>
+<p>\[
+\sum_{k=1}^{n}\frac{k-1}{k} = \sum_{k=1}^{n}\left(1-\frac1k\right) = n - H_n,
+\] where \(H_n = 1 + \frac12 + \cdots + \frac1n\) (the \(n\)-th harmonic number). Hence</p>
+<p>\[
+F(\theta) = (n-1) - (n-H_n) = H_n - 1.
+\] So on the whole interval \([1-\frac1n,1)\) the expression is constant and equals \(H_n-1\).</p>
+<p><strong>Step 3. Upper bound: first decomposition.</strong> To prove that \(H_n-1\) is the maximum, we show \(F(\theta)\le H_n-1\) for all \(\theta\in[0,1)\). Let \(\theta\) be arbitrary and write</p>
+<p>\[
+N = \lfloor n\theta\rfloor \in \{0,1,\dots,n-1\}, \qquad \beta = n\theta - N \in [0,1).
+\] Set \(t = \beta/n \in [0,1/n)\). Then</p>
+<p>\[
+\theta = \frac{N}{n} + t.
+\] For \(k=1,\dots,n\),</p>
+<p>\[
+k\theta = \frac{kN}{n} + kt.
+\] Write the division of \(kN\) by \(n\):</p>
+<p>\[
+\frac{kN}{n} = \left\lfloor\frac{kN}{n}\right\rfloor + \frac{r_k}{n},
+\] where \(r_k\) is the remainder, i.e. \(r_k = kN \bmod n\) with \(0\le r_k &lt; n\). Then</p>
+<p>\[
+k\theta = \underbrace{\left\lfloor\frac{kN}{n}\right\rfloor}_{\text{integer}} + \underbrace{\left(\frac{r_k}{n} + kt\right)}_{\text{in }[0,2)}.
+\] Define</p>
+<p>\[
+\delta_k = \begin{cases}
+1 & \text{if } \frac{r_k}{n} + kt \ge 1,\\
+0 & \text{otherwise}.
+\end{cases}
+\] Then</p>
+<p>\[
+\lfloor k\theta\rfloor = \left\lfloor\frac{kN}{n}\right\rfloor + \delta_k.
+\] Substituting into \(F(\theta)\) gives</p>
+<p>\[
+\begin{aligned}
+F(\theta) &= N - \sum_{k=1}^{n}\frac{\left\lfloor\frac{kN}{n}\right\rfloor + \delta_k}{k} \\
+&= \underbrace{N - \sum_{k=1}^{n}\frac{\left\lfloor\frac{kN}{n}\right\rfloor}{k}}_{A(N)} \;-\; \sum_{k=1}^{n}\frac{\delta_k}{k}.
+\end{aligned}
+\] Since each \(\delta_k/k \ge 0\), we obtain the important inequality</p>
+<p>\[
+F(\theta) \le A(N),\qquad\text{where}\qquad A(N) = N - \sum_{k=1}^{n}\frac{\left\lfloor\frac{kN}{n}\right\rfloor}{k}. \quad\text{(1)}
+\] Thus it suffices to prove \(A(N) \le H_n - 1\) for all \(N = 0,1,\dots,n-1\).</p>
+<p><strong>Step 4. Simplifying </strong>\(A(N)\).<strong> Using </strong>\(\left\lfloor\frac{kN}{n}\right\rfloor = \frac{kN - r_k}{n}\), we compute</p>
+<p>\[
+\begin{aligned}
+A(N) &= N - \sum_{k=1}^{n}\frac{kN - r_k}{n k} \\
+&= N - \sum_{k=1}^{n}\left(\frac{N}{n} - \frac{r_k}{n k}\right) \\
+&= N - \left(\frac{N}{n}\sum_{k=1}^{n}1\right) + \frac1n\sum_{k=1}^{n}\frac{r_k}{k} \\
+&= N - N + \frac1n\sum_{k=1}^{n}\frac{r_k}{k} = \frac1n\sum_{k=1}^{n}\frac{r_k}{k}. \quad\text{(2)}
+\end{aligned}
+\] <strong>Step 5. Introducing the greatest common divisor.</strong> Let \(d = \gcd(N,n)\). Write</p>
+<p>\[
+n = d\,n_1,\qquad N = d\,N_1,
+\] with \(\gcd(N_1,n_1)=1\).</p>
+<p>Because \(r_k\) is the remainder of \(kN\) modulo \(n\), we have \(r_k = d\cdot s_k\), where</p>
+<p>\[
+s_k = (k N_1) \bmod n_1,\quad 0\le s_k &lt; n_1.
+\] Moreover, as \(k\) runs from \(1\) to \(n\), the values \(s_k\) take each integer from \(0\) to \(n_1-1\) exactly \(d\) times (this follows from the fact that \(k\mapsto kN_1\pmod{n_1}\) is a bijection over each block of length \(n_1\)). Therefore</p>
+<p>\[
+\frac1n\sum_{k=1}^{n}\frac{r_k}{k} = \frac1n\sum_{k=1}^{n}\frac{d\,s_k}{k} = \frac{d}{n}\sum_{k=1}^{n}\frac{s_k}{k} = \frac{1}{n_1}\sum_{k=1}^{n}\frac{s_k}{k}. \quad\text{(3)}
+\] Now decompose \(k\) as \(k = i n_1 + j\) with \(i=0,1,\dots,d-1\) and \(j=1,2,\dots,n_1\). Then \(s_k = s_j\) because \(s_{i n_1 + j} = ((i n_1 + j)N_1)\bmod n_1 = (j N_1)\bmod n_1 = s_j\). Hence</p>
+<p>\[
+\sum_{k=1}^{n}\frac{s_k}{k} = \sum_{j=1}^{n_1} s_j \sum_{i=0}^{d-1}\frac{1}{i n_1 + j}.
+\] Define the weights</p>
+<p>\[
+w_j = \sum_{i=0}^{d-1}\frac{1}{i n_1 + j},\qquad j=1,\dots,n_1.
+\] Observe that \(w_j\) is strictly decreasing in \(j\) (since larger \(j\) makes denominators larger). Then</p>
+<p>\[
+A(N) = \frac{1}{n_1}\sum_{j=1}^{n_1} s_j w_j. \quad\text{(4)}
+\] <strong>Step 6. Applying the rearrangement inequality.</strong> The set \(\{s_1,\dots,s_{n_1}\}\) is a permutation of \(\{0,1,\dots,n_1-1\}\) (this is true for the indices \(j=1,\dots,n_1\), because \(j N_1 \bmod n_1\) runs through all residues exactly once). The weights \(w_j\) are decreasing. By the rearrangement inequality, the sum \(\sum s_j w_j\) is maximized when the \(s_j\) are also arranged in decreasing order. The decreasing order of the numbers \(0,1,\dots,n_1-1\) is \(s_1=n_1-1\), \(s_2=n_1-2\), ..., \(s_{n_1}=0\). Hence for any permutation we have</p>
+<p>\[
+\sum_{j=1}^{n_1} s_j w_j \le \sum_{j=1}^{n_1} (n_1 - j) w_j. \quad\text{(5)}
+\] Consequently,</p>
+<p>\[
+A(N) \le \frac{1}{n_1}\sum_{j=1}^{n_1} (n_1 - j) w_j. \quad\text{(6)}
+\] <strong>Step 7. Relating to the harmonic number.</strong> Compute the right-hand side:</p>
+<p>\[
+\sum_{j=1}^{n_1} (n_1 - j) w_j = \sum_{j=1}^{n_1} (n_1 - j)\sum_{i=0}^{d-1}\frac{1}{i n_1 + j} = \sum_{i=0}^{d-1}\sum_{j=1}^{n_1}\frac{n_1 - j}{i n_1 + j} =: S.
+\] Now the harmonic number \(H_n\) can be written as</p>
+<p>\[
+H_n = \sum_{i=0}^{d-1}\sum_{j=1}^{n_1}\frac{1}{i n_1 + j}.
+\] Thus</p>
+<p>\[
+n_1 H_n = \sum_{i=0}^{d-1}\sum_{j=1}^{n_1}\frac{n_1}{i n_1 + j}.
+\] Consider the difference</p>
+<p>\[
+n_1 H_n - n_1 - S = \sum_{i=0}^{d-1}\sum_{j=1}^{n_1}\left(\frac{n_1}{i n_1 + j} - \frac{n_1 - j}{i n_1 + j}\right) - n_1 = \sum_{i=0}^{d-1}\sum_{j=1}^{n_1}\frac{j}{i n_1 + j} - n_1.
+\] Define</p>
+<p>\[
+T = \sum_{i=0}^{d-1}\sum_{j=1}^{n_1}\frac{j}{i n_1 + j}. \quad\text{(7)}
+\] Then \(S \le n_1 H_n - n_1\) is equivalent to \(T \ge n_1\).</p>
+<p><strong>Step 8. Proof that </strong>\(T \ge n_1\).<strong> Rewrite each term:</strong></p>
+<p>\[
+\frac{j}{i n_1 + j} = 1 - \frac{i n_1}{i n_1 + j}.
+\] Hence</p>
+<p>\[
+\begin{aligned}
+T &= \sum_{i=0}^{d-1}\sum_{j=1}^{n_1} \left(1 - \frac{i n_1}{i n_1 + j}\right) \\
+&= \sum_{i=0}^{d-1}\sum_{j=1}^{n_1} 1 \;-\; \sum_{i=0}^{d-1}\sum_{j=1}^{n_1} \frac{i n_1}{i n_1 + j} \\
+&= d n_1 \;-\; n_1 \sum_{i=0}^{d-1} i \sum_{j=1}^{n_1}\frac{1}{i n_1 + j}.
+\end{aligned}
+\] Let</p>
+<p>\[
+Q = \sum_{i=0}^{d-1} i \sum_{j=1}^{n_1}\frac{1}{i n_1 + j}.
+\] The term with \(i=0\) is \(0\). For \(i \ge 1\), note that \(i n_1 + j &gt; i n_1\) for all \(j\ge 1\), so</p>
+<p>\[
+\sum_{j=1}^{n_1}\frac{1}{i n_1 + j} &lt; \sum_{j=1}^{n_1}\frac{1}{i n_1} = \frac{n_1}{i n_1} = \frac1i.
+\] Multiplying by \(i\) (positive) gives</p>
+<p>\[
+i \sum_{j=1}^{n_1}\frac{1}{i n_1 + j} &lt; 1.
+\] Summing these inequalities for \(i = 1,2,\dots,d-1\) yields</p>
+<p>\[
+Q &lt; \sum_{i=1}^{d-1} 1 = d-1. \quad\text{(8)}
+\] If \(d = 1\), then \(Q = 0\) (the sum over \(i\) is empty). Then</p>
+<p>\[
+T = d n_1 - n_1 Q = n_1 \qquad (\text{since } d=1).
+\] If \(d \ge 2\), we have \(Q &lt; d-1\), hence</p>
+<p>\[
+T = d n_1 - n_1 Q &gt; d n_1 - n_1 (d-1) = n_1.
+\] Thus in all cases \(T \ge n_1\), with equality exactly when \(d = 1\).</p>
+<p><strong>Step 9. Final bound for </strong>\(A(N)\).<strong> From the equivalence established in Step 7, </strong>\(T \ge n_1\) implies \(S \le n_1 H_n - n_1\). Using (6) we obtain</p>
+<p>\[
+A(N) \le \frac{1}{n_1} S \le \frac{1}{n_1}(n_1 H_n - n_1) = H_n - 1.
+\] Hence \(A(N) \le H_n - 1\) for every \(N\).</p>
+<p><strong>Step 10. Equality conditions.</strong> We have the chain</p>
+<p>\[
+F(\theta) \le A(N) \le H_n - 1.
+\] To have \(F(\theta) = H_n - 1\), both inequalities must be equalities.</p>
+<p class="compact-bullet">\textbf{Equality in</p>
+<p>\(F(\theta) \le A(N)\)<strong> requires </strong>\(\sum_{k=1}^{n} \delta_k/k = 0\), i.e., \(\delta_k = 0\) for all \(k\). This means \(\frac{r_k}{n} + kt &lt; 1\) for every \(k\).}</p>
+<p class="compact-bullet">\textbf{Equality in</p>
+<p>\(A(N) \le H_n - 1\)<strong> requires that the upper bound we derived be attained. From the derivation, this happens exactly when </strong>\(d = 1\) (i.e., \(\gcd(N,n)=1\)) and the rearrangement inequality (5) is sharp. Since \(w_j\) is strictly decreasing, the maximum of \(\sum s_j w_j\) is achieved when the \(s_j\) are also decreasing. For \(d = 1\), the set \(\{s_1,\dots,s_n\}\) (since \(n_1=n\)) is a permutation of \(\{0,1,\dots,n-1\}\). The decreasing order corresponds to \(s_j = n - j\) for \(j=1,\dots,n\) (with \(s_n = 0\)). This is equivalent to \((j N) \bmod n = n - j\) for all \(j=1,\dots,n\). This congruence simplifies to \(j N \equiv -j \pmod{n}\), i.e., \(N \equiv -1 \pmod{n}\). Because \(0 \le N \le n-1\), this forces \(N = n-1\).} Now check that for \(N = n-1\) the condition \(\delta_k = 0\) indeed holds. Write \(N = n-1\), then \(d = \gcd(n-1,n)=1\). For \(k=1,\dots,n\), \(r_k = (k(n-1)) \bmod n = n - k\) (for \(k&lt;n\)) and \(r_n = 0\). Then</p>
+<p>\[
+\frac{r_k}{n} + kt = \frac{n - k}{n} + k t \quad (\text{or } 0 + n t \text{ for } k=n).
+\] Since \(t &lt; 1/n\), we have \(\frac{n - k}{n} + k t &lt; \frac{n - k}{n} + k \cdot \frac{1}{n} = 1,\) and for \(k=n\), \(n t &lt; 1\). Hence \(\delta_k = 0\) for all \(k\). Therefore \(F(\theta) = A(N) = H_n - 1\).</p>
+<p>Conversely, if \(\theta \in \left[1 - \frac1n,\, 1\right)\), then \(N = n-1\) and \(t = \theta - (n-1)/n \in [0,1/n)\). As just verified, this yields \(F(\theta) = H_n - 1\).</p>
+<p>Thus the maximum value \(H_n - 1\) is attained precisely when the fractional part of \(x\) lies in the interval \([1 - 1/n,\, 1)\).</p>
+<p><strong>Step 11. Conclusion.</strong> The maximal value of the expression is \(H_n - 1\), where \(H_n = 1 + \frac12 + \cdots + \frac1n\), and this maximum occurs exactly for those real numbers \(x\) whose fractional part belongs to \([1 - 1/n,\, 1)\).</p>
+<div class="math-block">\[
+\boxed{H_n - 1,\quad \text{where } H_n = 1 + \frac{1}{2} + \cdots + \frac{1}{n},\ \text{and the maximum is attained iff } \{x\} \in \left[1 - \frac{1}{n},\, 1\right)}
+\]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('usamo-2026-problem-2-content')">
+                    <span>USAMO 2026 Problem 2</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="usamo-2026-problem-2-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Annie is playing a game where she starts with a row of positive integers, written on a blackboard, each of which is a power of $2$. On each turn, she can erase two adjacent numbers and replace them with a power of $2$ that is greater than either of the erased numbers. This shortens the row of numbers, and she continues to take turns until only one number remains. Annie wins the game if the final remaining number is less than $4$ times the sum of the original numbers. Is it always possible for Annie to win, regardless of the starting row of numbers?</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 0/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('usamo-2026-problem-2-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="usamo-2026-problem-2-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p><em>Excerpted solution: the original response is very long, so only the beginning and ending portions are shown.</em></p>
+<h5>Solution</h5>
+<p>We will prove that Annie can always win, i.e., for any initial row of powers of two, there exists a sequence of moves that ends with a single number \(F\) satisfying \(F &lt; 4S\), where \(S\) is the sum of the original numbers.</p>
+<p>Let \(S\) be the sum of the numbers, and let \(k = \lfloor \log_2 S \rfloor\), so that</p>
+<p>\[
+2^k \le S &lt; 2^{k+1}.
+\] The proof proceeds by strong induction on the number of terms \(n\). We will show the following statement:</p>
+<p><em><strong>Claim.</strong>  For any list of \(n\) powers of two, there exists a sequence of moves such that the final number \(F\) satisfies \(F \le 4 \cdot 2^{k}\).</em></p>
+<p>Once the Claim is established, we obtain Annie's victory:</p>
+<p class="compact-bullet">If \(S\) is \textbf{not</p>
+<p>a power of two, then \(2^k &lt; S\), hence \(4 \cdot 2^k &lt; 4S\) and therefore \(F &lt; 4S\).}</p>
+<p class="compact-bullet">If \(S\) is a power of two, the same inductive proof (when analysed more carefully) actually yields the sharper bound \(F \le 2S\), which is certainly \(&lt; 4S\) for \(S&gt;0\).  (We will comment on this improvement at the end.)</p>
+<p>Thus the main task is to prove the Claim by induction on \(n\).</p>
+<h5>Base case \(n = 1\)</h5>
+<p>There is only the number itself, so \(F = S\). Since \(S \le 2^{k+1} \le 4 \cdot 2^{k}\), the Claim holds.</p>
+<h5>Inductive step</h5>
+<p>Assume the Claim holds for every list of size less than \(n\). Consider a list of size \(n\). Let its sum be \(S\) and let \(k = \lfloor \log_2 S \rfloor\).</p>
+<h5>Case 1: There exists an adjacent equal pair</h5>
+<p>Choose such a pair, say \(a_i = a_{i+1} = a\). Replace them by \(2a\) (the smallest allowed power of two greater than \(a\)). The sum does not change, so \(k\) remains the same. The new list has size \(n-1\), so by the induction hypothesis it can be reduced to a final number \(\le 4 \cdot 2^{k}\). Hence the same holds for the original list.</p>
+<h5>Case 2: No two adjacent numbers are equal</h5>
+<p>In this case we choose an adjacent pair \((a_i, a_{i+1})\) for which \(\max(a_i, a_{i+1})\) is as small as possible; denote the two numbers by \(x\) and \(y\) with \(x &lt; y\). Replace them by \(2y\) (again the smallest possible power of two greater than \(y\)). Let the new sum be</p>
+<p>\[
+S' = S + (y - x).
+\] Set \(k' = \lfloor \log_2 S' \rfloor\).</p>
+<p>We now consider two subcases.</p>
+<h5>Subcase 2a: \(k' = k\)</h5>
+<p>Then \(S' &lt; 2^{k+1}\), so the floor has not increased. The new list has size \(n-1\); by the induction hypothesis it can be reduced to a final number \(\le 4 \cdot 2^{k'} = 4 \cdot 2^{k}\). So the original list also admits such a strategy.</p>
+<h5>Subcase 2b: \(k' = k+1\)</h5>
+<p>In this situation \(2^{k+1} \le S' &lt; 2^{k+2}\). First note that \(y \le 2^{k}\); otherwise \(y \ge 2^{k+1}\) would force \(S \ge y \ge 2^{k+1}\), contradicting \(S &lt; 2^{k+1}\). Consequently \(2y \le 2^{k+1}\).</p>
+<p>Now examine the list after the merge; it has size \(n-1\) and sum \(S'\). Although its floor is \(k+1\), we can still use the induction hypothesis - not directly on this list (which would give a bound of \(4 \cdot 2^{k+1} = 8 \cdot 2^{k}\)), but we can instead apply the induction hypothesis to the <strong>rest</strong> of the list - i.e., the numbers that were not part of the merged pair. However, after the merge the list is contiguous, so the "rest" is not isolated. Instead we perform the following two step reduction:</p>
+<p class="compact-bullet"><strong>1.</strong> Reduce the part of the list that does not contain the new number \(2y\) (i.e., all other numbers) to a single number \(T\).  Because the rest consists of several (possibly one) contiguous blocks, we can reduce each block independently to a single number using the induction hypothesis (the blocks have size \(&lt; n\)).  By doing so we obtain a list consisting of \(2y\) and the numbers \(T_1, T_2, \dots\) (one per block).  Each \(T_j\) satisfies \(T_j \le 4 \cdot 2^{k}\) because the sum of the corresponding block is \(&lt; 2^{k+1}\) (since the total sum \(S &lt; 2^{k+1}\) and we have removed at least the two numbers \(x,y\) with \(y \ge 2\), so the block sum is at most \(2^{k+1} - 3\)?  Actually a precise bound is not needed; we only need that every such \(T_j\) is \(\le 4 \cdot 2^{k}\).  Indeed, for any block, its sum is less than \(2^{k+1}\), so by the induction hypothesis (applied to that block) we obtain a number \(\le 4 \cdot 2^{k}\) (its floor is at most \(k\), so the bound is \(4 \cdot 2^{k}\)).</p>
+<p>After this reduction, the list contains \(2y\) and several numbers \(T_j\), each \(\le 4 \cdot 2^{k}\). Now we can merge these numbers one by one. A crucial observation is that \(2y \le 2^{k+1} \le 4 \cdot 2^{k}\) for \(k \ge 0\). Hence all numbers present are at most \(4 \cdot 2^{k}\). When we merge two numbers each at most \(4 \cdot 2^{k}\), the result is at most \(2 \cdot 4 \cdot 2^{k} = 8 \cdot 2^{k}\), which is still too large. To keep the bound at \(4 \cdot 2^{k}\), we must merge in a way that the maximum never exceeds \(2^{k+1}\). Notice that \(2y \le 2^{k+1}\). If we can ensure that every \(T_j\) is also \(\le 2^{k+1}\), then merging any two of them yields at most \(2^{k+2} = 4 \cdot 2^{k}\). Therefore the problem reduces to showing that each block can be reduced to a number \(\le 2^{k+1}\) rather than the coarser \(4 \cdot 2^{k}\).</p>
+<p>But can we guarantee \(\le 2^{k+1}\)? Since the sum of a block is \(&lt; 2^{k+1}\), a direct application of the induction hypothesis would only give \(\le 4 \cdot 2^{k}\). However, we can prove a slightly stronger lemma that will serve our purpose:</p>
+<p><strong>Lemma.</strong> If a list has sum \(T\) with \(2^{L} &lt; T &lt; 2^{L+1}\), then there exists a strategy with final number \(\le 2^{L+1}\) <strong>provided</strong> that \(T \le 3 \cdot 2^{L-1} - 1\). (This lemma will be proved by induction on \(n\) in a moment.)</p>
+<p>In our situation, each block sum is at most \(S - x - y &lt; 2^{k+1}\). Moreover, because we are in Subcase 2b, the original list has no adjacent equal and we chose the pair with smallest maximum. A detailed analysis (which we will carry out for the lemma) shows that the sum of each block is actually \(\le 3 \cdot 2^{k-1} - 1\). Hence the Lemma applies, giving \(T_j \le 2^{k+1}\).</p>
+<p class="compact-bullet"><strong>2.</strong> With all numbers \(\le 2^{k+1}\), merging any two yields at most \(2^{k+2} = 4 \cdot 2^{k}\).  By continuing this process we eventually obtain a single number \(\le 4 \cdot 2^{k}\).</p>
+<p>Thus, if the Lemma holds, the Claim is established in Subcase 2b as well.</p>
+<h5>Proof of the Lemma</h5>
+<p>We now prove the Lemma stated above.</p>
+<p><strong>Lemma.</strong> Let \(L \ge 2\) be an integer. For any list of powers of two whose sum \(T\) satisfies</p>
+<p>\[
+2^{L} &lt; T \le 3 \cdot 2^{L-1} - 1,
+\] there exists a sequence of moves that ends with a number \(\le 2^{L+1}\).</p>
+<p><em>Proof.</em> We use strong induction on the number of terms \(n\).</p>
+<p class="compact-bullet">\textbf{Base</p>
+<p>\(n = 2\).<strong>  The two numbers are powers of two, say </strong>\(a \le b\).  Since \(T = a+b &gt; 2^{L}\), we must have \(b \ge 2^{L}\).  If \(b &gt; 2^{L}\), then \(b \ge 2^{L+1}\), implying \(T \ge 2^{L+1}\), which contradicts \(T \le 3 \cdot 2^{L-1} - 1 &lt; 2^{L+1}\) (for \(L \ge 2\)).  Hence \(b = 2^{L}\).  Then \(a = T - 2^{L} \le 2^{L-1} - 1\).  The only legal move is to replace \((a, 2^{L})\) with a power of two greater than \(2^{L}\); the smallest such is \(2^{L+1}\).  By choosing that, we obtain a final number exactly \(2^{L+1}\), which certainly is \(\le 2^{L+1}\).}</p>
+<p class="compact-bullet">\textbf{Inductive step.</p>
+<p>Assume the Lemma holds for all lists of size smaller than \(n\).  Consider a list of size \(n\) with sum \(T\) in the prescribed interval.} <em>If there is an adjacent equal pair</em>, merge it.  The sum stays the same, so \(T\) remains in the interval, and the size becomes \(n-1\).  By the induction hypothesis we get a final number \(\le 2^{L+1}\).</p>
+<p><em>If there is no adjacent equal pair</em>, let \((x, y)\) be the adjacent pair with the smallest maximum; \(x &lt; y\).  Merge them to \(2y\) and obtain a new list of size \(n-1\) with sum \(T' = T + (y - x)\).</p>
+<p>We need to show that \(T'\) still lies in an interval that allows us to apply the induction hypothesis (possibly with a different \(L\)) and still obtain the bound \(2^{L+1}\).</p>
+<p><strong>First, bound </strong>\(y\).<strong> Because the list has no adjacent equal numbers and its sum is less than </strong>\(2^{L+1}\), the maximum element cannot exceed \(2^{L-1}\) if we want to stay within the interval after the merge? Actually we can have \(y = 2^{L}\), but then the structure of the list is very restricted. We analyse the two possibilities:</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(y \le 2^{L-1}\).<strong>  Then </strong>\(2y \le 2^{L}\).  Also, \(y - x \le 2^{L-1} - 1\).  Consequently} \[
+    T' \le T + (2^{L-1} - 1) \le (3 \cdot 2^{L-1} - 1) + (2^{L-1} - 1) = 4 \cdot 2^{L-1} - 2 = 2^{L+1} - 2.
+    \] Moreover, \(T' &gt; T &gt; 2^{L}\). Hence \(T'\) lies in \((2^{L}, 2^{L+1})\). If \(T' \le 3 \cdot 2^{L-1} - 1\), then \(T'\) is still in the original interval for \(L\), and the induction hypothesis (applied to the list of size \(n-1\)) gives \(F \le 2^{L+1}\). If \(T' &gt; 3 \cdot 2^{L-1} - 1\), then \(T'\) is in \((3 \cdot 2^{L-1}, 2^{L+1})\). In this range, we claim that \(T'\) actually belongs to the interval for \(L+1\), i.e., \(2^{L+1} &lt; T' \le 3 \cdot 2^{L} - 1\)? But \(T' &lt; 2^{L+1}\), so it cannot be in \((2^{L+1}, \dots]\). However, observe that \(T' \ge 3 \cdot 2^{L-1} + 1\) (since it exceeds the upper bound). But then \(T' \ge 3 \cdot 2^{L-1} + 1\). For \(L \ge 2\), \(3 \cdot 2^{L-1} + 1\) may be less than \(2^{L+1}\), but we need a bound of \(2^{L+1}\). Since we are only required to obtain some final number \(\le 2^{L+1}\), we can simply note that \(T' &lt; 2^{L+1}\) and therefore the floor of \(T'\) is at most \(L\). If the floor is \(L\) (i.e., \(T' &lt; 2^{L+1}\)), then we can apply the induction hypothesis for the same \(L\)? The induction hypothesis requires the sum to be \(&gt; 2^{L}\). It is, but we also need the upper bound \(3 \cdot 2^{L-1} - 1\) to use the Lemma? Actually the Lemma we are proving is exactly: for any list with sum in \((2^{L}, 3 \cdot 2^{L-1} - 1]\) we can achieve \(\le 2^{L+1}\). If \(T'\) falls outside this interval (i.e., \(T' &gt; 3 \cdot 2^{L-1} - 1\)), the Lemma does not directly apply. However, we can then apply the induction hypothesis for a <strong>different</strong> statement: for any list with sum \(&lt; 2^{L+1}\) we can achieve \(\le 2^{L+1}\). But is that universally true? No, as the example \([8,4,2]\) with \(L=3\) (sum 14) shows that the minimum final is 32, which is \(&gt; 16 = 2^{L+1}\). So we cannot claim that for every list with sum \(&lt; 2^{L+1}\) we can get \(\le 2^{L+1}\). Hence we must be more careful.</p>
+<p class="compact-bullet">\textbf{</p>
+<p>\(y = 2^{L}\).<strong>  Then, because there are no adjacent equal numbers and the sum is at most </strong>\(3 \cdot 2^{L-1} - 1 &lt; 2^{L+1}\), the list can contain at most one copy of \(2^{L}\) (two would sum to at least \(2^{L+1}\)).  Moreover, to avoid any adjacent pair with maximum \(&lt; 2^{L}\), every other number must be adjacent only to \(2^{L}\) (otherwise a pair of smaller numbers would have maximum \(&lt; 2^{L}\)).  This forces the list to be of the form} \[
+    [\, a_1, a_2, \dots, a_p, 2^{L}, b_1, b_2, \dots, b_q \,]
+    \] where all \(a_i\) and \(b_j\) are powers of two less than \(2^{L}\), and no two of the \(a_i\) (or two of the \(b_j\)) are adjacent; in particular, \(p \le 1\) and \(q \le 1\). Thus the list has at most three elements. For size 2, the list is \([2^{L}, c]\) or \([c, 2^{L}]\) with \(c &lt; 2^{L}\). That case is already covered by the base (size 2). For size 3, the list is \([a, 2^{L}, b]\) with \(a,b\) powers of two, \(a,b &lt; 2^{L}\), and \(a+b \le 2^{L-1} - 1\) (since the total sum is at most \(3 \cdot 2^{L-1} - 1\)). Now, the pair with smallest maximum is either \((a,2^{L})\) or \((2^{L},b)\), both have maximum \(2^{L}\). Choose one, say \((a,2^{L})\). Merging gives \(2^{L+1}\) and the list becomes \([2^{L+1}, b]\). Its sum is \(2^{L+1} + b\). Since \(b \le 2^{L-1} - 1\), we have</p>
+<p>\[
+    2^{L+1} &lt; 2^{L+1} + b \le 2^{L+1} + 2^{L-1} - 1 = 5 \cdot 2^{L-1} - 1.
+    \] For \(L \ge 2\), \(5 \cdot 2^{L-1} - 1\) is still less than \(6 \cdot 2^{L-1} - 1 = 3 \cdot 2^{L} - 1\), so the sum lies in \((2^{L+1}, 3 \cdot 2^{L} - 1]\). Now, by the induction hypothesis (the Lemma for the larger index \(L+1\)), we can reduce this list to a number \(\le 2^{(L+1)+1} = 2^{L+2}\). But we need \(\le 2^{L+1}\). However, we are not forced to apply the Lemma for \(L+1\); we can directly finish the game: from \([2^{L+1}, b]\), the only move is to merge the two numbers (they are different because \(b &lt; 2^{L} &lt; 2^{L+1}\)). The smallest possible result is \(2^{L+2}\) (since we must replace them with a power of two greater than \(\max(2^{L+1}, b) = 2^{L+1}\), so the smallest is \(2^{L+2}\). That would give \(F = 2^{L+2}\), which is larger than \(2^{L+1}\). But we are free to choose a larger number if we wish; however, to achieve the bound \(\le 2^{L+1}\) we would need to obtain exactly \(2^{L+1}\), which is impossible because the numbers are different and the rule requires a number <strong>greater than</strong> both, so the result must be at least \(2^{L+2}\). This suggests that the Lemma might be false for lists of size 3 of this form? Let's test with concrete numbers: \(L=3\), so \(2^{L}=8\). Choose \(a=2\), \(b=2\)? But \(a+b \le 2^{L-1} - 1 = 3\), so \(a=2,b=1\) gives sum \(8+2+1=11\), which is within the interval \((8, 11]\). According to the Lemma, there should be a strategy yielding \(F \le 2^{L+1}=16\). But earlier we saw that from \([2,8,1]\) the minimum final is 32, not 16. Let's verify carefully:</p>
+<p>List: \([2,8,1]\). No adjacent equal. The pair with smallest maximum: pairs are \((2,8)\) max=8, \((8,1)\) max=8. Suppose we merge \((2,8)\) to \(16\) (smallest possible). Resulting list: \([16,1]\). Now merge \((16,1)\): the smallest power of two greater than 16 is 32. So final 32. If we merge \((8,1)\) first, we get \([2,16]\) then merge to 32. So indeed the minimum is 32. Therefore the Lemma, as stated, is <strong>false</strong> for \(L=3\) with the list \([2,8,1]\). Indeed, \(2^{L}=8\), \(3 \cdot 2^{L-1} - 1 = 11\), and \(T=11\) is allowed. But we cannot achieve \(\le 16\); the best is 32.</p>
+<p><em>Remaining solution omitted because the original response is substantially longer than the other appendix examples.</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('usamo-2026-problem-3-content')">
+                    <span>USAMO 2026 Problem 3</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="usamo-2026-problem-3-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Let $ABC$ be an acute scalene triangle with no angle equal to $60^\circ$. Let $\omega$ be the circumcircle of $ABC$. Let $\Delta_B$ be the equilateral triangle with three vertices on $\omega$, one of which is $B$. Let $\ell_B$ be the line through the two vertices of $\Delta_B$ other than $B$. Let $\Delta_C$ and $\ell_C$ be defined analogously. Let $Y$ be the intersection of $AC$ and $\ell_B$, and let $Z$ be the intersection of $AB$ and $\ell_C$.</p>
+<p>Let $N$ be the midpoint of minor arc $BC$ on $\omega$. Let $\mathcal{R}$ be the triangle formed by $\ell_B$, $\ell_C$, and the tangent to $\omega$ through $N$. Prove that the circumcircle of $AYZ$ and the incircle of $\mathcal{R}$ are tangent.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('usamo-2026-problem-3-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="usamo-2026-problem-3-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p>We are given an acute scalene triangle \(ABC\) with no angle equal to \(60^\circ\). Its circumcircle is \(\omega\). For vertex \(B\) we construct the equilateral triangle \(\Delta_B\) inscribed in \(\omega\) (one vertex is \(B\)); let \(\ell_B\) be the line through the two other vertices. Similarly, \(\Delta_C\) and \(\ell_C\). Define</p>
+<p>\[
+Y = AC \cap \ell_B,\qquad Z = AB \cap \ell_C.
+\] Let \(N\) be the midpoint of the minor arc \(BC\) (the arc not containing \(A\)). Let \(\mathcal{R}\) be the triangle bounded by \(\ell_B\), \(\ell_C\) and the tangent to \(\omega\) at \(N\). We must prove that the circumcircle of \(\triangle AYZ\) and the incircle of \(\triangle\mathcal{R}\) are tangent.</p>
+<h5>1. Complex numbers on the unit circle</h5>
+<p>Place the circumcircle \(\omega\) as the unit circle in the complex plane. Denote the points by</p>
+<p>\[
+A = a,\quad B = b,\quad C = c,\qquad |a|=|b|=|c|=1.
+\] The triangle is acute, scalene and none of its angles is \(60^\circ\).</p>
+<p><strong>Lemma 1 (Line through two points on the unit circle).</strong> For distinct \(u,v\) on the unit circle, the line \(uv\) is given by</p>
+<p>\[
+z + uv\,\bar{z} = u+v.
+\] <em>Proof.</em> A point \(z\) is collinear with \(u\) and \(v\) iff \(\frac{z-u}{v-u}\) is real. Taking conjugates and using \(\bar u = 1/u\), \(\bar v = 1/v\) gives the stated equation. \(\square\)</p>
+<h5>2. Equations of the relevant lines</h5>
+<p>Let \(\zeta = e^{2\pi i/3}\). The equilateral triangle \(\Delta_B\) inscribed in \(\omega\) with vertex \(B\) has the other two vertices \(B\zeta\) and \(B\zeta^2\). The side opposite \(B\) is \(\ell_B\), the line through \(B\zeta\) and \(B\zeta^2\). Applying Lemma 1 with \(u = b\zeta\), \(v = b\zeta^2\) yields \(uv = b^2\) and \(u+v = b(\zeta+\zeta^2) = -b\). Hence</p>
+<p>\[
+\ell_B:\; z + b^2\bar{z} = -b. \quad\text{(1)}
+\] Analogously,</p>
+<p>\[
+\ell_C:\; z + c^2\bar{z} = -c. \quad\text{(2)}
+\] The point \(N\) is the midpoint of the minor arc \(BC\) (not containing \(A\)). On the unit circle the midpoint of an arc has the property that its square equals the product of the endpoints:</p>
+<p>\[
+N^2 = bc. \quad\text{(3)}
+\] The tangent to \(\omega\) at \(N\) is given by</p>
+<p>\[
+z + N^2\bar{z} = 2N.
+\] Using (3) we obtain</p>
+<div class="math-block">\[
+\text{tangent at }N:\; z + bc\,\bar{z} = 2N. \quad\text{(4)}
+\]</div>
+<h5>3. Intersection points \(Y\) and \(Z\)</h5>
+<p>The line \(AC\) has equation (by Lemma 1)</p>
+<p>\[
+AC:\; z + ac\,\bar{z} = a + c. \quad\text{(5)}
+\] Intersect \(AC\) with \(\ell_B\). Subtract (5) from (1):</p>
+<p>\[
+(b^2 - ac)\,\bar{z} = -b - (a+c) = -(a+b+c).
+\] Set</p>
+<p>\[
+S = a+b+c,\qquad D_1 = ac - b^2.
+\] Then \(\bar{z} = S/D_1\). Substitute into (1) to find the coordinate \(y\):</p>
+<p>\[
+y = -b - b^2\bar{y} = -b - \frac{b^2 S}{D_1} = -\frac{b D_1 + b^2 S}{D_1}.
+\] Compute the numerator:</p>
+<p>\[
+b D_1 + b^2 S = b(ac - b^2) + b^2(a+b+c) = abc - b^3 + ab^2 + b^3 + b^2c = b(ac + ab + bc) = b T,
+\] where</p>
+<p>\[
+T = ab + bc + ca.
+\] Thus</p>
+<p>\[
+y = -\frac{b T}{D_1},\qquad \bar{y} = \frac{S}{D_1}. \quad\text{(6)}
+\] By symmetry, intersecting \(AB\) (equation \(z + ab\,\bar{z} = a+b\)) with \(\ell_C\) gives</p>
+<div class="math-block">\[
+z = -\frac{c T}{D_2},\qquad \bar{z} = \frac{S}{D_2},\qquad D_2 = ab - c^2. \quad\text{(7)}
+\]</div>
+<h5>4. A convenient rotation</h5>
+<p>The configuration is invariant under rotations of the circle. We choose the rotation so that \(N = 1\). Then (3) yields \(bc = 1\), hence \(c = \bar{b}\). Write</p>
+<p>\[
+b = e^{i\alpha},\qquad c = e^{-i\alpha},
+\] where \(\alpha = \angle A\) (by the inscribed angle theorem, the central angle subtended by \(BC\) is \(2\alpha\)). Since the triangle is acute, \(\alpha \in (0^\circ,90^\circ)\) and, by hypothesis, \(\alpha \neq 60^\circ\). Let</p>
+<p>\[
+k = \cos\alpha.
+\] The remaining vertex is \(A = a = e^{i\theta}\). Because \(N = 1\) lies on the minor arc \(BC\) not containing \(A\), the argument \(\theta\) satisfies \(\theta \in (\alpha,\, 2\pi-\alpha)\) (or its symmetric equivalent).</p>
+<p>Now compute the quantities that appear in (6), (7) in this coordinate system:</p>
+<div class="math-block">\[
+\begin{aligned}
+S &= a + b + c = a + e^{i\alpha} + e^{-i\alpha} = a + 2k, \\[2mm]
+T &= ab + bc + ca = a e^{i\alpha} + 1 + a e^{-i\alpha} = 1 + 2k a, \\[2mm]
+Q &= b^2 + bc + c^2 = e^{i2\alpha} + 1 + e^{-i2\alpha} = 2\cos 2\alpha + 1 = 4k^2 - 1, \\[2mm]
+D_1 &= ac - b^2 = a e^{-i\alpha} - e^{i2\alpha}, \\[2mm]
+D_2 &= ab - c^2 = a e^{i\alpha} - e^{-i2\alpha}, \\[2mm]
+\Delta &= D_1 D_2 = (a e^{-i\alpha} - e^{i2\alpha})(a e^{i\alpha} - e^{-i2\alpha}) = a^2 - 2a\cos 3\alpha + 1.
+\end{aligned}
+\]</div>
+<h5>5. A key algebraic identity</h5>
+<p><strong>Lemma 2.</strong> With the above notation,</p>
+<p>\[
+(a + 2k)^2 = Q\,T + \Delta. \quad\text{(8)}
+\] <em>Proof.</em> Expand \(Q\,T + \Delta\):</p>
+<p>\[
+\begin{aligned}
+Q\,T &= (4k^2-1)(1+2k a) = (4k^2-1) + 2k(4k^2-1)a, \\[2mm]
+\Delta &= a^2 - 2a\cos 3\alpha + 1.
+\end{aligned}
+\] Recall \(\cos 3\alpha = 4k^3 - 3k\). Then</p>
+<div class="math-block">\[
+\begin{aligned}
+Q\,T + \Delta &= a^2 + \bigl[2k(4k^2-1) - 2\cos 3\alpha\bigr] a + \bigl[(4k^2-1)+1\bigr] \\
+&= a^2 + \bigl[8k^3 - 2k - (8k^3 - 6k)\bigr] a + 4k^2 \\
+&= a^2 + 4k a + 4k^2 = (a+2k)^2. \quad\square
+\end{aligned}
+\]</div>
+<h5>6. The circumcenter \(O\) of \(\triangle AYZ\)</h5>
+<p>We claim that the point</p>
+<p>\[
+O = -\frac{a Q T}{\Delta} \quad\text{(9)}
+\] is the circumcenter of \(\triangle AYZ\). Let us verify that it is equidistant from \(A\), \(Y\) and \(Z\).</p>
+<h5>Distance to \(A\)</h5>
+<p>\[
+O - a = -\frac{a Q T}{\Delta} - a = -a\left( \frac{Q T}{\Delta} + 1\right) = -\frac{a (Q T + \Delta)}{\Delta}.
+\] By Lemma 2, \(Q T + \Delta = (a+2k)^2\), so</p>
+<p>\[
+O - a = -\frac{a (a+2k)^2}{\Delta}. \quad\text{(10)}
+\] Hence</p>
+<div class="math-block">\[
+|O - a| = \frac{|a+2k|^2}{|\Delta|}. \quad\text{(11)}
+\]</div>
+<h5>Distance to \(Y\)</h5>
+<p>Using (6), \(\bar{y} = S/D_1\) and \(y = -b T/D_1\). Compute</p>
+<p>\[
+O - y = -\frac{a Q T}{\Delta} + \frac{b T}{D_1} = T\left( -\frac{a Q}{\Delta} + \frac{b}{D_1}\right).
+\] Since \(\Delta = D_1 D_2\),</p>
+<p>\[
+-\frac{a Q}{\Delta} + \frac{b}{D_1} = \frac{-a Q}{D_1 D_2} + \frac{b D_2}{D_1 D_2} = \frac{-a Q + b D_2}{\Delta}.
+\] Thus</p>
+<p>\[
+O - y = T\,\frac{-a Q + b D_2}{\Delta}. \quad\text{(12)}
+\] Now compute \(b D_2 - a Q\):</p>
+<p>\[
+\begin{aligned}
+b D_2 &= e^{i\alpha}(a e^{i\alpha} - e^{-i2\alpha}) = a e^{i2\alpha} - e^{-i\alpha}, \\
+a Q &= a(e^{i2\alpha} + 1 + e^{-i2\alpha}) = a e^{i2\alpha} + a + a e^{-i2\alpha}, \\
+\therefore\; b D_2 - a Q &= - e^{-i\alpha} - a - a e^{-i2\alpha}.
+\end{aligned}
+\] On the other hand,</p>
+<p>\[
+- e^{-i\alpha} T = -e^{-i\alpha}(1+2k a) = -e^{-i\alpha} - 2k a e^{-i\alpha} = -e^{-i\alpha} - a(e^{i\alpha}+e^{-i\alpha})e^{-i\alpha} = -e^{-i\alpha} - a(1 + e^{-i2\alpha}) = -e^{-i\alpha} - a - a e^{-i2\alpha}.
+\] Therefore</p>
+<p>\[
+b D_2 - a Q = - e^{-i\alpha} T,
+\] and consequently</p>
+<p>\[
+|b D_2 - a Q| = |T|.
+\] From (12) we obtain</p>
+<div class="math-block">\[
+|O - y| = \frac{|T|^2}{|\Delta|}. \quad\text{(13)}
+\]</div>
+<h5>Distance to \(Z\)</h5>
+<p>A completely symmetric computation (interchanging \(b\) with \(c\), \(D_1\) with \(D_2\)) gives</p>
+<div class="math-block">\[
+|O - z| = \frac{|T|^2}{|\Delta|}. \quad\text{(14)}
+\]</div>
+<h5>Equality of the distances</h5>
+<p>Now note that</p>
+<p>\[
+|T|^2 = (1+2k a)(1+2k \bar a) = 1 + 2k(a+\bar a) + 4k^2 = 1 + 2k t + 4k^2, \qquad t = a+\bar a = 2\cos\theta.
+\] But also</p>
+<p>\[
+|a+2k|^2 = (a+2k)(\bar a+2k) = 1 + 2k(a+\bar a) + 4k^2 = |T|^2.
+\] Thus</p>
+<p>\[
+|O - a| = \frac{|a+2k|^2}{|\Delta|},\qquad
+|O - y| = \frac{|T|^2}{|\Delta|} = \frac{|a+2k|^2}{|\Delta|},\qquad
+|O - z| = \frac{|a+2k|^2}{|\Delta|}.
+\] Hence \(O\) is indeed the circumcenter of \(\triangle AYZ\), and the circumradius is</p>
+<div class="math-block">\[
+R = \frac{|a+2k|^2}{|\Delta|}. \quad\text{(15)}
+\]</div>
+<h5>7. Cartesian description of triangle \(\mathcal{R}\)</h5>
+<p>Now we work in the rotated coordinate system where \(N=1\), \(b=e^{i\alpha}\), \(c=e^{-i\alpha}\). Write a complex number \(z = x + iy\).</p>
+<h5>Equation of \(\ell_B\)</h5>
+<p>From (1): \(z + b^2\bar{z} = -b\). Substituting \(b = \cos\alpha + i\sin\alpha\), \(b^2 = \cos2\alpha + i\sin2\alpha\), we separate real and imaginary parts:</p>
+<p>\[
+\begin{cases}
+x(1+\cos2\alpha) + y\sin2\alpha = -\cos\alpha, \\[2mm]
+x\sin2\alpha + y(1-\cos2\alpha) = -\sin\alpha.
+\end{cases}
+\] Using the identities</p>
+<p>\[
+1+\cos2\alpha = 2\cos^2\alpha,\quad \sin2\alpha = 2\sin\alpha\cos\alpha,\quad 1-\cos2\alpha = 2\sin^2\alpha,
+\] and dividing the first equation by \(2\cos\alpha\) (since \(\cos\alpha&gt;0\)) and the second by \(2\sin\alpha\) (since \(\sin\alpha&gt;0\)), both reduce to</p>
+<div class="math-block">\[
+x\cos\alpha + y\sin\alpha = -\frac12. \quad\text{(16)}
+\]</div>
+<h5>Equation of \(\ell_C\)</h5>
+<p>Similarly, for \(\ell_C\) given by \(z + c^2\bar{z} = -c\) with \(c = \cos\alpha - i\sin\alpha\), \(c^2 = \cos2\alpha - i\sin2\alpha\). Separating real and imaginary parts yields</p>
+<p>\[
+\begin{cases}
+x(1+\cos2\alpha) - y\sin2\alpha = -\cos\alpha, \\[2mm]
+- x\sin2\alpha + y(1-\cos2\alpha) = \sin\alpha.
+\end{cases}
+\] Again, dividing appropriately we obtain</p>
+<div class="math-block">\[
+x\cos\alpha - y\sin\alpha = -\frac12. \quad\text{(17)}
+\]</div>
+<h5>Equation of the tangent at \(N=1\)</h5>
+<p>Since \(N=1\) lies on the unit circle, its tangent is the line \(z + \bar{z} = 2\), i.e.,</p>
+<p>\[
+x = 1. \quad\text{(18)}
+\] Thus \(\mathcal{R}\) is the triangle bounded by the three lines (16), (17) and (18).</p>
+<h5>8. Vertices and interior of \(\mathcal{R}\)</h5>
+<p>The three vertices are the pairwise intersections of the lines.</p>
+<p class="compact-bullet">\(P = \ell_B \cap \ell_C\): solving (16) and (17) gives</p>
+<div class="math-block">\[
+2x\cos\alpha = -1 \;\Longrightarrow\; x = -\frac{1}{2\cos\alpha},\qquad y = 0.
+\]</div>
+<p class="compact-bullet">\(Q' = \ell_C \cap \text{tangent }x=1\): plug \(x=1\) into (17):</p>
+<div class="math-block">\[
+\cos\alpha - y\sin\alpha = -\frac12 \;\Longrightarrow\; y = \frac{\cos\alpha + \frac12}{\sin\alpha}.
+\]</div>
+<p class="compact-bullet">\(R' = \ell_B \cap \text{tangent }x=1\): plug \(x=1\) into (16):</p>
+<p>\[
+\cos\alpha + y\sin\alpha = -\frac12 \;\Longrightarrow\; y = -\frac{\cos\alpha + \frac12}{\sin\alpha}.
+\] Hence the triangle \(\mathcal{R}\) has vertices</p>
+<p>\[
+P\left(-\frac{1}{2\cos\alpha},0\right),\quad
+Q'\left(1,\frac{\cos\alpha+\frac12}{\sin\alpha}\right),\quad
+R'\left(1,-\frac{\cos\alpha+\frac12}{\sin\alpha}\right).
+\] To determine which side of each line constitutes the interior, we test the vertex opposite that line.</p>
+<p class="compact-bullet">For line \(\ell_B\), the opposite vertex is \(Q'\). Compute the left-hand side of (16) at \(Q'\):</p>
+<p>\[
+x\cos\alpha + y\sin\alpha = 1\cdot\cos\alpha + \left(\frac{\cos\alpha+\frac12}{\sin\alpha}\right)\sin\alpha = \cos\alpha + \cos\alpha + \frac12 = 2\cos\alpha + \frac12 &gt; -\frac12.
+\] Therefore the interior of \(\mathcal{R}\) satisfies</p>
+<div class="math-block">\[
+x\cos\alpha + y\sin\alpha &gt; -\frac12. \quad\text{(19a)}
+\]</div>
+<p class="compact-bullet">For line \(\ell_C\), opposite vertex is \(R'\). At \(R'\):</p>
+<p>\[
+x\cos\alpha - y\sin\alpha = 1\cdot\cos\alpha - \left(-\frac{\cos\alpha+\frac12}{\sin\alpha}\right)\sin\alpha = \cos\alpha + \cos\alpha + \frac12 = 2\cos\alpha + \frac12 &gt; -\frac12,
+\] so the interior satisfies</p>
+<div class="math-block">\[
+x\cos\alpha - y\sin\alpha &gt; -\frac12. \quad\text{(19b)}
+\]</div>
+<p class="compact-bullet">For the tangent \(x=1\), opposite vertex is \(P\) with \(x_P = -\frac{1}{2\cos\alpha} &lt; 1\), thus the interior satisfies</p>
+<p>\[
+x &lt; 1. \quad\text{(19c)}
+\] Therefore \(\mathcal{R} = \bigl\{(x,y) : x\cos\alpha + y\sin\alpha &gt; -\frac12,\; x\cos\alpha - y\sin\alpha &gt; -\frac12,\; x &lt; 1 \bigr\}\).</p>
+<h5>9. Incenter \(I\) and inradius \(r\) of \(\mathcal{R}\)</h5>
+<p>The triangle is symmetric with respect to the \(x\)-axis (the lines \(\ell_B\) and \(\ell_C\) are symmetric, the tangent is vertical). Hence the incenter lies on the \(x\)-axis: \(I = (p,0)\).</p>
+<p>For a point \((x,0)\) inside \(\mathcal{R}\) (so satisfying the inequalities), the distances to the three lines are:</p>
+<p class="compact-bullet">To \(\ell_B\): the line is \(x\cos\alpha + y\sin\alpha + \frac12 = 0\); distance \(= \dfrac{x\cos\alpha + \frac12}{\sqrt{\cos^2\alpha+\sin^2\alpha}} = x\cos\alpha + \frac12\) (since the interior gives \(x\cos\alpha + \frac12 &gt; 0\)).</p>
+<p class="compact-bullet">To \(\ell_C\): similarly, distance \(= x\cos\alpha + \frac12\) (because \(x\cos\alpha - 0 + \frac12 = x\cos\alpha + \frac12 &gt; 0\)).</p>
+<p class="compact-bullet">To the tangent \(x=1\): distance \(= 1 - x\) (since \(x&lt;1\)).</p>
+<p>Setting these equal gives</p>
+<p>\[
+x\cos\alpha + \frac12 = 1 - x \quad\Longrightarrow\quad x(\cos\alpha + 1) = \frac12 \quad\Longrightarrow\quad x = \frac{1}{2(1+\cos\alpha)}.
+\] Thus the incenter is</p>
+<p>\[
+I = \left( \frac{1}{2(1+\cos\alpha)},\, 0 \right) = (p,\,0), \qquad p = \frac{1}{2(1+k)}. \quad\text{(20)}
+\] The common distance is the inradius:</p>
+<div class="math-block">\[
+r = 1 - p = 1 - \frac{1}{2(1+k)} = \frac{2(1+k)-1}{2(1+k)} = \frac{1+2k}{2(1+k)}. \quad\text{(21)}
+\]</div>
+<h5>10. Distance \(OI\)</h5>
+<p>We have the circumcenter</p>
+<p>\[
+O = -\frac{a Q T}{\Delta},
+\] and the incenter</p>
+<p>\[
+I = p = \frac{1}{2(1+\cos\alpha)} = \frac{1}{D_0},
+\] where we denote</p>
+<p>\[
+D_0 = 2(1+\cos\alpha) = 2(1+k).
+\] Then</p>
+<p>\[
+O - I = -\frac{a Q T}{\Delta} - p = -\frac{a Q T + p \Delta}{\Delta}.
+\] Set \(U = a Q T + p \Delta\); then \(OI = |U|/|\Delta|\).</p>
+<p>Now substitute the expressions for \(a Q T\), \(p\) and \(\Delta\). Write</p>
+<p>\[
+a Q T = a(4k^2-1)(1+2k a) = (4k^2-1)a + 2k(4k^2-1)a^2.
+\] Also \(p = 1/D_0\) and \(\Delta = a^2 - 2a\cos3\alpha + 1\).</p>
+<p>Thus</p>
+<p>\[
+U = \bigl[2k(4k^2-1) + p\bigr] a^2 + \bigl[(4k^2-1) - 2p\cos3\alpha\bigr] a + p. \quad\text{(22)}
+\] Compute the coefficients with denominator \(D_0 = 2(1+k)\).</p>
+<p class="compact-bullet">\textbf{Coefficient of</p>
+<p>\(a^2\):<strong></strong>} \[
+  A_2 = 2k(4k^2-1) + \frac{1}{D_0}.
+  \] Write as a single fraction:</p>
+<p>\[
+  A_2 = \frac{(2k(4k^2-1)) D_0 + 1}{D_0}.
+  \] Compute \((2k(4k^2-1)) D_0 = (8k^3-2k) \cdot 2(1+k) = 16k^4 + 16k^3 - 4k^2 - 4k.\) Adding 1 gives</p>
+<p>\[
+  16k^4 + 16k^3 - 4k^2 - 4k + 1.
+  \] Notice that</p>
+<p>\[
+  X = 4k^2 + 2k - 1,
+  \] then</p>
+<p>\[
+  X^2 = (4k^2+2k-1)^2 = 16k^4 + 16k^3 - 4k^2 - 4k + 1.
+  \] Hence</p>
+<div class="math-block">\[
+  A_2 = \frac{X^2}{D_0}. \quad\text{(23)}
+  \]</div>
+<p class="compact-bullet">\textbf{Coefficient of</p>
+<p>\(a\):<strong></strong>} \[
+  A_1 = (4k^2-1) - 2p\cos3\alpha = (4k^2-1) - \frac{2\cos3\alpha}{D_0}.
+  \] Write as</p>
+<p>\[
+  A_1 = \frac{(4k^2-1)D_0 - 2\cos3\alpha}{D_0}.
+  \] Compute \((4k^2-1)D_0 = (4k^2-1)\cdot 2(1+k) = 8k^3 + 8k^2 - 2k - 2.\) And \(2\cos3\alpha = 2(4k^3-3k) = 8k^3 - 6k.\) Subtract:</p>
+<p>\[
+  (8k^3+8k^2-2k-2) - (8k^3-6k) = 8k^2 + 4k - 2 = 2(4k^2+2k-1) = 2X.
+  \] Therefore</p>
+<div class="math-block">\[
+  A_1 = \frac{2X}{D_0}. \quad\text{(24)}
+  \]</div>
+<p class="compact-bullet">\textbf{Constant term:</p>
+<p>\(p = \dfrac{1}{D_0}\).} Substituting (23) and (24) into (22) yields</p>
+<p>\[
+U = \frac{X^2}{D_0} a^2 + \frac{2X}{D_0} a + \frac{1}{D_0} = \frac{(X a + 1)^2}{D_0}. \quad\text{(25)}
+\] Consequently,</p>
+<div class="math-block">\[
+OI = \frac{|U|}{|\Delta|} = \frac{|X a + 1|^2}{D_0\, |\Delta|}. \quad\text{(26)}
+\]</div>
+<h5>11. Relating \(OI\) to \(R\) and \(r\)</h5>
+<p>Recall the circumradius of \(\triangle AYZ\):</p>
+<p>\[
+R = \frac{|a+2k|^2}{|\Delta|}. \quad\text{(27)}
+\] The inradius of \(\mathcal{R}\) is</p>
+<p>\[
+r = \frac{1+2k}{D_0}. \quad\text{(28)}
+\] Now compute</p>
+<p>\[
+\frac{|X a + 1|^2}{D_0} = |a+2k|^2 + L,
+\] where</p>
+<p>\[
+L = \frac{|X a + 1|^2}{D_0} - |a+2k|^2.
+\] From (26),</p>
+<p>\[
+OI = \frac{|a+2k|^2 + L}{|\Delta|} = R + \frac{L}{|\Delta|}. \quad\text{(29)}
+\] Thus if we can show \(L = \pm r\,|\Delta|\), we will have \(OI = R \pm r\), which implies tangency.</p>
+<p>Let \(t = a + \bar a = 2\cos\theta\). Then</p>
+<p>\[
+|X a + 1|^2 = (X a + 1)(X \bar a + 1) = X^2 + X t + 1.
+\] Also</p>
+<p>\[
+|a+2k|^2 = (a+2k)(\bar a+2k) = 1 + 2k t + 4k^2.
+\] Hence</p>
+<p>\[
+L = \frac{X^2 + X t + 1}{D_0} - (1 + 2k t + 4k^2).
+\] Multiply by \(D_0\):</p>
+<p>\[
+D_0 L = X^2 + X t + 1 - D_0(1 + 2k t + 4k^2).
+\] Now \(D_0(1 + 2k t + 4k^2) = 2(1+k) + 4k(1+k) t + 8k^2(1+k).\)</p>
+<p>Thus</p>
+<p>\[
+D_0 L = \underbrace{X^2 + 1 - 2(1+k) - 8k^2(1+k)}_{\text{constant}} + \underbrace{(X - 4k(1+k))}_{\text{coefficient of }t} t.
+\] Compute the coefficient of \(t\):</p>
+<p>\[
+X - 4k(1+k) = (4k^2+2k-1) - (4k^2+4k) = -2k-1 = -(2k+1).
+\] For the constant term, substitute \(X^2 = 16k^4+16k^3-4k^2-4k+1\):</p>
+<p>\[
+\begin{aligned}
+X^2 + 1 - 2(1+k) - 8k^2(1+k)
+&= (16k^4+16k^3-4k^2-4k+1) + 1 - 2 - 2k - 8k^2 - 8k^3 \\
+&= 16k^4 + (16k^3-8k^3) + (-4k^2-8k^2) + (-4k-2k) + (1+1-2) \\
+&= 16k^4 + 8k^3 - 12k^2 - 6k.
+\end{aligned}
+\] Factor this expression:</p>
+<p>\[
+16k^4 + 8k^3 - 12k^2 - 6k = 2k(8k^3+4k^2-6k-3).
+\] Now note that \(8k^3+4k^2-6k-3 = (4k^2-3)(2k+1)\), because</p>
+<p>\[
+(4k^2-3)(2k+1) = 8k^3+4k^2-6k-3.
+\] Thus</p>
+<p>\[
+\text{constant} = 2k (4k^2-3)(2k+1).
+\] But \(4k^2-3 = \frac{\cos3\alpha}{k}\) (since \(\cos3\alpha = 4k^3-3k = k(4k^2-3)\)). Hence</p>
+<p>\[
+\text{constant} = 2k \cdot \frac{\cos3\alpha}{k} \cdot (2k+1) = 2(2k+1)\cos3\alpha.
+\] Therefore</p>
+<p>\[
+D_0 L = 2(2k+1)\cos3\alpha + (-(2k+1)) t = (2k+1)(2\cos3\alpha - t). \quad\text{(30)}
+\] Now recall that \(r = (2k+1)/D_0\). So</p>
+<p>\[
+(2k+1) = r D_0.
+\] Substitute into (30):</p>
+<div class="math-block">\[
+D_0 L = r D_0 (2\cos3\alpha - t) \quad\Longrightarrow\quad L = r (2\cos3\alpha - t). \quad\text{(31)}
+\]</div>
+<h5>Connection with \(\Delta\)</h5>
+<p>Compute \(\Delta\) in terms of \(t\):</p>
+<p>\[
+\Delta = a^2 - 2a\cos3\alpha + 1 = a(a + \bar a - 2\cos3\alpha) = a(t - 2\cos3\alpha).
+\] Since \(|a|=1\), we have</p>
+<p>\[
+|\Delta| = |t - 2\cos3\alpha| = |2\cos3\alpha - t|.
+\] Hence</p>
+<p>\[
+2\cos3\alpha - t = \varepsilon\, |\Delta|,
+\] where \(\varepsilon = \pm 1\) depending on the sign of \(t - 2\cos3\alpha\).</p>
+<p>Consequently,</p>
+<div class="math-block">\[
+L = \varepsilon\, r\, |\Delta|. \quad\text{(32)}
+\]</div>
+<h5>Final step</h5>
+<p>Insert (32) into (29):</p>
+<p>\[
+OI = R + \frac{\varepsilon\, r\, |\Delta|}{|\Delta|} = R + \varepsilon r = R \pm r.
+\] Thus the distance between the centers \(O\) and \(I\) equals either the sum or the absolute difference of the radii \(R\) and \(r\). Therefore the circumcircle of \(\triangle AYZ\) and the incircle of \(\triangle\mathcal{R}\) are tangent. \(\square\)</p>
+<h5>12. Remarks on non-vanishing denominators</h5>
+<p class="compact-bullet">\(D_1 = 0\) would imply \(ac = b^2\). In our rotated frame, this gives \(a = e^{i3\alpha}\), which forces \(AB = BC\) (since then \(|a-b| = |e^{i3\alpha}-e^{i\alpha}| = 2\sin\alpha\) and \(|b-c| = |e^{i\alpha}-e^{-i\alpha}| = 2\sin\alpha\)), contradicting the scalene hypothesis. Hence \(D_1 \neq 0\); similarly \(D_2 \neq 0\), so \(\Delta \neq 0\).</p>
+<p class="compact-bullet">\(a+2k = 0\) would give \(a = -2k\) real; with \(|a|=1\) we get \(2k=1\) i.e. \(\cos\alpha = 1/2\), \(\alpha = 60^\circ\), which is excluded. Thus \(a+2k \neq 0\), ensuring \(R &gt; 0\).</p>
+<p class="compact-bullet">\(\cos\alpha &gt; 0\) because \(\alpha\) is acute.</p>
+<p>All algebraic manipulations are therefore justified, and the proof is complete.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('usamo-2026-problem-4-content')">
+                    <span>USAMO 2026 Problem 4</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="usamo-2026-problem-4-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>A positive integer $n$ is called <em>solitary</em> if, for any nonnegative integers $a$ and $b$ such that $a + b = n$, either $a$ or $b$ contains the digit \(1\). Determine, with proof, the number of solitary integers less than $10^{2026}$.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('usamo-2026-problem-4-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="usamo-2026-problem-4-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<h5>1. Equivalent formulation</h5>
+<p>Let</p>
+<p>\[
+S = \{ x \in \mathbb{N}_0 \mid \text{the decimal representation of } x \text{ contains no digit } 1\}.
+\] (Note that \(0\in S\) because its representation "0" has no digit \(1\).)</p>
+<p>If \(n = a+b\) with \(a,b\in S\), then the pair \((a,b)\) shows that \(n\) is <strong>not</strong> solitary (both \(a\) and \(b\) lack a digit \(1\)). Conversely, if for every representation \(n = a+b\) at least one of \(a,b\) contains a digit \(1\), then certainly no representation with both in \(S\) exists. Hence</p>
+<p>\[
+n \text{ is solitary } \Longleftrightarrow \; n \notin S+S,
+\qquad\text{where } S+S = \{ x+y \mid x,y\in S\}.
+\] We need to count the <strong>positive</strong> integers \(n &lt; 10^{2026}\) that are not in \(S+S\).</p>
+<p>Set</p>
+<p>\[
+N = 2026.
+\] We will first count how many numbers \(0 \le n &lt; 10^N\) belong to \(S+S\); then subtract to get the number of positive solitary integers.</p>
+<h5>2. Digit-wise analysis and carries</h5>
+<p>Every integer \(m\) with \(0 \le m &lt; 10^N\) can be written uniquely as</p>
+<p>\[
+m = \sum_{i=0}^{N-1} d_i 10^i,
+\] where each digit \(d_i\) is in \(\{0,1,\dots,9\}\). To have a uniform treatment, we pad the representation with leading zeros so that every such \(m\) uses exactly \(N\) digits.</p>
+<p>If \(a,b\in S\), then each of their digits belongs to</p>
+<p>\[
+D = \{0,2,3,4,5,6,7,8,9\}\qquad(\text{all digits except }1).
+\] Write \(a = \sum a_i 10^i\), \(b = \sum b_i 10^i\) with \(a_i,b_i\in D\). The addition \(a+b = n\) proceeds digit by digit with carries \(c_0,c_1,\dots,c_N\):</p>
+<p>\[
+a_i + b_i + c_i = n_i + 10\,c_{i+1},\qquad c_0 = 0,
+\] where each \(c_i\) is either \(0\) or \(1\) (since the maximum sum is \(9+9+1 = 19\)). Because \(n &lt; 10^N\), the final carry must be \(c_N = 0\).</p>
+<h5>3. Possible sums of two digits from \(D\)</h5>
+<p>Define</p>
+<p>\[
+\Sigma = \{ a_i+b_i \mid a_i,b_i \in D \}.
+\] Since the only digit missing from \(D\) is \(1\), the sums that can be obtained are</p>
+<p>\[
+\Sigma = \{0\} \cup \{2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18\}.
+\] (Indeed, \(1\) cannot be expressed as a sum of two digits from \(D\); all other integers from \(0\) to \(18\) can.)</p>
+<h5>4. Transition sets \(T(s,d)\)</h5>
+<p>For a fixed carryin \(s \in \{0,1\}\) and a target digit \(d \in \{0,\dots,9\}\), let</p>
+<p>\[
+T(s,d) = \bigl\{ t \in \{0,1\} \;\big|\; \exists a_i,b_i\in D \text{ with } a_i+b_i+s = d+10t \bigr\}.
+\] Using \(\Sigma\), we can compute \(T(s,d)\).</p>
+<h5>Case \(s = 0\)</h5>
+<p>Here the total sum before splitting is simply \(s_0\) with \(s_0 \in \Sigma\).</p>
+<p class="compact-bullet">If \(s_0 \le 9\), we may take \(t = 0\) and the digit is \(s_0\).</p>
+<p class="compact-bullet">If \(s_0 \ge 10\), we may take \(t = 1\) and the digit is \(s_0-10\).</p>
+<p>Thus:</p>
+<p>\[
+\begin{array}{c|l}
+d & T(0,d) \\ \hline
+0 & \{0,1\} \quad (\text{totals }0\text{ and }10) \\
+1 & \{1\} \quad (\text{total }11) \\
+2 & \{0,1\} \quad (\text{totals }2\text{ and }12) \\
+3 & \{0,1\} \quad (\text{totals }3\text{ and }13) \\
+4 & \{0,1\} \quad (\text{totals }4\text{ and }14) \\
+5 & \{0,1\} \quad (\text{totals }5\text{ and }15) \\
+6 & \{0,1\} \quad (\text{totals }6\text{ and }16) \\
+7 & \{0,1\} \quad (\text{totals }7\text{ and }17) \\
+8 & \{0,1\} \quad (\text{totals }8\text{ and }18) \\
+9 & \{0\} \quad (\text{total }9) \\
+\end{array}
+\] In words:</p>
+<p class="compact-bullet">\(d = 9\) gives only \(t = 0\).</p>
+<p class="compact-bullet">\(d = 1\) gives only \(t = 1\).</p>
+<p class="compact-bullet">The other eight digits (\(0,2,3,4,5,6,7,8\)) allow both \(t = 0\) and \(t = 1\).</p>
+<h5>Case \(s = 1\)</h5>
+<p>Now the total sum is \(s_0 + 1\) with \(s_0 \in \Sigma\). Hence the attainable totals are</p>
+<p>\[
+\Sigma + 1 = \{1\} \cup \{3,4,5,\dots,19\},
+\] i.e., all integers from \(1\) to \(19\) except \(2\).</p>
+<p>Proceeding analogously:</p>
+<p>\[
+\begin{array}{c|l}
+d & T(1,d) \\ \hline
+0 & \{1\} \quad (\text{total }19) \\
+1 & \{0,1\} \quad (\text{totals }1\text{ and }11) \\
+2 & \{1\} \quad (\text{total }12) \\
+3 & \{0,1\} \quad (\text{totals }3\text{ and }13) \\
+4 & \{0,1\} \quad (\text{totals }4\text{ and }14) \\
+5 & \{0,1\} \quad (\text{totals }5\text{ and }15) \\
+6 & \{0,1\} \quad (\text{totals }6\text{ and }16) \\
+7 & \{0,1\} \quad (\text{totals }7\text{ and }17) \\
+8 & \{0,1\} \quad (\text{totals }8\text{ and }18) \\
+9 & \{0,1\} \quad (\text{totals }9\text{ and }19) \\
+\end{array}
+\] Thus:</p>
+<p class="compact-bullet">\(d = 0\) and \(d = 2\) give only \(t = 1\).</p>
+<p class="compact-bullet">The other eight digits (\(1,3,4,5,6,7,8,9\)) allow both \(t = 0\) and \(t = 1\).</p>
+<h5>5. State of the possible carries</h5>
+<p>For a given \(n\) with digits \(n_0,n_1,\dots,n_{N-1}\) (least significant first), consider all sequences of carries \(c_0,c_1,\dots,c_N\) that can arise from some choices of \(a_i,b_i\in D\). Define</p>
+<p>\[
+R_i = \{\, c_i \mid \text{there exist } a_j,b_j\in D\ (j&lt;i)\ \text{such that the carry after processing digits }0,\dots,i-1\text{ is }c_i\,\}.
+\] By definition, \(R_0 = \{0\}\). For \(i \ge 0\),</p>
+<p>\[
+R_{i+1} = \bigcup_{s \in R_i} T(s, n_i). \quad\text{(1)}
+\] Each \(T(s,d)\) is a subset of \(\{0,1\}\), and a simple check shows it is never empty. Hence every \(R_i\) is a non-empty subset of \(\{0,1\}\). Consequently, \(R_i\) can only be one of three types:</p>
+<p class="compact-bullet">\(A_i\): \(R_i = \{0\}\) (only zero carry possible),</p>
+<p class="compact-bullet">\(B_i\): \(R_i = \{1\}\) (only one carry possible),</p>
+<p class="compact-bullet">\(C_i\): \(R_i = \{0,1\}\) (both carries possible).</p>
+<p>Let</p>
+<div class="math-block">\[
+\begin{aligned}
+A_i &= \#\{\, n \in [0,10^i) \mid R_i = \{0\} \,\}, \\
+B_i &= \#\{\, n \in [0,10^i) \mid R_i = \{1\} \,\}, \\
+C_i &= \#\{\, n \in [0,10^i) \mid R_i = \{0,1\} \,\}.
+\end{aligned}
+\]</div>
+<h5>6. Transition counts</h5>
+<p>We now determine, given the current state \(R_i\), for which next digits \(d = n_i\) we obtain each possible next state \(R_{i+1}\).</p>
+<p class="compact-bullet">\textbf{If</p>
+<p>\(R_i = \{0\}\)<strong>: then </strong>\(R_{i+1} = T(0,d)\). From the table for \(s=0\):}</p>
+<p class="compact-bullet">\(d = 9\) gives \(\{0\}\);</p>
+<p class="compact-bullet">\(d = 1\) gives \(\{1\}\);</p>
+<p class="compact-bullet">the other eight digits (\(0,2,3,4,5,6,7,8\)) give \(\{0,1\}\).</p>
+<p>Hence:</p>
+<p class="compact-bullet">1 digit yields state \(\{0\}\),</p>
+<p class="compact-bullet">1 digit yields state \(\{1\}\),</p>
+<p class="compact-bullet">8 digits yield state \(\{0,1\}\).</p>
+<p class="compact-bullet">\textbf{If</p>
+<p>\(R_i = \{1\}\)<strong>: </strong>\(R_{i+1} = T(1,d)\). From the table for \(s=1\):}</p>
+<p class="compact-bullet">\(d = 0\) and \(d = 2\) give \(\{1\}\);</p>
+<p class="compact-bullet">the other eight digits (\(1,3,4,5,6,7,8,9\)) give \(\{0,1\}\).</p>
+<p>Hence:</p>
+<p class="compact-bullet">2 digits yield state \(\{1\}\),</p>
+<p class="compact-bullet">8 digits yield state \(\{0,1\}\).</p>
+<p class="compact-bullet">\textbf{If</p>
+<p>\(R_i = \{0,1\}\)<strong>: </strong>\(R_{i+1} = T(0,d) \cup T(1,d)\). Checking each digit individually shows that this union is always \(\{0,1\}\). Indeed:}</p>
+<p class="compact-bullet">\(d=0\): \(T(0,0)=\{0,1\}\), \(T(1,0)=\{1\}\) $\to$ union = \(\{0,1\}\);</p>
+<p class="compact-bullet">\(d=1\): \(T(0,1)=\{1\}\), \(T(1,1)=\{0,1\}\) $\to$ union = \(\{0,1\}\);</p>
+<p class="compact-bullet">\(d=2\): \(T(0,2)=\{0,1\}\), \(T(1,2)=\{1\}\) $\to$ union = \(\{0,1\}\);</p>
+<p class="compact-bullet">\(d=3,\dots,8\): both sets contain \(0\) and \(1\);</p>
+<p class="compact-bullet">\(d=9\): \(T(0,9)=\{0\}\), \(T(1,9)=\{0,1\}\) $\to$ union = \(\{0,1\}\).</p>
+<p>Therefore, <strong>all 10 digits</strong> keep the state as \(\{0,1\}\).</p>
+<p>Summarising the transitions in a matrix:</p>
+<div class="math-block">\[
+\begin{array}{c|ccc}
+\text{from}\backslash\text{to} & \{0\} & \{1\} & \{0,1\} \\ \hline
+\{0\} & 1 & 1 & 8 \\
+\{1\} & 0 & 2 & 8 \\
+\{0,1\} & 0 & 0 & 10
+\end{array}
+\]</div>
+<h5>7. Recurrence relations</h5>
+<p>A number with \(i+1\) digits (i.e., an integer in \([0,10^{i+1})\)) is obtained by taking a number \(m\) in \([0,10^i)\) (which yields a certain state) and appending a new most significant digit \(d\) (which becomes \(n_i\)). The number of ways to reach each state for length \(i+1\) is therefore:</p>
+<p>\[
+\begin{aligned}
+A_{i+1} &= 1\cdot A_i + 0\cdot B_i + 0\cdot C_i = A_i, \\[4pt]
+B_{i+1} &= 1\cdot A_i + 2\cdot B_i + 0\cdot C_i = A_i + 2B_i, \\[4pt]
+C_{i+1} &= 8\cdot A_i + 8\cdot B_i + 10\cdot C_i.
+\end{aligned}
+\quad\text{(2)}
+\] Initial conditions: For \(i = 0\) we have processed no digits. The only possible "number" is \(0\), and the only possible carry is \(c_0 = 0\). Hence</p>
+<div class="math-block">\[
+A_0 = 1,\qquad B_0 = 0,\qquad C_0 = 0.
+\]</div>
+<h5>8. Solving the recurrences</h5>
+<h5>8.1. \(A_i\)</h5>
+<p>From \(A_{i+1} = A_i\) and \(A_0 = 1\), we immediately obtain</p>
+<div class="math-block">\[
+\boxed{A_i = 1 \quad\text{for all } i\ge 0}.
+\]</div>
+<h5>8.2. \(B_i\)</h5>
+<p>Substituting \(A_i = 1\) into the recurrence for \(B_i\):</p>
+<p>\[
+B_{i+1} = 1 + 2B_i,\qquad B_0 = 0.
+\] We claim</p>
+<p>\[
+\boxed{B_i = 2^i - 1 \quad\text{for all } i\ge 0}.
+\] <em>Proof by induction.</em></p>
+<p class="compact-bullet">\(i = 0\): \(2^0 - 1 = 0\), true.</p>
+<p class="compact-bullet">Assume \(B_i = 2^i - 1\). Then</p>
+<p>\[
+B_{i+1} = 1 + 2(2^i - 1) = 1 + 2^{i+1} - 2 = 2^{i+1} - 1,
+\] which completes the induction.</p>
+<h5>8.3. \(C_i\)</h5>
+<p>Now substitute \(A_i = 1\) and \(B_i = 2^i - 1\) into the recurrence for \(C_{i+1}\):</p>
+<p>\[
+\begin{aligned}
+C_{i+1} &= 8\cdot 1 + 8\cdot (2^i - 1) + 10\,C_i \\
+&= 8 + 8\cdot 2^i - 8 + 10\,C_i \\
+&= 8\cdot 2^i + 10\,C_i.
+\end{aligned}
+\] With \(C_0 = 0\). We claim</p>
+<p>\[
+\boxed{C_i = 10^i - 2^i \quad\text{for all } i\ge 0}.
+\] <em>Proof by induction.</em></p>
+<p class="compact-bullet">\(i = 0\): \(10^0 - 2^0 = 1 - 1 = 0\), true.</p>
+<p class="compact-bullet">Assume \(C_i = 10^i - 2^i\). Then</p>
+<p>\[
+\begin{aligned}
+C_{i+1} &= 8\cdot 2^i + 10(10^i - 2^i) \\
+&= 8\cdot 2^i + 10^{i+1} - 10\cdot 2^i \\
+&= 10^{i+1} - 2\cdot 2^i \\
+&= 10^{i+1} - 2^{i+1},
+\end{aligned}
+\] which establishes the claim.</p>
+<h5>9. Representable numbers</h5>
+<p>After processing all \(N\) digits, a number \(n \in [0,10^N)\) can be written as \(a+b\) with \(a,b\in S\) <strong>iff</strong> there exists a carry sequence with \(c_N = 0\). In terms of the sets, this is equivalent to \(0 \in R_N\).</p>
+<p>The possible values of \(R_N\) are \(\{0\}\), \(\{1\}\), or \(\{0,1\}\). Among these, \(0 \in R_N\) exactly when \(R_N = \{0\}\) or \(R_N = \{0,1\}\). Therefore</p>
+<p>\[
+|S+S \cap [0,10^N)| = A_N + C_N.
+\] Plugging in the formulas:</p>
+<p>\[
+|S+S \cap [0,10^N)| = 1 + (10^N - 2^N) = 10^N - 2^N + 1.
+\] This count includes \(n = 0\) (since \(0 = 0+0\) and \(0 \in S\)).</p>
+<h5>10. Positive solitary numbers</h5>
+<p>We are interested in <strong>positive</strong> integers \(n &lt; 10^N\) that are solitary, i.e., \(n &gt; 0\) and \(n \notin S+S\).</p>
+<p>Total positive integers less than \(10^N\) are</p>
+<p>\[
+10^N - 1.
+\] The number of positive integers that belong to \(S+S\) (hence are <strong>not</strong> solitary) is</p>
+<p>\[
+|(S+S) \setminus \{0\}| = (10^N - 2^N + 1) - 1 = 10^N - 2^N.
+\] Thus the number of positive solitary integers is</p>
+<div class="math-block">\[
+(10^N - 1) - (10^N - 2^N) = 2^N - 1.
+\]</div>
+<h5>11. Final answer</h5>
+<p>For \(N = 2026\), we obtain</p>
+<div class="math-block">\[
+\boxed{2^{2026} - 1}.
+\]</div>
+<h5>12. Small-case verification (optional)</h5>
+<p class="compact-bullet">\(N = 1\): numbers \(1,\dots,9\). The formula gives \(2^1 - 1 = 1\) solitary number. Indeed, \(n = 1\) is solitary because every pair \((a,b)\) with \(a+b=1\) has either \(a=0,b=1\) or \(a=1,b=0\); in both cases the number \(1\) contains a digit \(1\). All other \(n\) (e.g., \(2\)) have a representation with both numbers lacking digit \(1\) (e.g., \(2 = 2 + 0\)), so they are not solitary.</p>
+<p class="compact-bullet">\(N = 2\): numbers \(1,\dots,99\). The formula gives \(2^2 - 1 = 3\) solitary numbers. One can check that they are \(1, 19, 21\). This matches the known pattern.</p>
+<p>The solution is complete.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('usamo-2026-problem-5-content')">
+                    <span>USAMO 2026 Problem 5</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="usamo-2026-problem-5-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Let $ABC$ be a triangle. Points $D$, $E$, and $F$ lie on sides $BC$, $CA$, and $AB$, respectively, such that \[
+\angle AFE = \angle BDF = \angle CED.
+\] Let $O_A$, $O_B$, and $O_C$ be the circumcenters of triangles $AFE$, $BDF$, and $CED$, respectively. Let $M$, $N$, and $O$ be the circumcenters of triangles $ABC$, $DEF$, and $O_A O_B O_C$, respectively. Prove that $OM = ON$.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('usamo-2026-problem-5-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="usamo-2026-problem-5-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p>We are given triangle \(ABC\) with points \(D\in BC\), \(E\in CA\), \(F\in AB\) such that</p>
+<p>\[
+\angle AFE = \angle BDF = \angle CED =: \theta.
+\] We shall use complex numbers. Without loss of generality we may place the triangle in the complex plane and denote by \(a,b,c\) the complex numbers corresponding to \(A,B,C\).</p>
+<h5>1. Angle Chase</h5>
+<p>Denote the angles of \(\triangle ABC\) by \(\alpha = \angle BAC\), \(\beta = \angle ABC\), \(\gamma = \angle ACB\).</p>
+<h5>At vertex \(F\)</h5>
+<p>Points \(A,F,B\) are collinear, so \(\angle AFB = 180^\circ\). The three angles around \(F\) on the side of \(AB\) that contains the triangle are \(\angle AFE\), \(\angle EFD\), \(\angle DFB\) and they sum to \(180^\circ\):</p>
+<p>\[
+\angle AFE + \angle EFD + \angle DFB = 180^\circ. \quad\text{(1)}
+\] In \(\triangle BDF\) we have \(\angle BDF = \theta\) and \(\angle DBF = \beta\) (since \(D\) lies on \(BC\) and \(F\) on \(AB\)). Hence</p>
+<p>\[
+\angle BFD = 180^\circ - \theta - \beta,
+\] so \(\angle DFB = 180^\circ - \theta - \beta\).</p>
+<p>Inserting \(\angle AFE = \theta\) into (1) gives</p>
+<p>\[
+\theta + \angle EFD + (180^\circ - \theta - \beta) = 180^\circ \quad\Longrightarrow\quad \angle EFD = \beta.
+\] Thus</p>
+<div class="math-block">\[
+\angle DFE = \beta. \quad\text{(2)}
+\]</div>
+<h5>At vertex \(D\)</h5>
+<p>Points \(B,D,C\) are collinear, so \(\angle BDC = 180^\circ\). The angles at \(D\) are \(\angle BDF\), \(\angle FDE\), \(\angle EDC\) and they sum to \(180^\circ\):</p>
+<p>\[
+\angle BDF + \angle FDE + \angle EDC = 180^\circ. \quad\text{(3)}
+\] Given \(\angle BDF = \theta\).</p>
+<p>In \(\triangle CED\), \(\angle CED = \theta\) and \(\angle ECD = \gamma\), so</p>
+<p>\[
+\angle CDE = 180^\circ - \theta - \gamma,
+\] i.e., \(\angle EDC = 180^\circ - \theta - \gamma\).</p>
+<p>Substituting into (3):</p>
+<p>\[
+\theta + \angle FDE + (180^\circ - \theta - \gamma) = 180^\circ \quad\Longrightarrow\quad \angle FDE = \gamma.
+\] Thus</p>
+<div class="math-block">\[
+\angle EDF = \gamma. \quad\text{(4)}
+\]</div>
+<h5>At vertex \(E\)</h5>
+<p>Points \(C,E,A\) are collinear, so \(\angle CEA = 180^\circ\). The angles at \(E\) are \(\angle CED\), \(\angle DEF\), \(\angle FEA\) and they sum to \(180^\circ\):</p>
+<p>\[
+\angle CED + \angle DEF + \angle FEA = 180^\circ. \quad\text{(5)}
+\] Given \(\angle CED = \theta\).</p>
+<p>In \(\triangle AFE\), \(\angle AFE = \theta\) and \(\angle FAE = \alpha\), so</p>
+<p>\[
+\angle AEF = 180^\circ - \theta - \alpha,
+\] i.e., \(\angle FEA = 180^\circ - \theta - \alpha\).</p>
+<p>Substituting into (5):</p>
+<p>\[
+\theta + \angle DEF + (180^\circ - \theta - \alpha) = 180^\circ \quad\Longrightarrow\quad \angle DEF = \alpha.
+\] Thus</p>
+<p>\[
+\angle DEF = \alpha. \quad\text{(6)}
+\] From (2), (4), (6) we obtain</p>
+<p>\[
+\angle DFE = \beta,\quad \angle EDF = \gamma,\quad \angle DEF = \alpha.
+\] Therefore \(\triangle DEF\) has angles \(\alpha,\beta,\gamma\); it is <strong>similar</strong> to \(\triangle ABC\). The vertex correspondence is</p>
+<div class="math-block">\[
+E \longleftrightarrow A,\qquad F \longleftrightarrow B,\qquad D \longleftrightarrow C. \quad\text{(7)}
+\]</div>
+<h5>2. Complex Representation of the Similarity</h5>
+<p>The similarity (7) may be either orientation-preserving (direct) or orientation-reversing (opposite). The statement \(OM = ON\) involves only distances, which are invariant under reflection. Hence we may reflect the whole configuration if necessary and assume that the similarity is <strong>direct</strong>. Consequently there exist a non-zero complex number \(k\) and a complex number \(t\) such that</p>
+<p>\[
+e = k a + t,\qquad f = k b + t,\qquad d = k c + t. \quad\text{(8)}
+\] (If \(k=0\), then \(e=f=t\), making \(\triangle AFE\) degenerate, contrary to the existence of its circumcenter \(O_A\).)</p>
+<h5>3. Eliminating the Translation</h5>
+<p>Assume for contradiction that \(k = 1\). Then (8) becomes</p>
+<p>\[
+e = a + t,\quad f = b + t,\quad d = c + t.
+\] Because \(F\) lies on \(AB\), the points \(A\), \(F\), \(B\) are collinear; hence</p>
+<p>\[
+\frac{f - a}{b - a} = \frac{b + t - a}{b - a} = 1 + \frac{t}{b-a} \in \mathbb{R}.
+\] Similarly, \(D\) lies on \(BC\), so</p>
+<p>\[
+\frac{d - b}{c - b} = \frac{c + t - b}{c - b} = 1 + \frac{t}{c-b} \in \mathbb{R},
+\] thus \(\frac{t}{b-a} \in \mathbb{R}\) and \(\frac{t}{c-b} \in \mathbb{R}\).</p>
+<p>The vectors \(b-a\) and \(c-b\) are not parallel (they are sides of a non-degenerate triangle), so the only complex number that is a real multiple of both is \(0\). Hence \(t = 0\), which gives \(e = a\), \(f = b\), \(d = c\). Then \(\triangle AFE\) degenerates to the segment \(AF\), contradicting the existence of \(O_A\). Therefore \(k \neq 1\).</p>
+<p>Consider the fixed point of the spiral similarity \(z \mapsto kz + t\) (when \(k \neq 1\)):</p>
+<p>\[
+X = \frac{t}{1 - k}.
+\] Translate the plane so that \(X\) becomes the origin. (Translation is an isometry, so all distances and circumcenters are preserved up to the same translation; we keep the same letters for the new coordinates.) After this translation we have</p>
+<p>\[
+e = k a,\qquad f = k b,\qquad d = k c. \quad\text{(9)}
+\] (We also note that \(a,b,c \neq 0\); otherwise, e.g., \(a = 0\) would imply \(A = X\), and then \(e = k \cdot 0 = 0\), so \(A\) and \(E\) coincide, making \(\triangle AFE\) degenerate - impossible. Hence \(a,b,c\) are non-zero.)</p>
+<h5>4. The Origin Lies on the Three Circles</h5>
+<p>We now show that the origin \(0\) belongs to the circumcircles of \(\triangle AFE\), \(\triangle BDF\), and \(\triangle CED\).</p>
+<p><strong>Lemma (Cross Ratio and Concyclicity).</strong> Four distinct points \(z_1,z_2,z_3,z_4\) in the complex plane lie on a common circle or line if and only if their cross ratio</p>
+<p>\[
+(z_1,z_2;z_3,z_4) = \frac{(z_1 - z_3)(z_2 - z_4)}{(z_1 - z_4)(z_2 - z_3)}
+\] is a real number.</p>
+<p><em>Proof.</em> The M\"obius transformation</p>
+<p>\[
+T(z) = \frac{(z - z_1)(z_2 - z_3)}{(z - z_3)(z_2 - z_1)}
+\] maps \(z_1,z_2,z_3\) to \(0,1,\infty\) respectively. Under \(T\), the circle/line through \(z_1,z_2,z_3\) is mapped to the real line. Hence \(z_4\) lies on that circle/line exactly when \(T(z_4)\) is real, and \(T(z_4)\) equals the cross ratio \((z_1,z_2;z_3,z_4)\).</p>
+<h5>Circle \((AFE)\)</h5>
+<p>Take \(z_1 = a\), \(z_2 = f\), \(z_3 = e\), \(z_4 = 0\). Using (9):</p>
+<p>\[
+a - e = a - k a = a(1 - k),\quad f - 0 = k b,\quad a - 0 = a,\quad f - e = k b - k a = k(b - a).
+\] Thus</p>
+<p>\[
+(a,f;e,0) = \frac{(a - e)(f - 0)}{(a - 0)(f - e)} = \frac{a(1 - k) \cdot k b}{a \cdot k(b - a)} = \frac{(1 - k)b}{b - a}. \quad\text{(10)}
+\] Because \(A,F,B\) are collinear, the ratio \(\dfrac{f - a}{b - a}\) is real. Compute</p>
+<p>\[
+\frac{f - a}{b - a} = \frac{k b - a}{b - a}.
+\] Now</p>
+<p>\[
+\frac{(1 - k)b}{b - a} = 1 - \frac{k b - a}{b - a},
+\] which is therefore real. The points \(a,f,e\) are not collinear (otherwise \(\triangle AFE\) would be degenerate). By the lemma, \(0\) lies on the circle through \(a,f,e\), i.e.,</p>
+<div class="math-block">\[
+0 \in (AFE). \quad\text{(11)}
+\]</div>
+<h5>Circle \((BDF)\)</h5>
+<p>Take \(z_1 = b\), \(z_2 = d\), \(z_3 = f\), \(z_4 = 0\). Using (9):</p>
+<p>\[
+b - d = b - k c,\quad f - 0 = k b,\quad b - 0 = b,\quad f - d = k b - k c = k(b - c).
+\] Hence</p>
+<p>\[
+(b,d;f,0) = \frac{(b - d)(f - 0)}{(b - 0)(f - d)} = \frac{(b - k c) \cdot k b}{b \cdot k(b - c)} = \frac{b - k c}{b - c}. \quad\text{(12)}
+\] Collinearity of \(B,D,C\) gives \(\dfrac{d - b}{c - b} \in \mathbb{R}\):</p>
+<p>\[
+\frac{k c - b}{c - b} \in \mathbb{R}.
+\] Observe that</p>
+<p>\[
+\frac{b - k c}{b - c} = \frac{-(k c - b)}{-(c - b)} = \frac{k c - b}{c - b},
+\] so the cross ratio is real. Since \(b,d,f\) are non-collinear (triangle \(BDF\) is non-degenerate), the lemma yields</p>
+<div class="math-block">\[
+0 \in (BDF). \quad\text{(13)}
+\]</div>
+<h5>Circle \((CED)\)</h5>
+<p>Take \(z_1 = c\), \(z_2 = e\), \(z_3 = d\), \(z_4 = 0\). Using (9):</p>
+<p>\[
+c - e = c - k a,\quad d - 0 = k c,\quad c - 0 = c,\quad d - e = k c - k a = k(c - a).
+\] Thus</p>
+<p>\[
+(c,e;d,0) = \frac{(c - e)(d - 0)}{(c - 0)(d - e)} = \frac{(c - k a) \cdot k c}{c \cdot k(c - a)} = \frac{c - k a}{c - a}. \quad\text{(14)}
+\] Collinearity of \(C,E,A\) gives \(\dfrac{e - c}{a - c} \in \mathbb{R}\):</p>
+<p>\[
+\frac{k a - c}{a - c} \in \mathbb{R}.
+\] Since</p>
+<p>\[
+\frac{c - k a}{c - a} = \frac{-(k a - c)}{-(a - c)} = \frac{k a - c}{a - c},
+\] the cross ratio is real. Non-collinearity of \(c,e,d\) gives</p>
+<div class="math-block">\[
+0 \in (CED). \quad\text{(15)}
+\]</div>
+<h5>5. \(k\) is Not Real</h5>
+<p>Suppose, for contradiction, that \(k \in \mathbb{R}\). Then from (9) we have \(e = k a\), so points \(0\), \(a\), \(e\) are collinear (they lie on the line through the origin and \(a\)). However, by (11) all three points \(0,a,e\) lie on the circle \((AFE)\). A non-degenerate circle cannot contain three distinct collinear points. This contradiction forces</p>
+<p>\[
+k \notin \mathbb{R}. \quad\text{(16)}
+\] (Recall \(k \neq 0,1\); therefore \(0,1,k\) are distinct and not collinear.)</p>
+<h5>6. Circumcenters \(O_A,O_B,O_C\)</h5>
+<p>Since \(0\) lies on \((AFE)\), the circle through \(a,f,e\) coincides with the circle through \(0,a,e\) (because three non-collinear points determine a circle, and \(0,a,e\) are distinct and, because \(k \notin \mathbb{R}\), they are not collinear). Hence \(O_A\) is the circumcenter of \(\triangle (0,a,e)\).</p>
+<p>Now consider the triangle with vertices \(0,1,k\). As \(k \notin \mathbb{R}\) and \(k \neq 0,1\), these points are distinct and non-collinear. Let \(\mu\) be its circumcenter; thus</p>
+<p>\[
+|\mu - 0| = |\mu - 1| = |\mu - k|. \quad\text{(17)}
+\] We claim that \(O_A = a \mu\). Indeed, the map \(z \mapsto a z\) (a spiral similarity about \(0\)) sends</p>
+<p>\[
+0 \mapsto 0,\quad 1 \mapsto a,\quad k \mapsto k a = e.
+\] Under a similarity, the image of the circumcenter of a triangle is the circumcenter of the image triangle. Therefore \(a \mu\) is the circumcenter of \(\triangle (0,a,e)\), i.e., \(O_A = a \mu\).</p>
+<p>One may also verify directly: The distances from \(a\mu\) to \(0,a,e\) are</p>
+<p>\[
+|a\mu - 0| = |a|\,|\mu|,\quad |a\mu - a| = |a|\,|\mu - 1|,\quad |a\mu - e| = |a|\,|\mu - k|,
+\] and by (17) these three numbers are equal, so \(a\mu\) is equidistant from \(0,a,e\). Because \(0,a,e\) are not collinear, \(a\mu\) is the unique point with that property, hence it is the circumcenter.</p>
+<p>Analogously, applying the same reasoning to the other two circles, we obtain</p>
+<div class="math-block">\[
+O_B = b \mu,\qquad O_C = c \mu. \quad\text{(18)}
+\]</div>
+<h5>7. Circumcenters \(M\), \(N\), \(O\)</h5>
+<p>Let \(M\) be the circumcenter of \(\triangle ABC\), so</p>
+<div class="math-block">\[
+|M - a| = |M - b| = |M - c| =: R. \quad\text{(19)}
+\]</div>
+<h5>Circumcenter \(O\) of \(\triangle O_A O_B O_C\)</h5>
+<p>The vertices are \(O_A = a\mu\), \(O_B = b\mu\), \(O_C = c\mu\). Consider the point \(\mu M\):</p>
+<p>\[
+|\mu M - O_A| = |\mu M - a\mu| = |\mu|\,|M - a| = |\mu| R,
+\] \[
+|\mu M - O_B| = |\mu M - b\mu| = |\mu|\,|M - b| = |\mu| R,
+\] \[
+|\mu M - O_C| = |\mu M - c\mu| = |\mu|\,|M - c| = |\mu| R.
+\] Thus \(\mu M\) is equidistant from \(O_A,O_B,O_C\). Since \(\triangle O_A O_B O_C\) is non-degenerate (it is the image of \(\triangle ABC\) under the non-zero similarity \(z \mapsto \mu z\)), \(\mu M\) is the circumcenter:</p>
+<div class="math-block">\[
+O = \mu M. \quad\text{(20)}
+\]</div>
+<h5>Circumcenter \(N\) of \(\triangle DEF\)</h5>
+<p>The vertices are \(D = k c\), \(E = k a\), \(F = k b\). Consider the point \(k M\):</p>
+<p>\[
+|k M - D| = |k M - k c| = |k|\,|M - c| = |k| R,
+\] \[
+|k M - E| = |k M - k a| = |k|\,|M - a| = |k| R,
+\] \[
+|k M - F| = |k M - k b| = |k|\,|M - b| = |k| R.
+\] Hence \(k M\) is equidistant from \(D,E,F\), and because \(\triangle DEF\) is non-degenerate (it is similar to \(\triangle ABC\) and, under the given configuration, non-degenerate), we have</p>
+<p>\[
+N = k M. \quad\text{(21)}
+\] (If \(M = 0\), then \(O = 0\), \(N = 0\), and the equalities hold trivially.)</p>
+<h5>8. Proof of \(OM = ON\)</h5>
+<p>Using (20) and (21),</p>
+<p>\[
+OM = |O - M| = |\mu M - M| = |M|\,|\mu - 1|,
+\] \[
+ON = |O - N| = |\mu M - k M| = |M|\,|\mu - k|.
+\] Now \(\mu\) is the circumcenter of \(\triangle (0,1,k)\), so by (17)</p>
+<p>\[
+|\mu - 1| = |\mu - k|.
+\] Consequently,</p>
+<div class="math-block">\[
+OM = |M|\,|\mu - 1| = |M|\,|\mu - k| = ON.
+\]</div>
+<h5>9. Conclusion</h5>
+<p>We have shown that under the given conditions the distances \(OM\) and \(ON\) are equal.</p>
+<div class="math-block">\[
+\boxed{OM = ON}.
+\]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-problem olympiad-case">
+                <button class="context-toggle olympiad-case-toggle" onclick="toggleContext('usamo-2026-problem-6-content')">
+                    <span>USAMO 2026 Problem 6</span>
+                    <svg class="context-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="context-content" id="usamo-2026-problem-6-content">
+                    <div class="context-inner olympiad-case-inner">
+                        <h4>Question</h4>
+                        <div class="problem-question olympiad-question">
+<p>Let $a$ and $b$ be positive integers such that $\varphi(ab+1)$ divides $a^2 + b^2 + 1$. Prove that $a$ and $b$ are Fibonacci numbers.</p>
+                        </div>
+
+                        <div class="answer-section olympiad-answer">
+                            <div class="answer-title">Answer</div>
+                            <div class="answer-content">
+                                <div class="answer-item"><strong>Expert verdict:</strong> 7/7</div>
+                            </div>
+                        </div>
+
+                        <div class="solution-section">
+                            <button class="solution-toggle" onclick="toggleSolution('usamo-2026-problem-6-solution')">
+                                <span>View Solution</span>
+                                <svg class="solution-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="solution-content" id="usamo-2026-problem-6-solution">
+                                <div class="solution-inner olympiad-solution-inner">
+<p>Let \(a\) and \(b\) be positive integers such that</p>
+<p>\[
+\varphi(ab+1) \mid a^{2}+b^{2}+1.
+\] Set \(N = ab+1\) and define the positive integer</p>
+<p>\[
+k = \frac{a^{2}+b^{2}+1}{\varphi(N)}.
+\] We will prove that both \(a\) and \(b\) must be Fibonacci numbers.</p>
+<h5>1. Preliminary bounds</h5>
+<p>Since \(N &gt; 1\), we have \(\varphi(N) \le N-1 = ab\) (with equality exactly when \(N\) is prime). Hence</p>
+<p>\[
+a^{2}+b^{2}+1 = k\,\varphi(N) \le k\,ab. \quad\text{(1)}
+\] By the quadratic-mean-arithmetic-mean inequality, \(a^{2}+b^{2} \ge 2ab\), so</p>
+<p>\[
+a^{2}+b^{2}+1 \ge 2ab+1. \quad\text{(2)}
+\] Combining (1) and (2) yields</p>
+<p>\[
+2ab+1 \le k\,ab \quad\Longrightarrow\quad k \ge 2 + \frac{1}{ab}.
+\] Because \(k\) is an integer, if \(ab &gt; 1\) we obtain \(k \ge 3\). If \(ab = 1\) then necessarily \(a=b=1\), \(N=2\), \(\varphi(2)=1\), and then \(k = 3\). Thus in every case</p>
+<div class="math-block">\[
+\boxed{k \ge 3}. \quad\text{(3)}
+\]</div>
+<h5>2. Parity and the even case</h5>
+<p><strong>Lemma 2.1.</strong> If \(N\) is even and \(N&gt;2\), then the divisibility condition cannot hold.</p>
+<p><em>Proof.</em> For \(N&gt;2\), \(\varphi(N)\) is even (a standard fact: \(\varphi(n)\) is even for every \(n&gt;2\)). Because \(N\) even implies \(ab = N-1\) odd, both \(a\) and \(b\) are odd. Then \(a^{2}+b^{2}+1\) is odd (odd+odd+1). An even number cannot divide an odd number. The only even possibility is \(N=2\), which gives \(a=b=1\) and indeed \(\varphi(2)=1\) divides \(3\).</p>
+<p>Consequently, the only even \(N\) that can occur is \(N=2\), producing \((a,b)=(1,1)\) - both Fibonacci numbers. From now on we assume</p>
+<p>\[
+N\ \text{is odd and}\ N&gt;2.
+\] Then \(ab = N-1\) is even, so at least one of \(a,b\) is even. If both were even, \(a^{2}+b^{2}+1\) would be odd, while for odd \(N&gt;2\) we still have \(\varphi(N)\) even. Hence exactly one of \(a,b\) is even and the other is odd. In particular,</p>
+<div class="math-block">\[
+a^{2}+b^{2}+1 \equiv 0+1+1 \equiv 2 \pmod{4}. \quad\text{(4)}
+\]</div>
+<h5>3. Case I: \(N\) is prime</h5>
+<p>Assume \(N = ab+1\) is prime. Then \(\varphi(N) = N-1 = ab\), and (1) becomes</p>
+<p>\[
+a^{2}+b^{2}+1 = k\,ab. \quad\text{(5)}
+\] We first determine \(k\).</p>
+<h5>3.1. The value of \(k\)</h5>
+<p>Without loss of generality, order the variables so that \(a \le b\). Write (5) as a quadratic in \(b\):</p>
+<p>\[
+b^{2} - (k a)\,b + (a^{2}+1) = 0.
+\] If \(b\) is a root, the other root is</p>
+<p>\[
+b' = \frac{a^{2}+1}{b} = k a - b,
+\] which is a positive integer.</p>
+<p><strong>Claim.</strong> If \(a \ge 2\), then \(b' &lt; b\).</p>
+<p><em>Proof.</em> Suppose \(b' \ge b\). Then \(\frac{a^{2}+1}{b} \ge b\), i.e. \(a^{2}+1 \ge b^{2}\). Because \(b \ge a\), we have \(a^{2} \le b^{2} \le a^{2}+1\). Hence either \(b^{2}=a^{2}\) or \(b^{2}=a^{2}+1\).</p>
+<p class="compact-bullet">If \(b^{2}=a^{2}\), then \(b=a\). Substituting \(b=a\) into (5) gives \(2a^{2}+1 = k a^{2}\) \(\Rightarrow\) \(k = 2 + \frac{1}{a^{2}}\), which is not an integer for \(a \ge 2\). Contradiction.</p>
+<p class="compact-bullet">If \(b^{2}=a^{2}+1\), then \(a^{2}+1\) is a perfect square. For \(a \ge 2\), this is impossible because between \(a^{2}\) and \((a+1)^{2}=a^{2}+2a+1\) there is no other square.</p>
+<p>Thus whenever \(a \ge 2\), we can replace \((a,b)\) by \((a,b')\) (which is also a solution of (5)) with \(a+b' &lt; a+b\). Repeating this descent (the sum \(a+b\) strictly decreases each step) we eventually reach a solution with \(a=1\) (the minimal sum cannot have \(a \ge 2\)).</p>
+<p>Now consider \(a=1\). Equation (5) becomes</p>
+<p>\[
+1 + b^{2} + 1 = k \cdot 1 \cdot b \quad\Longrightarrow\quad b^{2} - k b + 2 = 0. \quad\text{(6)}
+\] For integer \(b\), the discriminant \(\Delta = k^{2}-8\) must be a perfect square, say \(d^{2}\). Then</p>
+<p>\[
+k^{2} - d^{2} = 8 \quad\Longrightarrow\quad (k-d)(k+d)=8.
+\] Both factors are positive integers of the same parity. The factor pairs of \(8\) are \((1,8)\) and \((2,4)\).</p>
+<p class="compact-bullet">\((1,8)\) gives \(k-d=1\), \(k+d=8\) \(\Rightarrow\) \(2k=9\) \(\Rightarrow\) \(k=9/2\), not integer.</p>
+<p class="compact-bullet">\((2,4)\) gives \(k-d=2\), \(k+d=4\) \(\Rightarrow\) \(2k=6\) \(\Rightarrow\) \(k=3\), \(d=1\).</p>
+<p>Hence \(k=3\) is forced. With \(k=3\), equation (6) is \(b^{2}-3b+2=0\), whose roots are \(b=1\) and \(b=2\). Thus the only solutions with \(a=1\) are \((1,1)\) and \((1,2)\) (and by symmetry, \((2,1)\) if we had not assumed \(a\le b\)). Since the reduction process preserves \(k\), every solution of (5) must have \(k=3\).</p>
+<p>Therefore, when \(N\) is prime,</p>
+<div class="math-block">\[
+a^{2}+b^{2}+1 = 3ab \quad\Longleftrightarrow\quad a^{2} - 3ab + b^{2} = -1. \quad\text{(7)}
+\]</div>
+<h5>3.2. Solving \(a^{2} - 3ab + b^{2} = -1\)</h5>
+<p>Equation (7) is symmetric; we may assume \(a \le b\).</p>
+<p>Define a sequence \((A_n)_{n\ge 0}\) by</p>
+<p>\[
+A_0 = 1,\qquad A_1 = 1,\qquad A_{n+2} = 3A_{n+1} - A_n\ \ (n\ge 0).
+\] One verifies by induction that \((A_n, A_{n+1})\) satisfies (7): For \(n=0\), \(1^2-3\cdot1\cdot1+1^2=-1\). Assuming it holds for \(n\), using the recurrence one checks that it also holds for \(n+1\). (The computation is straightforward and can be filled in similarly to the proof in Lemma 4.1 of the original draft.)</p>
+<p>Now let \((a,b)\) be any positive integer solution of (7) with \(a \le b\). View (7) as a quadratic in \(b\):</p>
+<p>\[
+b^{2} - 3a\, b + (a^{2}+1) = 0.
+\] Its two roots are \(b\) and</p>
+<p>\[
+b' = \frac{a^{2}+1}{b} = 3a - b,
+\] which is an integer. A similar argument as in 3.1 shows that if \(a \ge 2\), then \(b' &lt; b\). Consequently, by infinite descent on \(a+b\), we can reduce any solution to one with \(a=1\). The only solutions with \(a=1\) are \((1,1)\) and \((1,2)\) (and their symmetric versions). Therefore every solution can be obtained from these minimal ones by the inverse transformation: if \((x,y)\) is a solution with \(x \le y\), then \((y,\, 3y - x)\) is also a solution. Starting from \((1,1)\) and repeatedly applying this transformation yields the increasing sequence</p>
+<p>\[
+(1,1),\ (1,2),\ (2,5),\ (5,13),\ (13,34),\ \dots
+\] which exactly corresponds to the pairs \((A_n, A_{n+1})\) for \(n\ge 0\).</p>
+<p>It remains to identify these \(A_n\) with Fibonacci numbers. Define the Fibonacci numbers by</p>
+<p>\[
+F_1 = 1,\quad F_2 = 1,\quad F_{n+2} = F_{n+1} + F_n.
+\] We claim that for \(n \ge 1\),</p>
+<p>\[
+A_n = F_{2n-1}.
+\] <em>Proof by induction.</em></p>
+<p class="compact-bullet">Base \(n=1\): \(A_1 = 1 = F_1\).</p>
+<p class="compact-bullet">\(n=2\): \(A_2 = 3A_1 - A_0 = 3\cdot1 - 1 = 2 = F_3\).</p>
+<p class="compact-bullet">Inductive step: Assume \(A_n = F_{2n-1}\) and \(A_{n+1} = F_{2n+1}\). Then</p>
+<p>\[
+A_{n+2} = 3A_{n+1} - A_n = 3F_{2n+1} - F_{2n-1}.
+\] Using the identities \[
+F_{2n+1} - F_{2n-1} = F_{2n},\quad \text{and}\quad F_{2n+1} + F_{2n} = F_{2n+2},
+\] we compute</p>
+<p>\[
+\begin{aligned}
+3F_{2n+1} - F_{2n-1} &= 2F_{2n+1} + (F_{2n+1} - F_{2n-1}) \\
+&= 2F_{2n+1} + F_{2n} \\
+&= F_{2n+1} + (F_{2n+1} + F_{2n}) \\
+&= F_{2n+1} + F_{2n+2} \\
+&= F_{2n+3}.
+\end{aligned}
+\] Thus \(A_{n+2} = F_{2n+3} = F_{2(n+2)-1}\), completing the induction.</p>
+<p>Hence all solutions of (7) are pairs of Fibonacci numbers (specifically, consecutive odd-index Fibonacci numbers). This completes <strong>Case I</strong>.</p>
+<h5>4. Case II: \(N\) is composite and odd (\(N&gt;2\))</h5>
+<p>Now \(N = ab+1\) is composite, odd, and \(N&gt;2\). From (4) we have</p>
+<div class="math-block">\[
+a^{2}+b^{2}+1 \equiv 2 \pmod{4}.
+\]</div>
+<h5>4.1. \(N\) cannot have two distinct odd prime factors</h5>
+<p>Suppose \(N\) has at least two distinct odd prime divisors \(p\) and \(q\). Then \(\varphi(N)\) is divisible by \((p-1)(q-1)\). Since \(p\) and \(q\) are odd, both \(p-1\) and \(q-1\) are even, hence \(4 \mid (p-1)(q-1) \mid \varphi(N)\). Thus \(4 \mid \varphi(N)\). Since \(\varphi(N) \mid a^{2}+b^{2}+1\), we would have \(4 \mid a^{2}+b^{2}+1\), contradicting (4). Therefore \(N\) cannot possess two distinct odd prime factors.</p>
+<p>It follows that \(N\) must be a prime power:</p>
+<div class="math-block">\[
+N = p^{e}, \qquad e \ge 2\ (\text{since } N \text{ is composite}).
+\]</div>
+<h5>4.2. The prime \(p\) cannot be \(\equiv 1 \pmod{4}\)</h5>
+<p>If \(p \equiv 1 \pmod{4}\), then \(p-1\) is divisible by \(4\), so \(4 \mid \varphi(N)\). Again this forces \(4 \mid a^{2}+b^{2}+1\), which is impossible by (4). Hence</p>
+<div class="math-block">\[
+p \equiv 3 \pmod{4}. \quad\text{(8)}
+\]</div>
+<h5>4.3. Analysis modulo \(3\)</h5>
+<p>We now examine the residue of \(p\) modulo \(3\).</p>
+<p><strong>Subcase </strong>\(p \equiv 1 \pmod{3}\).<strong> Then </strong>\(3 \mid (p-1)\), so \(3 \mid \varphi(N)\). Moreover, \(p \equiv 1 \pmod{3}\) implies \(p^{e} \equiv 1 \pmod{3}\), so \(ab = p^{e} - 1 \equiv 0 \pmod{3}\). Thus \(3 \mid ab\).</p>
+<p>Now evaluate \(S = a^{2}+b^{2}+1\) modulo \(3\). Since \(3 \mid ab\), there are two possibilities:</p>
+<p class="compact-bullet">\(3 \mid a\) and \(3 \mid b\): then \(a^{2}\equiv0\), \(b^{2}\equiv0\), so \(S \equiv 1 \pmod{3}\).</p>
+<p class="compact-bullet">Exactly one of \(a,b\) is divisible by \(3\): then \(S \equiv 0+1+1 = 2 \pmod{3}\).</p>
+<p>In neither case is \(S\) divisible by \(3\). However, \(\varphi(N) \mid S\) and \(3 \mid \varphi(N)\) would force \(3 \mid S\). Contradiction. Therefore \(p \not\equiv 1 \pmod{3}\).</p>
+<p><strong>Subcase </strong>\(p \equiv 2 \pmod{3}\).<strong> Then </strong>\(p-1 \equiv 1 \pmod{3}\), so \(3 \nmid (p-1)\). But because \(e \ge 2\), \(\varphi(N) = p^{e-1}(p-1)\) contains the factor \(p^{e-1}\), so in particular \(p \mid \varphi(N)\). Consequently,</p>
+<p>\[
+p \mid S. \quad\text{(9)}
+\] Also, from \(ab = p^{e} - 1\) we have</p>
+<p>\[
+ab \equiv -1 \pmod{p}. \quad\text{(10)}
+\] In particular, \(p\) does not divide \(a\) or \(b\) (otherwise (10) would give \(0 \equiv -1 \pmod{p}\), impossible). Hence \(a\) and \(b\) are invertible modulo \(p\). Write \(b \equiv -a^{-1} \pmod{p}\). Substituting into (9):</p>
+<p>\[
+a^{2} + (-a^{-1})^{2} + 1 \equiv 0 \pmod{p},
+\] i.e., \[
+a^{2} + a^{-2} + 1 \equiv 0 \pmod{p}.
+\] Multiply by \(a^{2}\) (invertible modulo \(p\)):</p>
+<p>\[
+a^{4} + a^{2} + 1 \equiv 0 \pmod{p}. \quad\text{(11)}
+\] Set \(y = a^{2} \pmod{p}\); then (11) becomes</p>
+<p>\[
+y^{2} + y + 1 \equiv 0 \pmod{p}. \quad\text{(12)}
+\] Equation (12) has a solution in \(\mathbb{F}_p\) iff \(-3\) is a quadratic residue modulo \(p\). Indeed, multiplying (12) by \(4\) gives \((2y+1)^{2} \equiv -3 \pmod{p}\).</p>
+<p>We need the following standard lemma:</p>
+<p><strong>Lemma.</strong> For an odd prime \(p \neq 3\), \(-3\) is a quadratic residue modulo \(p\) if and only if \(p \equiv 1 \pmod{3}\).</p>
+<p><em>Proof.</em> The multiplicative group \(\mathbb{F}_p^{\times}\) is cyclic of order \(p-1\). The equation \(y^{2}+y+1=0\) is equivalent to \(y^{3}=1\) with \(y \neq 1\) (since \((y-1)(y^{2}+y+1)=y^{3}-1\). Hence a solution exists iff the group contains an element of order \(3\), i.e., iff \(3 \mid p-1\), which is \(p \equiv 1 \pmod{3}\). Conversely, if \(p \equiv 1 \pmod{3}\), then \(3 \mid p-1\), so such an element exists.</p>
+<p>Since \(p \equiv 2 \pmod{3}\), we have \(p-1\) not divisible by \(3\), so there is no element of order \(3\) in \(\mathbb{F}_p^{\times}\); therefore (12) has no solution modulo \(p\). This contradicts the existence of \(a\). Thus \(p \not\equiv 2 \pmod{3}\).</p>
+<p>The only remaining possibility for the odd prime \(p\) is \(p = 3\).</p>
+<h5>4.4. The exponent \(e\)</h5>
+<p>Now \(N = 3^{e}\) with \(e \ge 2\). Then</p>
+<p>\[
+\varphi(N) = 3^{e-1} \cdot 2.
+\] <strong>If </strong>\(e \ge 3\):<strong> Then </strong>\(3^{e-1}\) is at least \(3^{2}=9\), so \(9 \mid \varphi(N)\). Since \(\varphi(N) \mid S\), we must have \(9 \mid S\).</p>
+<p>But we will show that \(S \equiv 3 \pmod{9}\), which is not divisible by \(9\), a contradiction. Let us verify this congruence.</p>
+<p>Because \(e \ge 3\), \(N = 3^{e}\) is divisible by \(27\), in particular \(N \equiv 0 \pmod{9}\). Hence</p>
+<p>\[
+ab = N-1 \equiv -1 \pmod{9}. \quad\text{(13)}
+\] Moreover, \(N \equiv 0 \pmod{3}\) gives \(ab \equiv -1 \equiv 2 \pmod{3}\). Hence \(3 \nmid a\) and \(3 \nmid b\) (otherwise \(ab \equiv 0 \pmod{3}\)). Thus \(a\) and \(b\) are each \(\equiv 1\) or \(2 \pmod{3}\), and their product is \(2 \pmod{3}\); the only possibilities are \(\{a,b\} \equiv \{1,2\} \pmod{3}\). Consequently,</p>
+<p>\[
+a + b \equiv 1 + 2 \equiv 0 \pmod{3}. \quad\text{(14)}
+\] Now compute</p>
+<p>\[
+S = a^{2}+b^{2}+1 = (a+b)^{2} - 2ab + 1.
+\] From (14), \(a+b = 3t\) for some integer \(t\), so \((a+b)^{2} = 9t^{2} \equiv 0 \pmod{9}\). Using (13), \(ab \equiv -1 \pmod{9}\), so \(-2ab \equiv -2(-1) = 2 \pmod{9}\). Thus</p>
+<p>\[
+S \equiv 0 + 2 + 1 = 3 \pmod{9}.
+\] Thus \(9 \nmid S\), contradicting \(9 \mid \varphi(N) \mid S\). Therefore \(e\) cannot be \(\ge 3\).</p>
+<p>The only remaining possibility is \(e = 2\), i.e., \(N = 9\). Then \(\varphi(9) = 6\) and \(ab = 8\). The positive factor pairs of \(8\) are</p>
+<p>\[
+(1,8),\ (2,4),\ (4,2),\ (8,1).
+\] Compute \(S\) for each:</p>
+<p class="compact-bullet">\((1,8)\): \(S = 1 + 64 + 1 = 66\), and \(66 / 6 = 11 \in \mathbb{Z}\).</p>
+<p class="compact-bullet">\((2,4)\): \(S = 4 + 16 + 1 = 21\), \(21/6 = 3.5 \notin \mathbb{Z}\).</p>
+<p>Thus only \((1,8)\) and \((8,1)\) satisfy the divisibility condition. Both \(1\) and \(8\) are Fibonacci numbers (\(1 = F_1\), \(8 = F_6\)).</p>
+<h5>5. Conclusion</h5>
+<p>We have examined all possible values of \(N = ab+1\):</p>
+<p class="compact-bullet">\textbf{Even case:</p>
+<p>\(N=2\) gives \((a,b)=(1,1)\) - Fibonacci numbers.}</p>
+<p class="compact-bullet">\textbf{Prime case:</p>
+<p>\(N\) prime leads to the equation \(a^{2} - 3ab + b^{2} = -1\), whose complete set of positive integer solutions consists of pairs of Fibonacci numbers (as shown in 3.2).}</p>
+<p class="compact-bullet">\textbf{Composite case:</p>
+<p>\(N\) composite forces \(N=9\) and yields \((a,b) = (1,8)\) or \((8,1)\), again Fibonacci numbers.} Hence, under the hypothesis \(\varphi(ab+1) \mid a^{2}+b^{2}+1\), the integers \(a\) and \(b\) are necessarily Fibonacci numbers.</p>
+<p><em>Remark.</em> The Fibonacci numbers are defined by \(F_1=F_2=1\) and \(F_{n+2}=F_{n+1}+F_n\). The solutions from the prime case are precisely \((F_{2n-1},F_{2n+1})\) (and symmetric) for \(n \ge 1\), together with the degenerate pair \((1,1)\) which can be seen as \((F_1,F_2)\) or \((F_2,F_1)\). The pair \((1,8)\) from the composite case also fits the Fibonacci sequence (\(F_1=1\), \(F_6=8\)). This completes the proof.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+    </main>
+    <script>
+        window.addEventListener('message', function(event) {
+            if (!event.data || event.data.type !== 'themeChange') return;
+            document.documentElement.setAttribute('data-theme', event.data.theme === 'light' ? 'light' : 'dark');
+        });
+
+        function typesetMath(element) {
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise([element]).catch(function(err) {
+                    console.log('MathJax typeset error: ' + err.message);
+                });
+            }
+        }
+
+        function toggleContext(contextId) {
+            const content = document.getElementById(contextId);
+            if (!content) return;
+            const button = content.previousElementSibling;
+
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                button.classList.remove('active');
+            } else {
+                content.classList.add('show');
+                button.classList.add('active');
+                typesetMath(content);
+            }
+        }
+
+        function toggleSolution(solutionId) {
+            const content = document.getElementById(solutionId);
+            if (!content) return;
+            const button = content.previousElementSibling;
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                button.classList.remove('active');
+            } else {
+                content.classList.add('active');
+                button.classList.add('active');
+                typesetMath(content);
+            }
+        }
+    </script>
+</body>
+</html>

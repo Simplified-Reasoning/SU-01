@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IMO-ProofBench</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 24px;
+      box-sizing: border-box;
+      height: auto;
+      align-items: center;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      text-align: center;
+    }
+    #chart {
+      width: 1200px;
+      height: 450px;
+      background: transparent;
+      border-radius: 8px;
+    }
+    a { color: #b39ddb; }
+    .legend {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      opacity: 0.9;
+    }
+    .legend-swatch {
+      width: 24px;
+      height: 16px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .chart-footnote {
+      width: 1200px;
+      margin-top: -8px;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: left;
+      opacity: 0.78;
+    }
+    .medal-legend {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 20px;
+    }
+    .medal-gradient {
+      display: flex;
+      height: 16px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .medal-gradient-item {
+      width: 20px;
+      height: 16px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="title">IMO-ProofBench</div>
+    <div id="legend" class="legend"></div>
+    <div id="chart"></div>
+    <div id="chartFootnote" class="chart-footnote">† denotes test-time scaling.</div>
+  </div>
+
+  <script>
+    let currentTheme = 'dark';
+    
+    function getTheme() { return currentTheme; }
+    function setTheme(theme) { currentTheme = theme; }
+    function isLightTheme() { return currentTheme === 'light'; }
+    
+    function getThemeColors() {
+      const isLight = isLightTheme();
+      return {
+        purpleMain: '#60A5FA',
+        redMain: '#FF6B6B',
+        grayDark: isLight ? '#6B7280' : '#4a5057',
+        grayMid: isLight ? '#6B7280' : '#4a5057',
+        textPrimary: isLight ? '#1A1A1A' : '#FFFFFF',
+        bgTooltip: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.8)',
+        tooltipBorder: '#3B82F6'
+      };
+    }
+
+    // Data sorted by score in descending order
+    const rawData = [
+      { label: 'GPT-5.5-High', value: 80.7, medals: 80.7, source: 'closed' },
+      { label: 'DeepSeekMath-V2\n(Heavy)', value: 80.5, medals: 80.5, source: 'open', hasTTS: true },
+      { label: 'Gemini-3.1-Pro', value: 72.6, medals: 72.6, source: 'closed' },
+      { label: 'SU-01', value: 70.2, medals: 70.2, source: 'open', hasTTS: true },
+      { label: 'Gemini-2.5-DeepThink', value: 60.7, medals: 60.7, source: 'closed', hasTTS: true },
+      { label: 'SU-01', value: 57.6, medals: 57.6, source: 'open' },
+      { label: 'Nemotron-Cascade-2', value: 52.9, medals: 52.9, source: 'open' },
+      { label: 'SFT + Coarse RL', value: 51.0, medals: 51.0, source: 'open' },
+      { label: 'Gemini-2.5-Pro', value: 47.1, medals: 47.1, source: 'closed', hasTTS: true },
+      { label: 'DeepSeek-V3.2-Speciale', value: 45.7, medals: 45.7, source: 'open' },
+      { label: 'GPT-5', value: 39.5, medals: 39.5, source: 'closed', hasTTS: true },
+      { label: 'Gemini-2.5-Pro', value: 36.4, medals: 36.4, source: 'closed' },
+      { label: 'SFT', value: 36.2, medals: 36.2, source: 'open' },
+      { label: 'GLM-4.7-Flash', value: 33.8, medals: 33.8, source: 'open' },
+      { label: 'Gemma-4-31B', value: 31.4, medals: 31.4, source: 'open' },
+      { label: 'Qwen3.6-35B-A3B', value: 23.1, medals: 23.1, source: 'open' },
+      { label: 'P1-30B-A3B', value: 20.0, medals: 20.0, source: 'open' }
+    ].sort((a, b) => b.value - a.value);
+
+    const labels = rawData.map(d => d.label);
+    const values = rawData.map(d => d.value);
+    const medals = rawData.map(d => d.medals);
+    const sources = rawData.map(d => d.source);
+    const hasTTS = rawData.map(d => Boolean(d.hasTTS));
+
+    const p1Series = new Set([
+      'P1-VL-235B-A22B+PhysicsMinions', 'P1-VL-235B-A22B', 'P1-VL-30B-A3B'
+    ]);
+
+    const solverModels = new Set([
+      'P1-VL-235B-A22B+PhysicsMinions'
+    ]);
+
+    const normalize = (s) => s.replace(/\n/g, '').replace(/-/g, '').replace(/ /g, '');
+    const p1SeriesNorm = new Set(Array.from(p1Series).map(normalize));
+    const solverModelsNorm = new Set(Array.from(solverModels).map(normalize));
+
+    function isP1Label(label) { return p1SeriesNorm.has(normalize(label)); }
+    function isSolverLabel(label) { return solverModelsNorm.has(normalize(label)); }
+
+    const pdfColors = {
+      gray: '#CDD6DF',
+      grayBorder: '#8F9BA8',
+      blue: '#1E5AA8',
+      stripe: '#6F7A86'
+    };
+
+    const blueModels = new Set([
+      'SU-01', 'SFT + Coarse RL', 'SFT', 'P1-30B-A3B'
+    ]);
+
+    const blueModelsNorm = new Set(Array.from(blueModels).map(normalize));
+
+    function getStripeDecal() {
+      return {
+        symbol: 'rect',
+        dashArrayX: [1, 0],
+        dashArrayY: [4, 3],
+        rotation: Math.PI / 4,
+        color: pdfColors.stripe
+      };
+    }
+
+    function formatAxisLabel(value, index, richStyle) {
+      const label = richStyle ? `{${richStyle}|${value}}` : value;
+      const dagger = hasTTS[index] ? '{dagger|†}' : '';
+      return label + dagger;
+    }
+
+    let colors = getThemeColors();
+
+    function createDataArray() {
+      const currentColors = getThemeColors();
+      return labels.map((lb, i) => {
+        const val = values[i];
+        const isSolver = isSolverLabel(lb);
+        const isP1 = isP1Label(lb);
+        const isBlue = blueModelsNorm.has(normalize(lb));
+        const isOpenSource = sources[i] === 'open';
+        
+        const baseColor = isBlue ? pdfColors.blue : pdfColors.gray;
+        const applyStripe = !isOpenSource;
+        
+        // Border settings
+        let borderColor = 'transparent';
+        let borderWidth = 0;
+        if (isSolver) {
+          borderColor = currentColors.redMain;
+          borderWidth = 4;
+        } else if (isP1) {
+          borderColor = currentColors.purpleMain;
+          borderWidth = 4;
+        }
+        
+        // Label colors
+        let labelColor = currentColors.textPrimary;
+        if (isSolver) {
+          labelColor = currentColors.redMain;
+        } else if (isP1) {
+          labelColor = currentColors.purpleMain;
+        } else if (isBlue) {
+          labelColor = pdfColors.blue;
+        }
+        
+        return {
+          value: val,
+          itemStyle: {
+            color: baseColor,
+            borderColor: borderWidth ? borderColor : pdfColors.grayBorder,
+            borderWidth: borderWidth || 1,
+            decal: applyStripe ? getStripeDecal() : null,
+            borderRadius: [3, 3, 0, 0]
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: labelColor,
+            fontSize: 14,
+            fontWeight: (isP1 || isSolver || isBlue) ? 'bold' : 'normal',
+            formatter: ({ value }) => value.toFixed(1)
+          }
+        };
+      });
+    }
+
+    let chart;
+    
+    function initChart() {
+      const chartElement = document.getElementById('chart');
+      if (!chartElement) return;
+      
+      chart = echarts.init(chartElement);
+      colors = getThemeColors();
+      const data = createDataArray();
+      
+      const option = {
+        backgroundColor: 'transparent',
+        grid: { left: 60, right: 30, top: 40, bottom: 160 },
+        xAxis: {
+          type: 'category',
+          data: labels,
+          axisLabel: {
+            color: colors.textPrimary,
+            fontSize: 12,
+            rotate: 45,
+            align: 'right',
+            formatter: function (value, index) {
+              const norm = normalize(value);
+              if (solverModelsNorm.has(norm)) return formatAxisLabel(value, index, 'red');
+              if (p1SeriesNorm.has(norm)) return formatAxisLabel(value, index, 'purple');
+              if (blueModelsNorm.has(norm)) return formatAxisLabel(value, index, 'blue');
+              return formatAxisLabel(value, index);
+            },
+            rich: {
+              purple: { fontWeight: 'bold', color: colors.purpleMain, fontSize: 13 },
+              red: { fontWeight: 'bold', color: colors.redMain, fontSize: 13 },
+              blue: { fontWeight: 'bold', color: pdfColors.blue, fontSize: 13 },
+              dagger: { color: colors.textPrimary, fontSize: 9, verticalAlign: 'top', padding: [0, 0, 0, 1] }
+            }
+          },
+          axisLine: { lineStyle: { color: colors.textPrimary, width: 2 } },
+          axisTick: { lineStyle: { color: colors.textPrimary } }
+        },
+        yAxis: {
+          type: 'value',
+          min: 10,
+          max: 90,
+          interval: 20,
+          name: 'Average Exam Score (Theory)',
+          nameLocation: 'middle',
+          nameGap: 40,
+          nameTextStyle: { color: colors.textPrimary, fontSize: 16 },
+          axisLabel: { color: colors.textPrimary, fontSize: 14 },
+          axisLine: { lineStyle: { color: colors.textPrimary, width: 2 } },
+          splitLine: { show: true, lineStyle: { color: 'rgba(160, 170, 180, 0.35)', width: 1 } }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'shadow' },
+          backgroundColor: colors.bgTooltip,
+          borderColor: colors.tooltipBorder,
+          textStyle: { color: colors.textPrimary },
+          formatter: function(params) {
+            const d = params[0];
+            const source = sources[d.dataIndex] === 'open' ? 'Open-source' : 'Closed-source';
+            const tts = hasTTS[d.dataIndex] ? '<br/>† test-time scaling' : '';
+            return `<strong>${d.name.replace(/\n/g, ' ')}${hasTTS[d.dataIndex] ? '†' : ''}</strong><br/>${source}<br/>Score: ${d.value.toFixed(1)}${tts}`;
+          }
+        },
+        series: [{
+          type: 'bar',
+          data: data,
+          barWidth: '65%',
+          emphasis: { focus: 'series' }
+        }]
+      };
+      
+      chart.setOption(option);
+      updateLegend();
+      
+      const titleEl = document.querySelector('.title');
+      if (titleEl) titleEl.style.color = colors.textPrimary;
+      const footnoteEl = document.getElementById('chartFootnote');
+      if (footnoteEl) footnoteEl.style.color = colors.textPrimary;
+    }
+
+    function updateLegend() {
+      const legendEl = document.getElementById('legend');
+      if (!legendEl) return;
+      
+      legendEl.innerHTML = `
+        <div class="legend-item">
+          <span class="legend-swatch" style="background:${pdfColors.gray}; border-color:${pdfColors.grayBorder};"></span>
+          <span>Open-source</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-swatch" style="background: repeating-linear-gradient(135deg, ${pdfColors.gray} 0 4px, ${pdfColors.stripe} 4px 6px); border-color:${pdfColors.grayBorder};"></span>
+          <span>Closed-source</span>
+        </div>
+      `;
+      
+      legendEl.querySelectorAll('.legend-item').forEach(item => {
+        item.style.color = colors.textPrimary;
+      });
+    }
+
+    function updateChartColors() {
+      if (!chart) return;
+      colors = getThemeColors();
+      
+      const option = chart.getOption();
+      option.xAxis[0].axisLabel.color = colors.textPrimary;
+      option.xAxis[0].axisLabel.rich.purple.color = colors.purpleMain;
+      option.xAxis[0].axisLabel.rich.red.color = colors.redMain;
+      option.xAxis[0].axisLabel.rich.blue.color = pdfColors.blue;
+      option.xAxis[0].axisLabel.rich.dagger.color = colors.textPrimary;
+      option.xAxis[0].axisLine.lineStyle.color = colors.textPrimary;
+      option.yAxis[0].axisLabel.color = colors.textPrimary;
+      option.yAxis[0].axisLine.lineStyle.color = colors.textPrimary;
+      option.yAxis[0].nameTextStyle.color = colors.textPrimary;
+      option.tooltip[0].backgroundColor = colors.bgTooltip;
+      option.tooltip[0].textStyle.color = colors.textPrimary;
+      
+      option.series[0].data = createDataArray();
+      chart.setOption(option, true);
+      
+      updateLegend();
+      const titleEl = document.querySelector('.title');
+      if (titleEl) titleEl.style.color = colors.textPrimary;
+      const footnoteEl = document.getElementById('chartFootnote');
+      if (footnoteEl) footnoteEl.style.color = colors.textPrimary;
+    }
+
+    function waitForECharts() {
+      if (typeof echarts !== 'undefined') {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => setTimeout(initChart, 100));
+        } else {
+          setTimeout(initChart, 100);
+        }
+      } else {
+        setTimeout(waitForECharts, 50);
+      }
+    }
+    
+    waitForECharts();
+
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.type === 'themeChange') {
+        setTheme(event.data.theme);
+        updateChartColors();
+      }
+    });
+
+    window.addEventListener('resize', () => { if (chart) chart.resize(); });
+  </script>
+</body>
+</html>
