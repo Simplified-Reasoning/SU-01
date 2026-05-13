@@ -51,7 +51,7 @@
 
 **SU-01** is a 30B-A3B olympiad reasoning model trained with a simple and unified post-training recipe for mathematical and scientific problem solving. The goal is to turn a broadly capable post-trained reasoning backbone into a rigorous long-horizon proof solver without relying on external tools, code execution, or dedicated symbolic solvers.
 
-The recipe first applies **reverse-perplexity curriculum SFT** on roughly **338K** high-quality trajectories to install explicit, proof-oriented reasoning behavior. It then uses **200 steps of two-stage reinforcement learning** to improve both answer-seeking ability and complete-proof quality. Finally, SU-01 uses a multi-round **generate-verify-revise** loop at inference time, enabling coherent natural-language reasoning trajectories beyond **100K tokens** on difficult olympiad problems.
+The recipe first applies **reverse-perplexity curriculum SFT** on roughly **338K sub-8K-token ** trajectories to install explicit, proof-oriented reasoning behavior. It then uses **200 steps of two-stage reinforcement learning** to improve both answer-seeking ability and complete-proof quality. Finally, SU-01 uses a multi-round **generate-verify-revise** loop at inference time, enabling coherent natural-language reasoning trajectories beyond **100K tokens** on difficult olympiad problems.
 
 In competition-style evaluations, test-time scaling brings SU-01 to **35 points on IMO 2025** and **35 points on USAMO 2026**, reaching gold-medal-level performance. SU-01 also exceeds the gold cutoff on **IPhO 2024/2025** and substantially improves over similarly sized models on proof-level benchmarks such as **IMO-ProofBench**.
 
