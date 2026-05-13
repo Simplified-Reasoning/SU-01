@@ -94,7 +94,7 @@ In competition-style evaluations, test-time scaling brings SU-01 to **35 points 
 
 | **Model** | **Hugging Face** | **Base / Backbone** | **Notes** |
 |-----------|-------------------|----------------------|-----------|
-| SU-01 | [Simplified-Reasoning/SU](https://huggingface.co/Simplified-Reasoning/SU-01) | P1-30B-A3B backbone | Final SU-01 release model trained with SFT, coarse RL, refined RL, and evaluated with optional TTS. |
+| SU-01 | [Simplified-Reasoning/SU-01](https://huggingface.co/Simplified-Reasoning/SU-01) | P1-30B-A3B backbone | Final SU-01 release model trained with SFT, coarse RL, refined RL, and evaluated with optional TTS. |
 
 ---
 
