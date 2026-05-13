@@ -9,7 +9,7 @@
   <img src="page/source_html/simplex-pipeline-hires.png" alt="SU-01 training and inference pipeline" style="width: 88%; height: auto;">
 </div>
 
-[![Paper / Report](https://img.shields.io/badge/Paper%20%2F%20Report-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](<PAPER_OR_REPORT_URL>)
+[![Technical Report](https://img.shields.io/badge/Technical_Report-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](<PAPER_OR_REPORT_URL>)
 [![Project Page](https://img.shields.io/badge/Project_Page-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://simplified-reasoning.github.io/SU-01/)
 [![Github](https://img.shields.io/badge/SU--01-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Simplified-Reasoning/SU-01)
 [![Hugging Face Model](https://img.shields.io/badge/SU--01-fcd022?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/Simplified-Reasoning/SU-01)
@@ -40,9 +40,9 @@
 <a id="news"></a>
 # 📢 News
 
-<!-- - **[TODO]** Technical report will be available at [Paper / Report](<PAPER_OR_REPORT_URL>). -->
+- **[2026/05/14]** Technical report is available at [arxiv](<PAPER_OR_REPORT_URL>).
 - **[2026/05/13]** Project page is available at [https://simplified-reasoning.github.io/SU-01/](https://simplified-reasoning.github.io/SU-01/).
-- **[2026/05/13]** SU-01-30B-A3B model weights are available on [Hugging Face](https://huggingface.co/Simplified-Reasoning/SU-01-30B-A3B).
+- **[2026/05/13]** SU-01 model weights are available on [Hugging Face](https://huggingface.co/Simplified-Reasoning/SU-01).
 
 ---
 
@@ -51,7 +51,7 @@
 
 **SU-01** is a 30B-A3B olympiad reasoning model trained with a simple and unified post-training recipe for mathematical and scientific problem solving. The goal is to turn a broadly capable post-trained reasoning backbone into a rigorous long-horizon proof solver without relying on external tools, code execution, or dedicated symbolic solvers.
 
-The recipe first applies **reverse-perplexity curriculum SFT** on roughly **338K sub-8K-token ** trajectories to install explicit, proof-oriented reasoning behavior. It then uses **200 steps of two-stage reinforcement learning** to improve both answer-seeking ability and complete-proof quality. Finally, SU-01 uses a multi-round **generate-verify-revise** loop at inference time, enabling coherent natural-language reasoning trajectories beyond **100K tokens** on difficult olympiad problems.
+The recipe first applies **reverse-perplexity curriculum SFT** on roughly **338K sub-8K-token** trajectories to install explicit, proof-oriented reasoning behavior. It then uses **200 steps of two-stage reinforcement learning** to improve both answer-seeking ability and complete-proof quality. Finally, SU-01 uses a multi-round **generate-verify-revise** loop at inference time, enabling coherent natural-language reasoning trajectories beyond **100K tokens** on difficult olympiad problems.
 
 In competition-style evaluations, test-time scaling brings SU-01 to **35 points on IMO 2025** and **35 points on USAMO 2026**, reaching gold-medal-level performance. SU-01 also exceeds the gold cutoff on **IPhO 2024/2025** and substantially improves over similarly sized models on proof-level benchmarks such as **IMO-ProofBench**.
 
