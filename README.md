@@ -12,7 +12,7 @@
 [![Paper / Report](https://img.shields.io/badge/Paper%20%2F%20Report-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](<PAPER_OR_REPORT_URL>)
 [![Project Page](https://img.shields.io/badge/Project_Page-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://simplified-reasoning.github.io/SU-01/)
 [![Github](https://img.shields.io/badge/SU--01-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Simplified-Reasoning/SU-01)
-[![Hugging Face Model](https://img.shields.io/badge/SU--01--30B--A3B-fcd022?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/Simplified-Reasoning/SU-01-30B-A3B)
+[![Hugging Face Model](https://img.shields.io/badge/SU--01-fcd022?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/Simplified-Reasoning/SU-01)
 
 </div>
 
@@ -40,7 +40,7 @@
 <a id="news"></a>
 # 📢 News
 
-- **[TODO]** Technical report will be available at [Paper / Report](<PAPER_OR_REPORT_URL>).
+<!-- - **[TODO]** Technical report will be available at [Paper / Report](<PAPER_OR_REPORT_URL>). -->
 - **[2026/05/13]** Project page is available at [https://simplified-reasoning.github.io/SU-01/](https://simplified-reasoning.github.io/SU-01/).
 - **[2026/05/13]** SU-01-30B-A3B model weights are available on [Hugging Face](https://huggingface.co/Simplified-Reasoning/SU-01-30B-A3B).
 
@@ -94,7 +94,7 @@ In competition-style evaluations, test-time scaling brings SU-01 to **35 points 
 
 | **Model** | **Hugging Face** | **Base / Backbone** | **Notes** |
 |-----------|-------------------|----------------------|-----------|
-| SU-01-30B-A3B | [Simplified-Reasoning/SU-01-30B-A3B](https://huggingface.co/Simplified-Reasoning/SU-01-30B-A3B) | 30B-A3B post-trained reasoning backbone | Final SU-01 release model trained with SFT, coarse RL, refined RL, and evaluated with optional TTS. |
+| SU-01 | [Simplified-Reasoning/SU](https://huggingface.co/Simplified-Reasoning/SU-01) | P1-30B-A3B backbone | Final SU-01 release model trained with SFT, coarse RL, refined RL, and evaluated with optional TTS. |
 
 ---
 
@@ -169,8 +169,6 @@ bash scripts/refined_rl.sh
 <a id="test-time-scaling"></a>
 # 🧪 Test-Time Scaling
 
-> **TODO:** Add TTS code path, launch commands, configuration files, and example outputs.
-
 SU-01 uses a model-internal verification-and-refinement loop:
 
 1. Generate an initial complete solution.
@@ -179,6 +177,8 @@ SU-01 uses a model-internal verification-and-refinement loop:
 4. Repeat until the solution is accepted or the refinement budget is exhausted.
 
 This expands the model's own natural-language proof-search computation rather than calling an external theorem prover, symbolic solver, or code executor. In the reported USAMO 2026 TTS traces, initial solution generations have a median length of approximately **106K tokens**, while refinement stages have a median length of approximately **83K tokens**.
+
+The released TTS implementation is in `su01-eval/decode`, including direct decoding, TTS decoding, batch decoding, and SGLang server helpers. See [`su01-eval/decode/README.md`](su01-eval/decode/README.md) for launch commands, input layout, decoding options, and smoke tests.
 
 <div align="center">
   <img src="page/source_png/tts_action_length_distribution_1.png" alt="Test-time scaling action length distribution" style="width: 70%; height: auto;">
@@ -189,7 +189,7 @@ This expands the model's own natural-language proof-search computation rather th
 <a id="evaluation"></a>
 # 📊 Evaluation
 
-> **TODO:** Add evaluation code path, launch commands, input format, and output format.
+Evaluation code is released under `su01-eval`. Use `su01-eval/decode` to generate direct or TTS predictions, and use `su01-eval/verifiable_bench` to score answer-verifiable benchmarks and FrontierScience Olympiad predictions. See [`su01-eval/decode/README.md`](su01-eval/decode/README.md) and [`su01-eval/verifiable_bench/README.md`](su01-eval/verifiable_bench/README.md) for commands, input formats, output formats, and configuration options.
 
 ## Table 1: Performance on Answer-Verifiable Reasoning Tasks
 
@@ -212,7 +212,7 @@ FrontierScience-Research refers to the research subset of FrontierScience. For S
 |-----------|---------------------:|------------------------:|-----------------------:|-----------------:|-------------------:|-----------------:|-----------------:|
 | Gemini 3.1 Pro Thinking | <u>95.2%</u> | <u>50.0%</u> | <u>72.6%</u> | 0.0% | <u>30.0%</u> | 10.0% | 13.3% |
 | GPT-5.5-High | **96.7%** | **64.8%** | **80.7%** | **25.0%** | **40.0%** | **45.0%** | **36.7%** |
-| DeepSeek-V3.2-Speciale | 62.9% | 28.6% | 45.7% | <u>10.0%</u> | 20.0% | <u>15.0%</u> | <u>15.0%</u> |
+| DeepSeek-V3.2-Speciale | 77.6% | 34.3% | 56.0% | <u>10.0%</u> | 20.0% | <u>15.0%</u> | <u>15.0%</u> |
 | P1-30B-A3B | 33.8% | 6.2% | 20.0% | 0.0% | **10.0%** | 0.0% | 3.3% |
 | GLM-4.7-Flash | 51.0% | 16.7% | 33.8% | 0.0% | 0.0% | 0.0% | 0.0% |
 | Nemotron-Cascade-2 | <u>77.1%</u> | 28.6% | 52.9% | <u>5.0%</u> | 5.0% | **20.0%** | <u>10.0%</u> |
