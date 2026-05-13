@@ -44,6 +44,3 @@ For FrontierScience Olympiad, set:
 - `FRONTIER_STREAM`: default: `1`.
 - `FRONTIER_RESUME`: default: `1`.
 
-The original `eval/` tree is kept untouched for now. Future cleanup should make
-this folder self-contained and use environment variables or CLI arguments for
-private endpoints, model names, and data paths.
