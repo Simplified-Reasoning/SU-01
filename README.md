@@ -133,8 +133,8 @@ The released training code contains the three major training stages used by SU-0
 ```text
 su01-train-slime/scripts
 ├── sft.sh          # Stage 1: reverse-perplexity curriculum SFT
-├── coarse_rl.sh    # Stage 2a: coarse RL with verifiable rewards
-└── refined_rl.sh   # Stage 2b: refined RL with proof rewards, self-refinement, and experience replay
+├── coarse_rl.sh    # Stage 2: coarse RL with verifiable rewards
+└── refined_rl.sh   # Stage 3: refined RL with proof rewards, self-refinement, and experience replay
 ```
 
 ## Stage 1: SFT
@@ -274,6 +274,6 @@ If you find SU-01 useful, please cite the project:
   title={Achieving Gold-Medal-Level Olympiad Reasoning via Simple and Unified Scaling},
   author={Yafu Li and Runzhe Zhan and Haoran Zhang and Shunkai Zhang and Yizhuo Li and Zhilin Wang and Jiacheng Chen and Futing Wang and Xuyang Hu and Yuchen Fan and Bangjie Xu and Yucheng Su and Xinmiao Han and Chenxi Li and Haodi Lei and Yufeng Zhao and Zejin Lin and Qianjia Cheng and Tong Zhu and Xiaoye Qu and Ganqu Cui and Peng Ye and Yun Luo and Zhouchen Lin and Yu Qiao and Bowen Zhou and Ning Ding and Yu Cheng},
   year={2026},
-  url={}
+  url={http://arxiv.org/abs/2605.13301}
 }
 ```
