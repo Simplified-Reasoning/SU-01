@@ -9,7 +9,7 @@
   <img src="page/source_html/simplex-pipeline-hires.png" alt="SU-01 training and inference pipeline" style="width: 88%; height: auto;">
 </div>
 
-[![Technical Report](https://img.shields.io/badge/Technical_Report-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](<PAPER_OR_REPORT_URL>)
+[![Technical Report](https://img.shields.io/badge/Technical_Report-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](http://arxiv.org/abs/2605.13301)
 [![Project Page](https://img.shields.io/badge/Project_Page-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://simplified-reasoning.github.io/SU-01/)
 [![Github](https://img.shields.io/badge/SU--01-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Simplified-Reasoning/SU-01)
 [![Hugging Face Model](https://img.shields.io/badge/SU--01-fcd022?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/Simplified-Reasoning/SU-01)
@@ -40,7 +40,7 @@
 <a id="news"></a>
 # 📢 News
 
-- **[2026/05/14]** Technical report is available at [arxiv](<PAPER_OR_REPORT_URL>).
+- **[2026/05/14]** Technical report is available at [arxiv](http://arxiv.org/abs/2605.13301).
 - **[2026/05/13]** Project page is available at [https://simplified-reasoning.github.io/SU-01/](https://simplified-reasoning.github.io/SU-01/).
 - **[2026/05/13]** SU-01 model weights are available on [Hugging Face](https://huggingface.co/Simplified-Reasoning/SU-01).
 
