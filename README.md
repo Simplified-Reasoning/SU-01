@@ -169,7 +169,7 @@ bash scripts/refined_rl.sh
 <a id="test-time-scaling"></a>
 # 🧪 Test-Time Scaling
 
-SU-01 uses a model-internal verification-and-refinement loop:
+SU-01 uses a model-internal verification-and-refinement loop using the method in this [repo](https://github.com/lyang36/IMO25):
 
 1. Generate an initial complete solution.
 2. Verify the full proof and produce a structured critique or bug report.
