@@ -13,6 +13,7 @@
 [![Project Page](https://img.shields.io/badge/Project_Page-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://simplified-reasoning.github.io/SU-01/)
 [![Github](https://img.shields.io/badge/SU--01-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Simplified-Reasoning/SU-01)
 [![Hugging Face Model](https://img.shields.io/badge/SU--01-fcd022?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/Simplified-Reasoning/SU-01)
+[![Hugging Daily Paper](https://img.shields.io/badge/HF--Daily--Paper-fcd022?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/papers/2605.13301)
 
 </div>
 
@@ -40,7 +41,7 @@
 <a id="news"></a>
 # 📢 News
 
-- **[2026/05/14]** Technical report is available at [arxiv](http://arxiv.org/abs/2605.13301).
+- **[2026/05/15]** Technical report is available at [arxiv](http://arxiv.org/abs/2605.13301) and [Huggingface Daily Paper](https://huggingface.co/papers/2605.13301).
 - **[2026/05/13]** Project page is available at [https://simplified-reasoning.github.io/SU-01/](https://simplified-reasoning.github.io/SU-01/).
 - **[2026/05/13]** SU-01 model weights are available on [Hugging Face](https://huggingface.co/Simplified-Reasoning/SU-01).
 
