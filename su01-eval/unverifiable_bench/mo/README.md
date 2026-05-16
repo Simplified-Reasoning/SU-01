@@ -36,6 +36,8 @@ back to problem numbers, for example `13_out.txt -> problem 1`. Set
 
 ## One-Command Usage
 
+### IMO 2025
+
 ```bash
 export RESPONSE_DIR=/path/to/responses/imo25
 export META_JSONL=su01-eval/unverifiable_bench/mo/metadata/imo25.jsonl
@@ -44,6 +46,23 @@ export TASK_NAME=imo25
 export RESPONSE_PATTERN='imo{idx:02d}_out.txt'
 export QUESTION_CYCLE=6
 export GUIDELINE_MD=su01-eval/unverifiable_bench/mo/rubrics/imo25_guideline.md
+export API_KEY="$OPENAI_API_KEY"
+export BASE_URL=https://api.example.com/v1
+export JUDGE_MODEL=gemini-2.5-pro
+
+bash su01-eval/unverifiable_bench/mo/run_mo_eval.sh
+```
+
+### USAMO 2026
+
+```bash
+export RESPONSE_DIR=/path/to/responses/usamo_2026/out
+export META_JSONL=su01-eval/unverifiable_bench/mo/metadata/usamo2026.jsonl
+export OUTPUT_ROOT=/path/to/output/usamo2026
+export TASK_NAME=usamo2026
+export RESPONSE_PATTERN='USAMO-2026-P{idx}_out_s0.txt'
+export QUESTION_CYCLE=6
+export GUIDELINE_MD=su01-eval/unverifiable_bench/mo/rubrics/usamo2026_guideline.md
 export API_KEY="$OPENAI_API_KEY"
 export BASE_URL=https://api.example.com/v1
 export JUDGE_MODEL=gemini-2.5-pro

@@ -185,7 +185,7 @@ def build_eval_item(
         "label": extract_label(source_item),
         "reward": {},
         "status": "",
-        "is_proof": source_item.get("is_proof", "yes"),
+        "is_proof": "yes",
         "question_number": question_number,
         "source_index": idx,
     }
