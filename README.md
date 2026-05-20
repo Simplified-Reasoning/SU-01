@@ -181,7 +181,7 @@ This expands the model's own natural-language proof-search computation rather th
 
 The released TTS implementation is in `su01-eval/decode`, including direct decoding, TTS decoding, batch decoding, and SGLang server helpers. The shared prompt template is provided in [`su01-eval/decode/general_prompt.txt`](su01-eval/decode/general_prompt.txt). See [`su01-eval/decode/README.md`](su01-eval/decode/README.md) for launch commands, input layout, decoding options, and smoke tests.
 
-### SU-01 Prompt Template
+### SU-01 Prompt Template (Direct Decoding)
 
 Rendered for readability, the default prompt is:
 
