@@ -179,7 +179,18 @@ SU-01 uses a model-internal verification-and-refinement loop using the method in
 
 This expands the model's own natural-language proof-search computation rather than calling an external theorem prover, symbolic solver, or code executor. In the reported USAMO 2026 TTS traces, initial solution generations have a median length of approximately **106K tokens**, while refinement stages have a median length of approximately **83K tokens**.
 
-The released TTS implementation is in `su01-eval/decode`, including direct decoding, TTS decoding, batch decoding, and SGLang server helpers. See [`su01-eval/decode/README.md`](su01-eval/decode/README.md) for launch commands, input layout, decoding options, and smoke tests.
+The released TTS implementation is in `su01-eval/decode`, including direct decoding, TTS decoding, batch decoding, and SGLang server helpers. The shared prompt template is provided in [`su01-eval/decode/general_prompt.txt`](su01-eval/decode/general_prompt.txt). See [`su01-eval/decode/README.md`](su01-eval/decode/README.md) for launch commands, input layout, decoding options, and smoke tests.
+
+### SU-01 Prompt Template
+
+Rendered for readability, the default prompt is:
+
+```text
+Please solve the following mathematical olympiad problem. Show your complete reasoning and proof.
+1. Please use LaTeX format to represent the variables and formulas used in the solution process and results.
+2. If the problem asks you to find specific values, please put the final answer(s) in \boxed{}.
+3. If the problem requires a proof, present a clear and rigorous argument.
+```
 
 <div align="center">
   <img src="page/source_png/tts_action_length_distribution_1.png" alt="Test-time scaling action length distribution" style="width: 70%; height: auto;">
